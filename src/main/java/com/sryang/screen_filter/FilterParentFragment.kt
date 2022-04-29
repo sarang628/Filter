@@ -101,7 +101,7 @@ class FilterParentFragment : Fragment() {
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                selectNationViewModelselectedNation.collect {
+                selectNationViewModel.selectedNation.collect {
                     Logger.d(it.toString())
                 }
             }
