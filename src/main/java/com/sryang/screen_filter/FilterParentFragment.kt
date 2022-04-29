@@ -12,6 +12,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.example.torang_core.util.EventObserver
 import com.example.torang_core.util.Logger
 import com.example.travelmode.SelectNationFragment
+import com.example.travelmode.SelectNationViewModel
 import com.sryang.screen_filter.databinding.FragmentFilterParentBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -22,6 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class FilterParentFragment : Fragment() {
     private val filterViewModel: FilterViewModel by activityViewModels()
     private val nationFragment = SelectNationFragment();
+    private val selectNationViewModel: SelectNationViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,11 +31,11 @@ class FilterParentFragment : Fragment() {
     ): View {
         val binding = FragmentFilterParentBinding.inflate(layoutInflater, container, false)
         binding.filterViewModel = filterViewModel
-        //binding.selectNationViewModel = selectNationViewModel
+        binding.selectNationViewModel = selectNationViewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
         binding.constraintLayout2.setOnClickListener {
-            //nationFragment.show(childFragmentManager, "dialog")
+            nationFragment.show(childFragmentManager, "dialog")
         }
         subScribeUI(binding)
 
@@ -41,10 +43,10 @@ class FilterParentFragment : Fragment() {
     }
 
     private fun subScribeUI(binding: FragmentFilterParentBinding) {
-        /*selectNationViewModel.selected.observe(viewLifecycleOwner) {
+        selectNationViewModel.selected.observe(viewLifecycleOwner) {
             if (nationFragment.isVisible)
                 nationFragment.dismiss()
-        }*/
+        }
         
         filterViewModel.clickDistance.observe(viewLifecycleOwner, EventObserver {
             filterNavigation(binding.filterContainer1.id).navController
