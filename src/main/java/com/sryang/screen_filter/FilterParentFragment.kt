@@ -11,6 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.NavHostFragment
 import com.example.torang_core.util.EventObserver
 import com.example.torang_core.util.Logger
+import com.example.travelmode.SelectNationFragment
 import com.sryang.screen_filter.databinding.FragmentFilterParentBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -20,7 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class FilterParentFragment : Fragment() {
     private val filterViewModel: FilterViewModel by activityViewModels()
-    //private val nationFragment = SelectNationFragment();
+    private val nationFragment = SelectNationFragment();
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
