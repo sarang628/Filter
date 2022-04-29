@@ -8,6 +8,9 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.NavHostFragment
 import com.example.torang_core.util.EventObserver
 import com.example.torang_core.util.Logger
@@ -15,6 +18,8 @@ import com.example.travelmode.SelectNationFragment
 import com.example.travelmode.SelectNationViewModel
 import com.sryang.screen_filter.databinding.FragmentFilterParentBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 /**
  * [FragmentFilterParentBinding]
@@ -47,7 +52,7 @@ class FilterParentFragment : Fragment() {
             if (nationFragment.isVisible)
                 nationFragment.dismiss()
         }
-        
+
         filterViewModel.clickDistance.observe(viewLifecycleOwner, EventObserver {
             filterNavigation(binding.filterContainer1.id).navController
                 .navigate(R.id.action_filterFragment_to_distanceFilterFragment)
@@ -93,6 +98,15 @@ class FilterParentFragment : Fragment() {
                 searchType = Filter.SearchType.BOUND
             )*/
         })
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                selectNationViewModel.selectedNation.collect {
+                    Logger.d(it.toString())
+                }
+            }
+        }
+
     }
 
     private fun showFilter(b: Boolean, view: View) {
