@@ -9,9 +9,9 @@
                                   
                                                               
 
-                 
+                     
                                         
-                                                                  
+                                                                     
 
            
 
@@ -77,12 +77,12 @@
             android:paddingRight="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/btn_this_loc"
-            app:layout_constraintTop_toTopOf="@+id/btn_this_loc" android:tag="binding_3">
+            app:layout_constraintTop_toTopOf="@+id/btn_this_loc">
 
-            <include
+            <!--<include
                 layout="@layout/item_nation1"
-                                                                 
-                                                                />
+                app:name="@{selectNationViewModel.selected.name}"
+                app:res="@{selectNationViewModel.selected.res}" />-->
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

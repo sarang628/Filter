@@ -11,8 +11,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.NavHostFragment
 import com.example.torang_core.util.EventObserver
 import com.example.torang_core.util.Logger
-import com.example.travelmode.SelectNationFragment
-import com.example.travelmode.SelectNationViewModel
 import com.sryang.screen_filter.databinding.FragmentFilterParentBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -27,9 +25,9 @@ class FilterParentFragment : Fragment() {
 //    private val mapSharedViewModel: MapSharedViewModel by activityViewModels()
 
     /** 공유 뷰모델 */
-    private val selectNationViewModel: SelectNationViewModel by activityViewModels()
+    //private val selectNationViewModel: SelectNationViewModel by activityViewModels()
 
-    private val nationFragment = SelectNationFragment();
+    //private val nationFragment = SelectNationFragment();
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,11 +36,11 @@ class FilterParentFragment : Fragment() {
         val binding = FragmentFilterParentBinding.inflate(layoutInflater, container, false)
         //binding.vm = mapSharedViewModel
         binding.filterViewModel = filterViewModel
-        binding.selectNationViewModel = selectNationViewModel
+        //binding.selectNationViewModel = selectNationViewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
         binding.constraintLayout2.setOnClickListener {
-            nationFragment.show(childFragmentManager, "dialog")
+            //nationFragment.show(childFragmentManager, "dialog")
         }
         subScribeUI(binding)
 
@@ -53,10 +51,10 @@ class FilterParentFragment : Fragment() {
     }
 
     private fun subScribeUI(binding: FragmentFilterParentBinding) {
-        selectNationViewModel.selected.observe(viewLifecycleOwner) {
+        /*selectNationViewModel.selected.observe(viewLifecycleOwner) {
             if (nationFragment.isVisible)
                 nationFragment.dismiss()
-        }
+        }*/
         /*mapSharedViewModel.isExpended.observe(viewLifecycleOwner) {
             it?.let {
                 showFilter(it, binding.clFilterParent)

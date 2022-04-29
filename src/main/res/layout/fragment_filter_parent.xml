@@ -9,9 +9,9 @@
             name="filterViewModel"
             type="com.sryang.screen_filter.FilterViewModel" />
 
-        <variable
+        <!--<variable
             name="selectNationViewModel"
-            type="com.example.travelmode.SelectNationViewModel" />
+            type="com.example.travelmode.SelectNationViewModel" />-->
 
     </data>
 
@@ -79,10 +79,10 @@
             app:layout_constraintStart_toEndOf="@+id/btn_this_loc"
             app:layout_constraintTop_toTopOf="@+id/btn_this_loc">
 
-            <include
+            <!--<include
                 layout="@layout/item_nation1"
                 app:name="@{selectNationViewModel.selected.name}"
-                app:res="@{selectNationViewModel.selected.res}" />
+                app:res="@{selectNationViewModel.selected.res}" />-->
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

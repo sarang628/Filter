@@ -18,7 +18,6 @@ android {
 dependencies {
     implementation project(path: ':torang_core')
     implementation project(path: ':TorangRepository')
-    implementation project(path: ':screen_travelmode')
 
     /** common */
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"

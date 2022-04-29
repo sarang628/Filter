@@ -12,7 +12,6 @@ import androidx.databinding.Bindable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.FragmentContainerView;
-import com.example.travelmode.SelectNationViewModel;
 import com.sryang.screen_filter.FilterViewModel;
 import com.sryang.screen_filter.R;
 import java.lang.Deprecated;
@@ -37,9 +36,6 @@ public abstract class FragmentFilterParentBinding extends ViewDataBinding {
   @Bindable
   protected FilterViewModel mFilterViewModel;
 
-  @Bindable
-  protected SelectNationViewModel mSelectNationViewModel;
-
   protected FragmentFilterParentBinding(Object _bindingComponent, View _root, int _localFieldCount,
       Button btnThisLoc, Button button, ConstraintLayout clFilterParent,
       ConstraintLayout constraintLayout2, FragmentContainerView filterContainer1) {
@@ -56,14 +52,6 @@ public abstract class FragmentFilterParentBinding extends ViewDataBinding {
   @Nullable
   public FilterViewModel getFilterViewModel() {
     return mFilterViewModel;
-  }
-
-  public abstract void setSelectNationViewModel(
-      @Nullable SelectNationViewModel selectNationViewModel);
-
-  @Nullable
-  public SelectNationViewModel getSelectNationViewModel() {
-    return mSelectNationViewModel;
   }
 
   @NonNull
