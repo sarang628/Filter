@@ -28,7 +28,7 @@
             android:background="@drawable/shape_corner"
             android:onClick="onBackPressed"
             android:padding="10dp"
-            android:text="@{vm.selectedDistances.name}"
+            android:text="@{vm.selectedDistances.toName}"
             android:transitionName="distance"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"

@@ -20,13 +20,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class FilterParentFragment : Fragment() {
     private val filterViewModel: FilterViewModel by activityViewModels()
-
-    /** 공유 뷰모델 */
-//    private val mapSharedViewModel: MapSharedViewModel by activityViewModels()
-
-    /** 공유 뷰모델 */
-    //private val selectNationViewModel: SelectNationViewModel by activityViewModels()
-
     //private val nationFragment = SelectNationFragment();
 
     override fun onCreateView(
@@ -34,7 +27,6 @@ class FilterParentFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val binding = FragmentFilterParentBinding.inflate(layoutInflater, container, false)
-        //binding.vm = mapSharedViewModel
         binding.filterViewModel = filterViewModel
         //binding.selectNationViewModel = selectNationViewModel
         binding.lifecycleOwner = viewLifecycleOwner
@@ -44,9 +36,6 @@ class FilterParentFragment : Fragment() {
         }
         subScribeUI(binding)
 
-        /*childFragmentManager.beginTransaction()
-            .replace(binding.filterContainer2.id, FilterFragment())
-            .commit()*/
         return binding.root
     }
 
@@ -55,30 +44,25 @@ class FilterParentFragment : Fragment() {
             if (nationFragment.isVisible)
                 nationFragment.dismiss()
         }*/
-        /*mapSharedViewModel.isExpended.observe(viewLifecycleOwner) {
-            it?.let {
-                showFilter(it, binding.clFilterParent)
-            }
-        }*/
-
+        
         filterViewModel.clickDistance.observe(viewLifecycleOwner, EventObserver {
-//            filterNavigation(binding.filterContainer1.id).navController
-//                .navigate(R.id.action_filterFragment_to_distanceFilterFragment)
+            filterNavigation(binding.filterContainer1.id).navController
+                .navigate(R.id.action_filterFragment_to_distanceFilterFragment)
         })
 
         filterViewModel.clickRating.observe(viewLifecycleOwner, EventObserver {
-//            filterNavigation(binding.filterContainer1.id).navController
-//                .navigate(R.id.action_filterFragment_to_ratingFilterFragment)
+            filterNavigation(binding.filterContainer1.id).navController
+                .navigate(R.id.action_filterFragment_to_ratingFilterFragment)
         })
 
         filterViewModel.clickPrice.observe(viewLifecycleOwner, EventObserver {
-//            filterNavigation(binding.filterContainer1.id).navController
-//                .navigate(R.id.action_filterFragment_to_priceFilterFragment)
+            filterNavigation(binding.filterContainer1.id).navController
+                .navigate(R.id.action_filterFragment_to_priceFilterFragment)
         })
 
         filterViewModel.clickFood.observe(viewLifecycleOwner, EventObserver {
-//            filterNavigation(binding.filterContainer1.id).navController
-//                .navigate(R.id.action_filterFragment_to_foodFilterFragment)
+            filterNavigation(binding.filterContainer1.id).navController
+                .navigate(R.id.action_filterFragment_to_foodFilterFragment)
         })
 
         filterViewModel.clickSearch.observe(viewLifecycleOwner, EventObserver {

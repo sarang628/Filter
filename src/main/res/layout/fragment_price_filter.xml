@@ -27,7 +27,7 @@
             android:background="@drawable/shape_corner"
             android:onClick="onBackPressed"
             android:padding="10dp"
-            android:text="@{vm.selectedPrice.name}"
+            android:text="@{vm.selectedPrice.toName}"
             android:transitionName="price"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
