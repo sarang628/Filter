@@ -101,7 +101,15 @@ class FilterParentFragment : Fragment() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 selectNationViewModel.selectedNation.collect {
-                    Logger.d(it.toString())
+                    it.nationBound?.let {
+                        viewModel.searchFilterRestaurant(
+                            northEastLatitude = it.latitudeNorthEast,
+                            northEastLongitude = it.longitudeNorthEast,
+                            southWestLatitude = it.latitudeSouthWest,
+                            southWestLongitude = it.longitudeSouthWest,
+                            searchType = Filter.SearchType.BOUND
+                        )
+                    }
                 }
             }
         }
