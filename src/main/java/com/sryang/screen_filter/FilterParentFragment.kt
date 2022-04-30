@@ -9,9 +9,11 @@ import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.NavHostFragment
+import com.example.torang_core.data.model.Filter
 import com.example.torang_core.util.EventObserver
 import com.example.torang_core.util.Logger
 import com.example.travelmode.SelectNationFragment
@@ -23,10 +25,11 @@ import kotlinx.coroutines.launch
 
 /**
  * [FragmentFilterParentBinding]
+ * [FilterViewModel]
  */
 @AndroidEntryPoint
 class FilterParentFragment : Fragment() {
-    private val filterViewModel: FilterViewModel by activityViewModels()
+    private val viewModel: FilterViewModel by activityViewModels()
     private val nationFragment = SelectNationFragment();
     private val selectNationViewModel: SelectNationViewModel by activityViewModels()
 
@@ -35,7 +38,7 @@ class FilterParentFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val binding = FragmentFilterParentBinding.inflate(layoutInflater, container, false)
-        binding.filterViewModel = filterViewModel
+        binding.filterViewModel = viewModel
         binding.selectNationViewModel = selectNationViewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
@@ -53,56 +56,61 @@ class FilterParentFragment : Fragment() {
                 nationFragment.dismiss()
         }
 
-        filterViewModel.clickDistance.observe(viewLifecycleOwner, EventObserver {
+        viewModel.clickDistance.observe(viewLifecycleOwner, EventObserver {
             filterNavigation(binding.filterContainer1.id).navController
                 .navigate(R.id.action_filterFragment_to_distanceFilterFragment)
         })
 
-        filterViewModel.clickRating.observe(viewLifecycleOwner, EventObserver {
+        viewModel.clickRating.observe(viewLifecycleOwner, EventObserver {
             filterNavigation(binding.filterContainer1.id).navController
                 .navigate(R.id.action_filterFragment_to_ratingFilterFragment)
         })
 
-        filterViewModel.clickPrice.observe(viewLifecycleOwner, EventObserver {
+        viewModel.clickPrice.observe(viewLifecycleOwner, EventObserver {
             filterNavigation(binding.filterContainer1.id).navController
                 .navigate(R.id.action_filterFragment_to_priceFilterFragment)
         })
 
-        filterViewModel.clickFood.observe(viewLifecycleOwner, EventObserver {
+        viewModel.clickFood.observe(viewLifecycleOwner, EventObserver {
             filterNavigation(binding.filterContainer1.id).navController
                 .navigate(R.id.action_filterFragment_to_foodFilterFragment)
         })
 
-        filterViewModel.clickSearch.observe(viewLifecycleOwner, EventObserver {
-            /*mapSharedViewModel.searchFilterRestaurant(
-                filterViewModel.selectedDistances.value,
-                filterViewModel.selectedFoods.value,
-                filterViewModel.selectedPrice.value,
-                filterViewModel.selectedRatings.value,
-                latitude = filterViewModel.latitudeMyLocation,
-                longitude = filterViewModel.longitudeMyLocation,
+        viewModel.clickSearch.observe(viewLifecycleOwner, EventObserver {
+            viewModel.searchFilterRestaurant(
+                viewModel.selectedDistances.value,
+                viewModel.selectedFoods.value,
+                viewModel.selectedPrice.value,
+                viewModel.selectedRatings.value,
+                latitude = viewModel.latitudeMyLocation,
+                longitude = viewModel.longitudeMyLocation,
                 searchType = Filter.SearchType.AROUND
-            )*/
+            )
         })
 
-        filterViewModel.clickThisArea.observe(viewLifecycleOwner, EventObserver {
-            /*mapSharedViewModel.searchFilterRestaurant(
-                filterViewModel.selectedDistances.value,
-                filterViewModel.selectedFoods.value,
-                filterViewModel.selectedPrice.value,
-                filterViewModel.selectedRatings.value,
-                northEastLatitude = filterViewModel.northEastLatitude,
-                northEastLongitude = filterViewModel.northEastLongitude,
-                southWestLatitude = filterViewModel.southWestLatitude,
-                southWestLongitude = filterViewModel.southWestLongitude,
+        viewModel.clickThisArea.observe(viewLifecycleOwner, EventObserver {
+            viewModel.searchBoundRestaurant(
+                viewModel.selectedDistances.value,
+                viewModel.selectedFoods.value,
+                viewModel.selectedPrice.value,
+                viewModel.selectedRatings.value,
                 searchType = Filter.SearchType.BOUND
-            )*/
+            )
         })
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 selectNationViewModel.selectedNation.collect {
                     Logger.d(it.toString())
+                }
+            }
+        }
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                viewModel.clickMap.collect {
+                    Logger.d(it.toString())
+                    showFilter(it, binding.clFilterParent)
                 }
             }
         }

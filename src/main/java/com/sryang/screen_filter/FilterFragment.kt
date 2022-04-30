@@ -9,6 +9,9 @@ import androidx.fragment.app.activityViewModels
 import com.sryang.screen_filter.databinding.FragmentFilterBinding
 import dagger.hilt.android.AndroidEntryPoint
 
+/**
+ * [FilterViewModel]
+ */
 @AndroidEntryPoint
 class FilterFragment : Fragment() {
     private val mViewModel: FilterViewModel by activityViewModels()

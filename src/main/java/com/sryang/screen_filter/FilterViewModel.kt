@@ -4,13 +4,21 @@ import android.text.TextUtils
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.torang_core.data.model.*
+import com.example.torang_core.repository.FindRepository
+import com.example.torang_core.repository.MapRepository
+import com.example.torang_core.repository.MapSharedRepository
 import com.example.torang_core.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class FilterViewModel @Inject constructor() : ViewModel() {
+class FilterViewModel @Inject constructor(
+    private val mapRepository: MapRepository,
+    private val findRepository: FindRepository
+) : ViewModel() {
     val food = MutableLiveData<String>()
     val ratings = MutableLiveData<String>()
 
@@ -59,6 +67,8 @@ class FilterViewModel @Inject constructor() : ViewModel() {
     var northEastLongitude: Double = 0.0
     var southWestLatitude: Double = 0.0
     var southWestLongitude: Double = 0.0
+
+    val clickMap = mapRepository.getClickMap()
 
     private val isShow = MutableLiveData<Boolean>()
 
@@ -146,6 +156,60 @@ class FilterViewModel @Inject constructor() : ViewModel() {
 
     fun clickThisArea() {
         _clickThisArea.value = Event(Unit)
+    }
+
+    fun searchFilterRestaurant(
+        distances: Distances? = null,
+        restaurantType: ArrayList<RestaurantType>? = null,
+        prices: Prices? = null,
+        ratings: ArrayList<Ratings>? = null,
+        latitude: Double = 0.0,
+        longitude: Double = 0.0,
+        northEastLatitude: Double = 0.0,
+        northEastLongitude: Double = 0.0,
+        southWestLatitude: Double = 0.0,
+        southWestLongitude: Double = 0.0,
+        searchType: Filter.SearchType
+    ) {
+        viewModelScope.launch {
+            findRepository.searchRestaurant(
+                distances,
+                restaurantType,
+                prices,
+                ratings,
+                latitude,
+                longitude,
+                northEastLatitude,
+                northEastLongitude,
+                southWestLatitude,
+                southWestLongitude,
+                searchType
+            )
+        }
+    }
+
+    fun searchBoundRestaurant(
+        distances: Distances?,
+        restaurantType: java.util.ArrayList<RestaurantType>?,
+        prices: Prices?,
+        ratings: java.util.ArrayList<Ratings>?,
+        searchType: Filter.SearchType
+    ) {
+        viewModelScope.launch {
+            findRepository.searchRestaurant(
+                distances,
+                restaurantType,
+                prices,
+                ratings,
+                0.0,
+                0.0,
+                mapRepository.getNorthEastLatitude(),
+                mapRepository.getNorthEastLongitude(),
+                mapRepository.getSouthWestLatitude(),
+                mapRepository.getSouthWestLongitude(),
+                searchType
+            )
+        }
     }
 
 }
