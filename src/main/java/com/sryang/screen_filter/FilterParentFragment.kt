@@ -8,6 +8,7 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
@@ -29,7 +30,7 @@ import kotlinx.coroutines.launch
  */
 @AndroidEntryPoint
 class FilterParentFragment : Fragment() {
-    private val viewModel: FilterViewModel by activityViewModels()
+    private val viewModel: FilterViewModel by viewModels()
     private val nationFragment = SelectNationFragment();
     private val selectNationViewModel: SelectNationViewModel by activityViewModels()
 
@@ -54,71 +55,7 @@ class FilterParentFragment : Fragment() {
             if (nationFragment.isVisible)
                 nationFragment.dismiss()
         }
-
-        // 반경 필터 선택
-        viewModel.clickDistance.observe(viewLifecycleOwner, EventObserver {
-            filterNavigation(binding.filterContainer1.id).navController
-                .navigate(R.id.action_filterFragment_to_distanceFilterFragment)
-        })
-
-        // 평점 필터 선택
-        viewModel.clickRating.observe(viewLifecycleOwner, EventObserver {
-            filterNavigation(binding.filterContainer1.id).navController
-                .navigate(R.id.action_filterFragment_to_ratingFilterFragment)
-        })
-
-        // 가격 필터 선택
-        viewModel.clickPrice.observe(viewLifecycleOwner, EventObserver {
-            filterNavigation(binding.filterContainer1.id).navController
-                .navigate(R.id.action_filterFragment_to_priceFilterFragment)
-        })
-
-        // 음식 필터 선택
-        viewModel.clickFood.observe(viewLifecycleOwner, EventObserver {
-            filterNavigation(binding.filterContainer1.id).navController
-                .navigate(R.id.action_filterFragment_to_foodFilterFragment)
-        })
-
         // 검색 선택
-        viewModel.clickSearch.observe(viewLifecycleOwner, EventObserver {
-            viewModel.searchFilterRestaurant(
-                viewModel.selectedDistances.value,
-                viewModel.selectedFoods.value,
-                viewModel.selectedPrice.value,
-                viewModel.selectedRatings.value,
-                latitude = viewModel.latitudeMyLocation,
-                longitude = viewModel.longitudeMyLocation,
-                searchType = Filter.SearchType.AROUND
-            )
-        })
-
-        // 이 지역 검색 선택
-        viewModel.clickThisArea.observe(viewLifecycleOwner, EventObserver {
-            viewModel.searchBoundRestaurant(
-                viewModel.selectedDistances.value,
-                viewModel.selectedFoods.value,
-                viewModel.selectedPrice.value,
-                viewModel.selectedRatings.value,
-                searchType = Filter.SearchType.BOUND
-            )
-        })
-
-        // 나라 선택 시
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                selectNationViewModel.selectedNation.collect {
-                    it.nationBound?.let {
-                        viewModel.searchFilterRestaurant(
-                            northEastLatitude = it.latitudeNorthEast,
-                            northEastLongitude = it.longitudeNorthEast,
-                            southWestLatitude = it.latitudeSouthWest,
-                            southWestLongitude = it.longitudeSouthWest,
-                            searchType = Filter.SearchType.BOUND
-                        )
-                    }
-                }
-            }
-        }
 
         // 맵의 빈 공간 클릭 시
         lifecycleScope.launch {
@@ -130,10 +67,18 @@ class FilterParentFragment : Fragment() {
             }
         }
 
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                viewModel.uiState.collect {
+                    Logger.d(it.toString())
+                }
+            }
+        }
+
     }
 
     /**
-     * 필터 선택 시 상세 필터 보여주는 애니메이션
+     * 맵 클릭 시 필터 보여주는 애니메이션
      */
     private fun showFilter(b: Boolean, view: View) {
         Logger.d("showFilter:$b")
@@ -155,12 +100,5 @@ class FilterParentFragment : Fragment() {
             override fun onAnimationRepeat(animation: Animation) {}
         })
         view.visibility = if (b) View.INVISIBLE else View.VISIBLE
-    }
-
-    /**
-     * 내비게이션 컴포넌트 사용 필터 선택 시 상세 필터 선택으로 이동
-     */
-    private fun filterNavigation(id: Int): NavHostFragment {
-        return (childFragmentManager.findFragmentById(id) as NavHostFragment)
     }
 }

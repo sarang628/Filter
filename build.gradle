@@ -30,27 +30,18 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:$junitTestVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoCoreVersion"
 
-    /*---------------------------------------------------------------*
-    * NAVIGATION COMPONENT                                          *
-    *---------------------------------------------------------------*/
+    /** NAVIGATION COMPONENT */
+    implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion" // Kotlin
+    implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion" // Kotlin
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:$navigationVersion" // Feature module Support
+    androidTestImplementation "androidx.navigation:navigation-testing:$navigationVersion" // Testing Navigation
+    implementation "androidx.navigation:navigation-compose:$navigationVersion" // Jetpack Compose Integration
 
-    // Kotlin
-    implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.navigationVersion"
-    implementation "androidx.navigation:navigation-ui-ktx:$rootProject.navigationVersion"
-
-    // Feature module Support
-    implementation "androidx.navigation:navigation-dynamic-features-fragment:$rootProject.navigationVersion"
-
-    // Testing Navigation
-    androidTestImplementation "androidx.navigation:navigation-testing:$rootProject.navigationVersion"
-
-    // Jetpack Compose Integration
-    implementation "androidx.navigation:navigation-compose:1.0.0-alpha08"
-
-    //    /** HILT */
+    /** HILT */
     implementation "com.google.dagger:hilt-android:$hiltVersion"
     kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
     implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hiltViewModelVersion"
     kapt "androidx.hilt:hilt-compiler:$hiltViewModelVersion"
     annotationProcessor "androidx.hilt:hilt-compiler:$hiltViewModelVersion"
+    implementation 'androidx.hilt:hilt-navigation-fragment:1.0.0'
 }

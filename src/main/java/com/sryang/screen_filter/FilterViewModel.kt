@@ -6,19 +6,29 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.torang_core.data.model.*
+import com.example.torang_core.repository.FilterRepository
 import com.example.torang_core.repository.FindRepository
 import com.example.torang_core.repository.MapRepository
-import com.example.torang_core.repository.MapSharedRepository
 import com.example.torang_core.util.Event
+import com.example.torang_core.util.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class FilterViewModel @Inject constructor(
     private val mapRepository: MapRepository,
-    private val findRepository: FindRepository
+    private val findRepository: FindRepository,
+    private val filterRepository: FilterRepository
 ) : ViewModel() {
+
+    private val _uiState = MutableStateFlow(FilterUiState())
+    val uiState: StateFlow<FilterUiState> = _uiState
+
     val food = MutableLiveData<String>()
     val ratings = MutableLiveData<String>()
 
@@ -27,9 +37,6 @@ class FilterViewModel @Inject constructor(
 
     /** 가격 필터 */
     val selectedPrice = MutableLiveData<Prices>()
-
-    /** 음식종류 필터 */
-    val selectedFoods = MutableLiveData<ArrayList<RestaurantType>>()
 
     /** 평점필터 */
     val selectedRatings = MutableLiveData<ArrayList<Ratings>>()
@@ -50,13 +57,6 @@ class FilterViewModel @Inject constructor(
     private val _clickFood = MutableLiveData<Event<Unit>>()
     val clickFood: LiveData<Event<Unit>> = _clickFood
 
-    /** 재검색 클릭 */
-    private val _clickSearch = MutableLiveData<Event<Unit>>()
-    val clickSearch: LiveData<Event<Unit>> = _clickSearch
-
-    /** 이 지역 클릭 */
-    private val _clickThisArea = MutableLiveData<Event<Unit>>()
-    val clickThisArea: LiveData<Event<Unit>> = _clickThisArea
 
     /** 내 위치 */
     var latitudeMyLocation: Double = 0.0
@@ -72,19 +72,14 @@ class FilterViewModel @Inject constructor(
 
     private val isShow = MutableLiveData<Boolean>()
 
+
+    /**
+     * 음식 종류 선택
+     */
     fun setFood(food: RestaurantType) {
-        val foodsArrayList = selectedFoods.value!!
-        if (foodsArrayList.contains(food)) {
-            foodsArrayList.remove(food)
-        } else {
-            foodsArrayList.add(food)
+        viewModelScope.launch {
+            filterRepository.selectRestaurantTyoe(food)
         }
-        val arr = ArrayList<String?>()
-        for (foods in foodsArrayList) {
-            arr.add(foods.toName)
-        }
-        selectedFoods.value = foodsArrayList
-        this.food.value = if (selectedFoods.value!!.size == 0) "음식종류" else TextUtils.join(",", arr)
     }
 
     fun setSelectedPrice(price: Prices) {
@@ -114,24 +109,22 @@ class FilterViewModel @Inject constructor(
         )
     }
 
-    val filter: Filter
-        get() {
-            val filter = Filter()
-            filter.distances = selectedDistances.value!!
-            filter.prices = selectedPrice.value!!
-            filter.restaurantTypes = selectedFoods.value!!
-            filter.ratings = selectedRatings.value!!
-            return filter
-        }
-
     init {
         food.value = "음식종류"
         ratings.value = "평점"
         selectedPrice.value = Prices.NONE
         selectedDistances.value = Distances.NONE
         selectedRatings.value = ArrayList()
-        selectedFoods.value = ArrayList()
         isShow.value = false
+
+        viewModelScope.launch {
+            filterRepository.getCurrentFilter().collect { a ->
+                Logger.d(a)
+                _uiState.update {
+                    it.copy(a)
+                }
+            }
+        }
     }
 
     fun clickDistance() {
@@ -150,66 +143,11 @@ class FilterViewModel @Inject constructor(
         _clickRating.value = Event(Unit)
     }
 
-    fun clickSearch() {
-        _clickSearch.value = Event(Unit)
+    fun searchFilterRestaurant() {
+
     }
 
-    fun clickThisArea() {
-        _clickThisArea.value = Event(Unit)
-    }
-
-    fun searchFilterRestaurant(
-        distances: Distances? = null,
-        restaurantType: ArrayList<RestaurantType>? = null,
-        prices: Prices? = null,
-        ratings: ArrayList<Ratings>? = null,
-        latitude: Double = 0.0,
-        longitude: Double = 0.0,
-        northEastLatitude: Double = 0.0,
-        northEastLongitude: Double = 0.0,
-        southWestLatitude: Double = 0.0,
-        southWestLongitude: Double = 0.0,
-        searchType: Filter.SearchType
-    ) {
-        viewModelScope.launch {
-            findRepository.searchRestaurant(
-                distances,
-                restaurantType,
-                prices,
-                ratings,
-                latitude,
-                longitude,
-                northEastLatitude,
-                northEastLongitude,
-                southWestLatitude,
-                southWestLongitude,
-                searchType
-            )
-        }
-    }
-
-    fun searchBoundRestaurant(
-        distances: Distances?,
-        restaurantType: java.util.ArrayList<RestaurantType>?,
-        prices: Prices?,
-        ratings: java.util.ArrayList<Ratings>?,
-        searchType: Filter.SearchType
-    ) {
-        viewModelScope.launch {
-            findRepository.searchRestaurant(
-                distances,
-                restaurantType,
-                prices,
-                ratings,
-                0.0,
-                0.0,
-                mapRepository.getNorthEastLatitude(),
-                mapRepository.getNorthEastLongitude(),
-                mapRepository.getSouthWestLatitude(),
-                mapRepository.getSouthWestLongitude(),
-                searchType
-            )
-        }
+    fun searchBoundRestaurant() {
     }
 
 }
