@@ -35,6 +35,7 @@ class PriceFilterFragment : Fragment() {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 viewModel.uiState.collect {
                     //TODO
+                    binging.price = it.filter.prices
                 }
             }
         }

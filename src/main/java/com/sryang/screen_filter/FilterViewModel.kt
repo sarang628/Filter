@@ -29,35 +29,6 @@ class FilterViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(FilterUiState())
     val uiState: StateFlow<FilterUiState> = _uiState
 
-    val food = MutableLiveData<String>()
-    val ratings = MutableLiveData<String>()
-
-    /** 거리 필터 */
-    val selectedDistances = MutableLiveData<Distances>()
-
-    /** 가격 필터 */
-    val selectedPrice = MutableLiveData<Prices>()
-
-    /** 평점필터 */
-    val selectedRatings = MutableLiveData<ArrayList<Ratings>>()
-
-    /** 거리 필터 클릭 */
-    private val _clickDistance = MutableLiveData<Event<Unit>>()
-    val clickDistance: LiveData<Event<Unit>> = _clickDistance
-
-    /** 가격 필터 클릭 */
-    private val _clickPrice = MutableLiveData<Event<Unit>>()
-    val clickPrice: LiveData<Event<Unit>> = _clickPrice
-
-    /** 평점 필터 클릭 */
-    private val _clickRating = MutableLiveData<Event<Unit>>()
-    val clickRating: LiveData<Event<Unit>> = _clickRating
-
-    /** 음식 필터 클릭 */
-    private val _clickFood = MutableLiveData<Event<Unit>>()
-    val clickFood: LiveData<Event<Unit>> = _clickFood
-
-
     /** 내 위치 */
     var latitudeMyLocation: Double = 0.0
     var longitudeMyLocation: Double = 0.0
@@ -72,6 +43,17 @@ class FilterViewModel @Inject constructor(
 
     private val isShow = MutableLiveData<Boolean>()
 
+    init {
+        isShow.value = false
+
+        viewModelScope.launch {
+            filterRepository.getCurrentFilter().collect { filter ->
+                _uiState.update {
+                    it.copy(filter = filter)
+                }
+            }
+        }
+    }
 
     /**
      * 음식 종류 선택
@@ -83,64 +65,21 @@ class FilterViewModel @Inject constructor(
     }
 
     fun setSelectedPrice(price: Prices) {
-        if (selectedPrice.value == price) selectedPrice.setValue(Prices.NONE) else selectedPrice.setValue(
-            price
-        )
+        viewModelScope.launch {
+            filterRepository.selectPrice(price)
+        }
     }
 
     fun setSelectRatings(ratings: Ratings) {
-        val ratingsArrayList = selectedRatings.value!!
-        if (ratingsArrayList.contains(ratings)) {
-            ratingsArrayList.remove(ratings)
-        } else {
-            ratingsArrayList.add(ratings)
+        viewModelScope.launch {
+            filterRepository.selectRatings(ratings)
         }
-        val arr = ArrayList<String?>()
-        for (rating in ratingsArrayList) {
-            arr.add(rating.toName)
-        }
-        selectedRatings.value = ratingsArrayList
-        this.ratings.value = if (ratingsArrayList.size == 0) "평점" else TextUtils.join(",", arr)
     }
 
     fun setSelectedDistances(distances: Distances) {
-        if (selectedDistances.value == distances) selectedDistances.setValue(Distances.NONE) else selectedDistances.setValue(
-            distances
-        )
-    }
-
-    init {
-        food.value = "음식종류"
-        ratings.value = "평점"
-        selectedPrice.value = Prices.NONE
-        selectedDistances.value = Distances.NONE
-        selectedRatings.value = ArrayList()
-        isShow.value = false
-
         viewModelScope.launch {
-            filterRepository.getCurrentFilter().collect { a ->
-                Logger.d(a)
-                _uiState.update {
-                    it.copy(a)
-                }
-            }
+            filterRepository.selectDistance(distances)
         }
-    }
-
-    fun clickDistance() {
-        _clickDistance.value = Event(Unit)
-    }
-
-    fun clickFood() {
-        _clickFood.value = Event(Unit)
-    }
-
-    fun clickPrice() {
-        _clickPrice.value = Event(Unit)
-    }
-
-    fun clickRating() {
-        _clickRating.value = Event(Unit)
     }
 
     fun searchFilterRestaurant() {

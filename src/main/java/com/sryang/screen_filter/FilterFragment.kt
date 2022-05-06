@@ -33,32 +33,35 @@ class FilterFragment : Fragment() {
         binding.vm = viewModel
 
         // 음식 필터 선택
-        viewModel.clickFood.observe(viewLifecycleOwner, EventObserver {
+        binding.tvFood.setOnClickListener {
             findNavController().navigate(R.id.action_filterFragment_to_foodFilterFragment)
-        })
+        }
 
         // 반경 필터 선택
-        viewModel.clickDistance.observe(viewLifecycleOwner, EventObserver {
+        binding.tvDistance.setOnClickListener {
             findNavController()
                 .navigate(R.id.action_filterFragment_to_distanceFilterFragment)
-        })
+        }
 
         // 평점 필터 선택
-        viewModel.clickRating.observe(viewLifecycleOwner, EventObserver {
+        binding.tvRating.setOnClickListener {
             findNavController()
                 .navigate(R.id.action_filterFragment_to_ratingFilterFragment)
-        })
+        }
 
         // 가격 필터 선택
-        viewModel.clickPrice.observe(viewLifecycleOwner, EventObserver {
+        binding.tvPrice.setOnClickListener {
             findNavController()
                 .navigate(R.id.action_filterFragment_to_priceFilterFragment)
-        })
+        }
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 viewModel.uiState.collect {
                     binding.tvFood.text = it.filter.restaurantTypes.name
+                    binding.tvPrice.text = it.filter.prices.toName
+                    binding.tvRating.text = it.filter.ratings.name
+                    binding.tvDistance.text = it.filter.distances.toName
                 }
             }
         }

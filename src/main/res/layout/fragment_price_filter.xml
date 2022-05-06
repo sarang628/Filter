@@ -7,6 +7,10 @@
             name="vm"
             type="com.sryang.screen_filter.FilterViewModel" />
 
+        <variable
+            name="price"
+            type="Prices" />
+
         <import type="com.example.torang_core.data.model.Prices" />
     </data>
 
@@ -27,7 +31,7 @@
             android:background="@drawable/shape_corner"
             android:onClick="onBackPressed"
             android:padding="10dp"
-            android:text="@{vm.selectedPrice.toName}"
+            android:text="가격"
             android:transitionName="price"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -36,57 +40,57 @@
         <TextView
             android:id="@+id/textView4"
             style="@style/Filter"
+            select="@{price == Prices.UNDER_10K}"
             android:onClick="@{()->vm.setSelectedPrice(Prices.UNDER_10K)}"
             android:text="@{Prices.UNDER_10K.toName}"
             app:layout_constraintBaseline_toBaselineOf="@+id/tv_price"
             app:layout_constraintEnd_toStartOf="@+id/textView5"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/tv_price"
-            select="@{vm.selectedPrice == Prices.UNDER_10K}" />
+            app:layout_constraintStart_toEndOf="@+id/tv_price" />
 
         <TextView
             android:id="@+id/textView5"
             style="@style/Filter"
+            select="@{price == Prices.AROUND_10K}"
             android:onClick="@{()->vm.setSelectedPrice(Prices.AROUND_10K)}"
             android:text="@{Prices.AROUND_10K.toName}"
             app:layout_constraintBaseline_toBaselineOf="@+id/textView4"
             app:layout_constraintEnd_toStartOf="@+id/textView6"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/textView4"
-            select="@{vm.selectedPrice == Prices.AROUND_10K}" />
+            app:layout_constraintStart_toEndOf="@+id/textView4" />
 
         <TextView
             android:id="@+id/textView6"
             style="@style/Filter"
+            select="@{price == Prices.AROUND_20K}"
             android:onClick="@{()->vm.setSelectedPrice(Prices.AROUND_20K)}"
             android:text="@{Prices.AROUND_20K.toName}"
             app:layout_constraintBaseline_toBaselineOf="@+id/textView5"
             app:layout_constraintEnd_toStartOf="@+id/textView9"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/textView5"
-            select="@{vm.selectedPrice == Prices.AROUND_20K}" />
+            app:layout_constraintStart_toEndOf="@+id/textView5" />
 
         <TextView
             android:id="@+id/textView9"
             style="@style/Filter"
+            select="@{price == Prices.AROUND_30K}"
             android:onClick="@{()->vm.setSelectedPrice(Prices.AROUND_30K)}"
             android:text="@{Prices.AROUND_30K.toName}"
             app:layout_constraintBaseline_toBaselineOf="@+id/textView6"
             app:layout_constraintEnd_toStartOf="@+id/textView10"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/textView6"
-            select="@{vm.selectedPrice == Prices.AROUND_30K}" />
+            app:layout_constraintStart_toEndOf="@+id/textView6" />
 
         <TextView
             android:id="@+id/textView10"
             style="@style/Filter"
+            select="@{price == Prices.OVER_30K}"
             android:onClick="@{()->vm.setSelectedPrice(Prices.OVER_30K)}"
             android:text="@{Prices.OVER_30K.toName}"
             app:layout_constraintBaseline_toBaselineOf="@+id/textView9"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/textView9"
-            select="@{vm.selectedPrice == Prices.OVER_30K}" />
+            app:layout_constraintStart_toEndOf="@+id/textView9" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -10,29 +10,33 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.sryang.screen_filter.databinding.FragmentDistanceFilterBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 
+@AndroidEntryPoint
 class DistanceFilterFragment : Fragment() {
     private val viewModel: FilterViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding =
             FragmentDistanceFilterBinding.inflate(layoutInflater, container, false)
-        binding.vm = viewModel
-        binding.tvDistance.setOnClickListener {
-            requireActivity().onBackPressed()
+        binding.apply {
+            vm = viewModel
+            lifecycleOwner = viewLifecycleOwner
+            tvDistance.setOnClickListener {
+                requireActivity().onBackPressed()
+            }
         }
-        binding.lifecycleOwner = viewLifecycleOwner
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 viewModel.uiState.collect {
-                    //TODO
+                    binding.distance = it.filter.distances
                 }
             }
         }

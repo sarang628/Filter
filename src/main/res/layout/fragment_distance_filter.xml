@@ -9,6 +9,10 @@
             name="vm"
             type="com.sryang.screen_filter.FilterViewModel" />
 
+        <variable
+            name="distance"
+            type="Distances" />
+
         <import type="com.example.torang_core.data.model.Distances" />
 
     </data>
@@ -28,7 +32,7 @@
             android:background="@drawable/shape_corner"
             android:onClick="onBackPressed"
             android:padding="10dp"
-            android:text="@{vm.selectedDistances.toName}"
+            android:text="반경"
             android:transitionName="distance"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -39,7 +43,7 @@
         <TextView
             android:id="@+id/textView"
             style="@style/Filter"
-            select="@{vm.selectedDistances == Distances._100M}"
+            select="@{distance == Distances._100M}"
             android:onClick="@{()->vm.setSelectedDistances(Distances._100M)}"
             android:text="@{Distances._100M.toName}"
             app:layout_constraintBaseline_toBaselineOf="@+id/tv_distance"
@@ -52,7 +56,7 @@
         <TextView
             android:id="@+id/textView2"
             style="@style/Filter"
-            select="@{vm.selectedDistances == Distances._300M}"
+            select="@{distance == Distances._300M}"
             android:onClick="@{()->vm.setSelectedDistances(Distances._300M)}"
             android:text="@{Distances._300M.toName}"
             app:layout_constraintBaseline_toBaselineOf="@+id/textView"
@@ -65,7 +69,7 @@
         <TextView
             android:id="@+id/textView3"
             style="@style/Filter"
-            select="@{vm.selectedDistances == Distances._500M}"
+            select="@{distance == Distances._500M}"
             android:onClick="@{()->vm.setSelectedDistances(Distances._500M)}"
             android:text="@{Distances._500M.toName}"
             app:layout_constraintBaseline_toBaselineOf="@+id/textView2"
@@ -78,7 +82,7 @@
         <TextView
             android:id="@+id/textView11"
             style="@style/Filter"
-            select="@{vm.selectedDistances == Distances._1KM}"
+            select="@{distance == Distances._1KM}"
             android:onClick="@{()->vm.setSelectedDistances(Distances._1KM)}"
             android:text="@{Distances._1KM.toName}"
             app:layout_constraintBaseline_toBaselineOf="@+id/textView3"
@@ -91,7 +95,7 @@
         <TextView
             android:id="@+id/textView12"
             style="@style/Filter"
-            select="@{vm.selectedDistances == Distances._3KM}"
+            select="@{distance == Distances._3KM}"
             android:onClick="@{()->vm.setSelectedDistances(Distances._3KM)}"
             android:text="@{Distances._3KM.toName}"
             app:layout_constraintBaseline_toBaselineOf="@+id/textView11"

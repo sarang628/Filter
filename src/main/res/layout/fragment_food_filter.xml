@@ -31,7 +31,7 @@
             android:background="@drawable/shape_corner"
             android:contentDescription="음식종류"
             android:padding="10dp"
-            android:text="@{vm.food}"
+            android:text="음식종류"
             android:transitionName="food"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"

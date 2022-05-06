@@ -35,7 +35,7 @@ class RatingFilterFragment : Fragment() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 viewModel.uiState.collect {
-                    //TODO
+                    binding.ratings = it.filter.ratings
                 }
             }
         }
