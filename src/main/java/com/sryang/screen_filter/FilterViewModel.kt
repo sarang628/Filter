@@ -87,6 +87,9 @@ class FilterViewModel @Inject constructor(
     }
 
     fun searchBoundRestaurant() {
+        viewModelScope.launch {
+            findRepository.searchBoundRestaurant()
+        }
     }
 
 }
