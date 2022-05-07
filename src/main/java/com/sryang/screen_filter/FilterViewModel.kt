@@ -1,7 +1,5 @@
 package com.sryang.screen_filter
 
-import android.text.TextUtils
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -9,12 +7,9 @@ import com.example.torang_core.data.model.*
 import com.example.torang_core.repository.FilterRepository
 import com.example.torang_core.repository.FindRepository
 import com.example.torang_core.repository.MapRepository
-import com.example.torang_core.util.Event
-import com.example.torang_core.util.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -60,7 +55,7 @@ class FilterViewModel @Inject constructor(
      */
     fun setFood(food: RestaurantType) {
         viewModelScope.launch {
-            filterRepository.selectRestaurantTyoe(food)
+            filterRepository.selectRestaurantType(food)
         }
     }
 
