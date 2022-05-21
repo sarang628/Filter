@@ -61,7 +61,6 @@ class FilterParentFragment : Fragment() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 viewModel.clickMap.collect {
-                    Logger.d(it.toString())
                     showFilter(it, binding.clFilterParent)
                 }
             }
@@ -70,7 +69,6 @@ class FilterParentFragment : Fragment() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 viewModel.uiState.collect {
-                    Logger.d(it.toString())
                 }
             }
         }
@@ -81,7 +79,6 @@ class FilterParentFragment : Fragment() {
      * 맵 클릭 시 필터 보여주는 애니메이션
      */
     private fun showFilter(b: Boolean, view: View) {
-        Logger.d("showFilter:$b")
         val animation = AnimationUtils.loadAnimation(
             requireContext(), if (b) R.anim.slide_up else R.anim.slide_down
         )
