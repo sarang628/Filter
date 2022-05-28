@@ -8,9 +8,7 @@ import com.example.torang_core.repository.FilterRepository
 import com.example.torang_core.repository.FindRepository
 import com.example.torang_core.repository.MapRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -34,7 +32,7 @@ class FilterViewModel @Inject constructor(
     var southWestLatitude: Double = 0.0
     var southWestLongitude: Double = 0.0
 
-    val clickMap = mapRepository.getClickMap()
+    val showRestaurantCardAndFilter = findRepository.showRestaurantCardAndFilter()
 
     private val isShow = MutableLiveData<Boolean>()
 
@@ -86,5 +84,4 @@ class FilterViewModel @Inject constructor(
             findRepository.searchBoundRestaurant()
         }
     }
-
 }

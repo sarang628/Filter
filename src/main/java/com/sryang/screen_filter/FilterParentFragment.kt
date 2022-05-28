@@ -10,13 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.fragment.NavHostFragment
-import com.example.torang_core.data.model.Filter
-import com.example.torang_core.util.EventObserver
-import com.example.torang_core.util.Logger
 import com.example.travelmode.SelectNationFragment
 import com.example.travelmode.SelectNationViewModel
 import com.sryang.screen_filter.databinding.FragmentFilterParentBinding
@@ -60,7 +55,7 @@ class FilterParentFragment : Fragment() {
         // 맵의 빈 공간 클릭 시
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                viewModel.clickMap.collect {
+                viewModel.showRestaurantCardAndFilter.collect {
                     showFilter(it, binding.clFilterParent)
                 }
             }
@@ -80,22 +75,22 @@ class FilterParentFragment : Fragment() {
      */
     private fun showFilter(b: Boolean, view: View) {
         val animation = AnimationUtils.loadAnimation(
-            requireContext(), if (b) R.anim.slide_up else R.anim.slide_down
+            requireContext(), if (b) R.anim.slide_down else R.anim.slide_up
         )
 
         view.startAnimation(animation)
 
         animation.setAnimationListener(object : Animation.AnimationListener {
             override fun onAnimationStart(animation: Animation) {
-                if (!b) view.visibility = View.VISIBLE
+                if (b) view.visibility = View.VISIBLE
             }
 
             override fun onAnimationEnd(animation: Animation) {
-                if (b) view.visibility = View.GONE
+                if (!b) view.visibility = View.GONE
             }
 
             override fun onAnimationRepeat(animation: Animation) {}
         })
-        view.visibility = if (b) View.INVISIBLE else View.VISIBLE
+        view.visibility = if (!b) View.INVISIBLE else View.VISIBLE
     }
 }
