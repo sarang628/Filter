@@ -3,10 +3,12 @@ package com.sryang.screen_filter
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.torang_core.data.NationItem
 import com.example.torang_core.data.model.*
 import com.example.torang_core.repository.FilterRepository
 import com.example.torang_core.repository.FindRepository
 import com.example.torang_core.repository.MapRepository
+import com.example.torang_core.repository.NationRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -16,11 +18,14 @@ import javax.inject.Inject
 class FilterViewModel @Inject constructor(
     private val mapRepository: MapRepository,
     private val findRepository: FindRepository,
-    private val filterRepository: FilterRepository
+    private val filterRepository: FilterRepository,
+    private val nationRepository: NationRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(FilterUiState())
     val uiState: StateFlow<FilterUiState> = _uiState
+
+    val selected : StateFlow<NationItem> = nationRepository.getSelectNationItem()
 
     /** 내 위치 */
     var latitudeMyLocation: Double = 0.0
@@ -32,7 +37,7 @@ class FilterViewModel @Inject constructor(
     var southWestLatitude: Double = 0.0
     var southWestLongitude: Double = 0.0
 
-    val showRestaurantCardAndFilter = findRepository.showRestaurantCardAndFilter()
+    val showRestaurantCardAndFilter : StateFlow<Boolean> = findRepository.showRestaurantCardAndFilter()
 
     private val isShow = MutableLiveData<Boolean>()
 

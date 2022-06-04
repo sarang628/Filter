@@ -16,8 +16,11 @@ import com.example.travelmode.SelectNationFragment
 import com.example.travelmode.SelectNationViewModel
 import com.sryang.screen_filter.databinding.FragmentFilterParentBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.newSingleThreadContext
 
 /**
  * [FragmentFilterParentBinding]
@@ -27,28 +30,36 @@ import kotlinx.coroutines.launch
 class FilterParentFragment : Fragment() {
     private val viewModel: FilterViewModel by viewModels()
     private val nationFragment = SelectNationFragment();
-    private val selectNationViewModel: SelectNationViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = FragmentFilterParentBinding.inflate(layoutInflater, container, false)
-        binding.filterViewModel = viewModel
-        binding.selectNationViewModel = selectNationViewModel
-        binding.lifecycleOwner = viewLifecycleOwner
+        val binding = FragmentFilterParentBinding.inflate(layoutInflater, container, false).apply {
+            filterViewModel = viewModel
+            lifecycleOwner = viewLifecycleOwner
+        }
+        initEvent(binding)
         subScribeUI(binding)
 
         return binding.root
+    }
+
+    private fun initEvent(binding: FragmentFilterParentBinding) {
+        binding.constraintLayout2.setOnClickListener {
+            nationFragment.show(childFragmentManager, "")
+        }
     }
 
     /**
      * UI 구독
      */
     private fun subScribeUI(binding: FragmentFilterParentBinding) {
-        selectNationViewModel.selected.observe(viewLifecycleOwner) {
-            if (nationFragment.isVisible)
-                nationFragment.dismiss()
+        lifecycleScope.launch {
+            viewModel.selected.collect {
+                if (nationFragment.isVisible)
+                    nationFragment.dismiss()
+            }
         }
         // 검색 선택
 
