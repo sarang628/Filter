@@ -27,8 +27,7 @@ class FilterViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(FilterUiState())
     val uiState: StateFlow<FilterUiState> = _uiState
     val selected: StateFlow<NationItem> = nationRepository.getSelectNationItem()
-    val showRestaurantCardAndFilter: StateFlow<Boolean> =
-        findRepository.showRestaurantCardAndFilter()
+    val showRestaurantCardAndFilter: StateFlow<Boolean> = MutableStateFlow(true)//findRepository.showRestaurantCardAndFilter()
     private val isShow = MutableLiveData<Boolean>()
 
 
