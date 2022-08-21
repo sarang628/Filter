@@ -16,9 +16,9 @@ android {
 }
 
 dependencies {
-    implementation 'com.github.sarang628:TorangRepository:5cdb45b76e'
-    implementation 'com.github.sarang628:TorangCore:5dd8950a5a'
-    implementation 'com.github.sarang628:TravelMode:9cdfb324e5'
+    implementation "com.github.sarang628:TorangCore:$coreVersion"
+    implementation "com.github.sarang628:TorangRepository:$torangRepositoryVersion"
+    implementation "com.github.sarang628:TravelMode:$travelModeVersion"
 
     /** common */
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"

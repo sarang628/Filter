@@ -40,9 +40,9 @@ android {
 dependencies {
 
     implementation project(path: ':library')
-    implementation 'com.github.sarang628:TorangRepository:5cdb45b76e'
-    implementation 'com.github.sarang628:TorangCore:5dd8950a5a'
-    implementation 'com.github.sarang628:TravelMode:9cdfb324e5'
+    implementation "com.github.sarang628:TorangCore:$coreVersion"
+    implementation "com.github.sarang628:TorangRepository:$torangRepositoryVersion"
+    implementation "com.github.sarang628:TravelMode:$travelModeVersion"
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.3.1'
