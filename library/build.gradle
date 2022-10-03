@@ -13,6 +13,7 @@ android {
         dataBinding true
         viewBinding true
     }
+    namespace 'com.sryang.screen_filter'
 }
 
 dependencies {
