@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "com.sryang.screen_filter.library-merged_res-80:/color-night-v8/material_timepicker_modebutton_tint.xml",
+        "source": "com.sryang.screen_filter.library-material-1.6.1-35:/color-night-v8/material_timepicker_modebutton_tint.xml"
+    },
+    {
+        "merged": "com.sryang.screen_filter.library-merged_res-80:/color-night-v8/material_timepicker_button_stroke.xml",
+        "source": "com.sryang.screen_filter.library-material-1.6.1-35:/color-night-v8/material_timepicker_button_stroke.xml"
+    },
+    {
+        "merged": "com.sryang.screen_filter.library-merged_res-80:/color-night-v8/material_timepicker_clockface.xml",
+        "source": "com.sryang.screen_filter.library-material-1.6.1-35:/color-night-v8/material_timepicker_clockface.xml"
+    }
+]

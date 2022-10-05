@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "com.sryang.screen_filter.library-merged_res-80:/raw/feed.json",
+        "source": "com.sryang.screen_filter.library-jetified-TorangRepository-v0.0.1-23:/raw/feed.json"
+    },
+    {
+        "merged": "com.sryang.screen_filter.library-merged_res-80:/raw/my_ca.crt",
+        "source": "com.sryang.screen_filter.library-jetified-TorangRepository-v0.0.1-23:/raw/my_ca.crt"
+    },
+    {
+        "merged": "com.sryang.screen_filter.library-merged_res-80:/raw/feed_response1.json",
+        "source": "com.sryang.screen_filter.library-jetified-TorangRepository-v0.0.1-23:/raw/feed_response1.json"
+    },
+    {
+        "merged": "com.sryang.screen_filter.library-merged_res-80:/raw/keep.xml",
+        "source": "com.sryang.screen_filter.library-jetified-navigation-dynamic-features-runtime-2.5.0-beta01-60:/raw/keep.xml"
+    },
+    {
+        "merged": "com.sryang.screen_filter.library-merged_res-80:/raw/feed_response2.json",
+        "source": "com.sryang.screen_filter.library-jetified-TorangRepository-v0.0.1-23:/raw/feed_response2.json"
+    },
+    {
+        "merged": "com.sryang.screen_filter.library-merged_res-80:/raw/vrscoo_cert.crt",
+        "source": "com.sryang.screen_filter.library-jetified-TorangRepository-v0.0.1-23:/raw/vrscoo_cert.crt"
+    }
+]

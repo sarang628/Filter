@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "com.sryang.screen_filter.library-merged_res-80:/layout-sw600dp-v13/mtrl_layout_snackbar.xml",
+        "source": "com.sryang.screen_filter.library-material-1.6.1-35:/layout-sw600dp-v13/mtrl_layout_snackbar.xml"
+    },
+    {
+        "merged": "com.sryang.screen_filter.library-merged_res-80:/layout-sw600dp-v13/design_layout_snackbar.xml",
+        "source": "com.sryang.screen_filter.library-material-1.6.1-35:/layout-sw600dp-v13/design_layout_snackbar.xml"
+    }
+]

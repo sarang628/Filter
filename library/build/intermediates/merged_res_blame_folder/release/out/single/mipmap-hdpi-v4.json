@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "com.sryang.screen_filter.library-merged_res-80:/mipmap-hdpi-v4/ic_launcher.webp",
+        "source": "com.sryang.screen_filter.library-main-81:/mipmap-hdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.sryang.screen_filter.library-merged_res-80:/mipmap-hdpi-v4/ic_launcher_round.webp",
+        "source": "com.sryang.screen_filter.library-main-81:/mipmap-hdpi/ic_launcher_round.webp"
+    }
+]

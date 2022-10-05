@@ -11,7 +11,7 @@
             name="ratings"
             type="java.util.ArrayList&lt;Ratings&gt;" />
 
-        <import type="com.example.torang_core.data.model.Ratings" />
+        <import type="com.sryang.torang_core.data.entity.Ratings" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"

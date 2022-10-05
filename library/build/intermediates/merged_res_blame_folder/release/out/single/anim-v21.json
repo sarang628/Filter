@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "com.sryang.screen_filter.library-merged_res-80:/anim-v21/fragment_fast_out_extra_slow_in.xml",
+        "source": "com.sryang.screen_filter.library-fragment-1.5.0-beta01-1:/anim-v21/fragment_fast_out_extra_slow_in.xml"
+    },
+    {
+        "merged": "com.sryang.screen_filter.library-merged_res-80:/anim-v21/design_bottom_sheet_slide_out.xml",
+        "source": "com.sryang.screen_filter.library-material-1.6.1-35:/anim-v21/design_bottom_sheet_slide_out.xml"
+    },
+    {
+        "merged": "com.sryang.screen_filter.library-merged_res-80:/anim-v21/design_bottom_sheet_slide_in.xml",
+        "source": "com.sryang.screen_filter.library-material-1.6.1-35:/anim-v21/design_bottom_sheet_slide_in.xml"
+    },
+    {
+        "merged": "com.sryang.screen_filter.library-merged_res-80:/anim-v21/mtrl_bottom_sheet_slide_out.xml",
+        "source": "com.sryang.screen_filter.library-material-1.6.1-35:/anim-v21/mtrl_bottom_sheet_slide_out.xml"
+    },
+    {
+        "merged": "com.sryang.screen_filter.library-merged_res-80:/anim-v21/mtrl_bottom_sheet_slide_in.xml",
+        "source": "com.sryang.screen_filter.library-material-1.6.1-35:/anim-v21/mtrl_bottom_sheet_slide_in.xml"
+    }
+]

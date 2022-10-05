@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "com.sryang.screen_filter.library-merged_res-80:/layout-land/material_timepicker.xml",
+        "source": "com.sryang.screen_filter.library-material-1.6.1-35:/layout-land/material_timepicker.xml"
+    },
+    {
+        "merged": "com.sryang.screen_filter.library-merged_res-80:/layout-land/mtrl_picker_header_dialog.xml",
+        "source": "com.sryang.screen_filter.library-material-1.6.1-35:/layout-land/mtrl_picker_header_dialog.xml"
+    },
+    {
+        "merged": "com.sryang.screen_filter.library-merged_res-80:/layout-land/material_clock_period_toggle_land.xml",
+        "source": "com.sryang.screen_filter.library-material-1.6.1-35:/layout-land/material_clock_period_toggle_land.xml"
+    }
+]

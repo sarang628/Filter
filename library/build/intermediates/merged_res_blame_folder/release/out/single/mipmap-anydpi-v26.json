@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "com.sryang.screen_filter.library-merged_res-80:/mipmap-anydpi-v26/ic_launcher_round.xml",
+        "source": "com.sryang.screen_filter.library-main-81:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "com.sryang.screen_filter.library-merged_res-80:/mipmap-anydpi-v26/ic_launcher.xml",
+        "source": "com.sryang.screen_filter.library-main-81:/mipmap-anydpi-v26/ic_launcher.xml"
+    }
+]

@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "com.sryang.screen_filter.library-merged_res-80:/layout-watch-v20/abc_alert_dialog_button_bar_material.xml",
+        "source": "com.sryang.screen_filter.library-appcompat-1.5.1-18:/layout-watch-v20/abc_alert_dialog_button_bar_material.xml"
+    },
+    {
+        "merged": "com.sryang.screen_filter.library-merged_res-80:/layout-watch-v20/abc_alert_dialog_title_material.xml",
+        "source": "com.sryang.screen_filter.library-appcompat-1.5.1-18:/layout-watch-v20/abc_alert_dialog_title_material.xml"
+    }
+]

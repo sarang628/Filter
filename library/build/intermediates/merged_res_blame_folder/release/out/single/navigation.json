@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "com.sryang.screen_filter.library-merged_res-80:/navigation/nav_filter_parent.xml",
+        "source": "com.sryang.screen_filter.library-main-81:/navigation/nav_filter_parent.xml"
+    },
+    {
+        "merged": "com.sryang.screen_filter.library-merged_res-80:/navigation/nav_filter.xml",
+        "source": "com.sryang.screen_filter.library-main-81:/navigation/nav_filter.xml"
+    }
+]

@@ -1,13 +1,10 @@
 package com.sryang.torangscreenfilter
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
-import androidx.activity.viewModels
-import androidx.fragment.app.activityViewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.example.torang_core.repository.FindRepository
-import com.sryang.screen_filter.FilterViewModel
+import com.sryang.torang_repository.repository.FindRepository
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject

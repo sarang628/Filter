@@ -13,7 +13,7 @@
             name="distance"
             type="Distances" />
 
-        <import type="com.example.torang_core.data.model.Distances" />
+        <import type="com.sryang.torang_core.data.entity.Distances" />
 
     </data>
 

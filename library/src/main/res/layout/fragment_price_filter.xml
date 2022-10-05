@@ -11,7 +11,7 @@
             name="price"
             type="Prices" />
 
-        <import type="com.example.torang_core.data.model.Prices" />
+        <import type="com.sryang.torang_core.data.entity.Prices" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"

@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "com.sryang.screen_filter.library-merged_res-80:/xml/network_security_config.xml",
+        "source": "com.sryang.screen_filter.library-jetified-TorangRepository-v0.0.1-23:/xml/network_security_config.xml"
+    },
+    {
+        "merged": "com.sryang.screen_filter.library-merged_res-80:/xml/standalone_badge_gravity_top_start.xml",
+        "source": "com.sryang.screen_filter.library-material-1.6.1-35:/xml/standalone_badge_gravity_top_start.xml"
+    },
+    {
+        "merged": "com.sryang.screen_filter.library-merged_res-80:/xml/standalone_badge_gravity_bottom_start.xml",
+        "source": "com.sryang.screen_filter.library-material-1.6.1-35:/xml/standalone_badge_gravity_bottom_start.xml"
+    },
+    {
+        "merged": "com.sryang.screen_filter.library-merged_res-80:/xml/standalone_badge.xml",
+        "source": "com.sryang.screen_filter.library-material-1.6.1-35:/xml/standalone_badge.xml"
+    },
+    {
+        "merged": "com.sryang.screen_filter.library-merged_res-80:/xml/standalone_badge_gravity_bottom_end.xml",
+        "source": "com.sryang.screen_filter.library-material-1.6.1-35:/xml/standalone_badge_gravity_bottom_end.xml"
+    },
+    {
+        "merged": "com.sryang.screen_filter.library-merged_res-80:/xml/standalone_badge_offset.xml",
+        "source": "com.sryang.screen_filter.library-material-1.6.1-35:/xml/standalone_badge_offset.xml"
+    }
+]

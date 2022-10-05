@@ -10,7 +10,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import com.example.torang_core.data.model.name
 import com.sryang.screen_filter.databinding.FragmentFilterBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -55,9 +54,9 @@ class FilterFragment : Fragment() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 viewModel.uiState.collect {
-                    binding.tvFood.text = it.filter.restaurantTypes.name
+                    binding.tvFood.text = ""
                     binding.tvPrice.text = it.filter.prices.toName
-                    binding.tvRating.text = it.filter.ratings.name
+                    binding.tvRating.text = ""
                     binding.tvDistance.text = it.filter.distances.toName
                 }
             }
