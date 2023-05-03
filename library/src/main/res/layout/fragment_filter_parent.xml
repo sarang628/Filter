@@ -19,46 +19,5 @@
             app:layout_constraintTop_toTopOf="parent"
             app:navGraph="@navigation/nav_filter" />
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="80dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/shape_corner"
-            android:padding="0dp"
-            android:text="재검색"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btn_this_loc"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/filter_container1" />
-
-        <Button
-            android:id="@+id/btn_this_loc"
-            android:layout_width="80dp"
-            android:layout_height="35dp"
-            android:background="@drawable/shape_corner"
-            android:padding="0dp"
-            android:text="이 지역 검색"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/constraintLayout2"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/button"
-            app:layout_constraintTop_toTopOf="@+id/button" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout2"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:background="@drawable/shape_corner"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/btn_this_loc"
-            app:layout_constraintTop_toTopOf="@+id/btn_this_loc">
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

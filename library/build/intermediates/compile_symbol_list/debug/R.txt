@@ -3183,8 +3183,6 @@ int id bestChoice 0x0
 int id blocking 0x0
 int id bottom 0x0
 int id bounce 0x0
-int id btn_this_loc 0x0
-int id button 0x0
 int id buttonPanel 0x0
 int id callMeasure 0x0
 int id cancel_button 0x0
@@ -3207,7 +3205,6 @@ int id compose_view_saveable_id_tag 0x0
 int id compress 0x0
 int id confirm_button 0x0
 int id constraint 0x0
-int id constraintLayout2 0x0
 int id container 0x0
 int id content 0x0
 int id contentPanel 0x0

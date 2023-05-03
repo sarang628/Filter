@@ -3184,8 +3184,6 @@ id bestChoice
 id blocking
 id bottom
 id bounce
-id btn_this_loc
-id button
 id buttonPanel
 id callMeasure
 id cancel_button
@@ -3208,7 +3206,6 @@ id compose_view_saveable_id_tag
 id compress
 id confirm_button
 id constraint
-id constraintLayout2
 id container
 id content
 id contentPanel

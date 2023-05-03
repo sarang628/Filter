@@ -8,7 +8,7 @@
         android:layout_height="match_parent"
         android:clickable="true"
         android:focusable="true"
-        tools:context=".FilterFragment">
+        tools:context=".ui.FilterFragment">
 
         <TextView
             android:id="@+id/tv_distance"

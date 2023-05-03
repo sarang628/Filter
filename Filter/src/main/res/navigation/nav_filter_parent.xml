@@ -6,6 +6,6 @@
 
     <fragment
         android:id="@+id/filterFragment2"
-        android:name="com.sryang.screen_filter.FilterParentFragment"
+        android:name="com.sryang.screen_filter.ui.FilterParentFragment"
         android:label="FilterFragment" />
 </navigation>

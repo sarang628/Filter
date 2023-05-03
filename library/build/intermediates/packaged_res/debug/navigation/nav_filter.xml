@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/filterFragment"
-        android:name="com.sryang.screen_filter.FilterFragment"
+        android:name="com.sryang.screen_filter.ui.FilterFragment"
         android:label="FilterFragment">
         <action
             android:id="@+id/action_filterFragment_to_distanceFilterFragment"
@@ -23,18 +23,18 @@
     </fragment>
     <fragment
         android:id="@+id/foodFilterFragment"
-        android:name="com.sryang.screen_filter.FoodFilterFragment"
+        android:name="com.sryang.screen_filter.ui.FoodFilterFragment"
         android:label="FoodFilterFragment" />
     <fragment
         android:id="@+id/priceFilterFragment"
-        android:name="com.sryang.screen_filter.PriceFilterFragment"
+        android:name="com.sryang.screen_filter.ui.PriceFilterFragment"
         android:label="PriceFilterFragment" />
     <fragment
         android:id="@+id/ratingFilterFragment"
-        android:name="com.sryang.screen_filter.RatingFilterFragment"
+        android:name="com.sryang.screen_filter.ui.RatingFilterFragment"
         android:label="RatingFilterFragment" />
     <fragment
         android:id="@+id/distanceFilterFragment"
-        android:name="com.sryang.screen_filter.DistanceFilterFragment"
+        android:name="com.sryang.screen_filter.ui.DistanceFilterFragment"
         android:label="DistanceFilterFragment" />
 </navigation>

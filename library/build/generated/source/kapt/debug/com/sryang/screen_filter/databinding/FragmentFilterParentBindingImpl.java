@@ -15,9 +15,6 @@ public class FragmentFilterParentBindingImpl extends FragmentFilterParentBinding
         sIncludes = null;
         sViewsWithIds = new android.util.SparseIntArray();
         sViewsWithIds.put(R.id.filter_container1, 1);
-        sViewsWithIds.put(R.id.button, 2);
-        sViewsWithIds.put(R.id.btn_this_loc, 3);
-        sViewsWithIds.put(R.id.constraintLayout2, 4);
     }
     // views
     // variables
@@ -26,14 +23,11 @@ public class FragmentFilterParentBindingImpl extends FragmentFilterParentBinding
     // Inverse Binding Event Handlers
 
     public FragmentFilterParentBindingImpl(@Nullable androidx.databinding.DataBindingComponent bindingComponent, @NonNull View root) {
-        this(bindingComponent, root, mapBindings(bindingComponent, root, 5, sIncludes, sViewsWithIds));
+        this(bindingComponent, root, mapBindings(bindingComponent, root, 2, sIncludes, sViewsWithIds));
     }
     private FragmentFilterParentBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 0
-            , (android.widget.Button) bindings[3]
-            , (android.widget.Button) bindings[2]
             , (androidx.constraintlayout.widget.ConstraintLayout) bindings[0]
-            , (androidx.constraintlayout.widget.ConstraintLayout) bindings[4]
             , (androidx.fragment.app.FragmentContainerView) bindings[1]
             );
         setRootTag(root);

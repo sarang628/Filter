@@ -4,7 +4,6 @@ package com.sryang.screen_filter.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -17,28 +16,15 @@ import java.lang.Object;
 
 public abstract class FragmentFilterParentBinding extends ViewDataBinding {
   @NonNull
-  public final Button btnThisLoc;
-
-  @NonNull
-  public final Button button;
-
-  @NonNull
   public final ConstraintLayout clFilterParent;
-
-  @NonNull
-  public final ConstraintLayout constraintLayout2;
 
   @NonNull
   public final FragmentContainerView filterContainer1;
 
   protected FragmentFilterParentBinding(Object _bindingComponent, View _root, int _localFieldCount,
-      Button btnThisLoc, Button button, ConstraintLayout clFilterParent,
-      ConstraintLayout constraintLayout2, FragmentContainerView filterContainer1) {
+      ConstraintLayout clFilterParent, FragmentContainerView filterContainer1) {
     super(_bindingComponent, _root, _localFieldCount);
-    this.btnThisLoc = btnThisLoc;
-    this.button = button;
     this.clFilterParent = clFilterParent;
-    this.constraintLayout2 = constraintLayout2;
     this.filterContainer1 = filterContainer1;
   }
 

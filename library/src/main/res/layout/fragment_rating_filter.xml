@@ -8,7 +8,7 @@
         android:layout_height="match_parent"
         android:clickable="true"
         android:focusable="true"
-        tools:context=".RatingFilterFragment">
+        tools:context=".ui.RatingFilterFragment">
 
         <TextView
             android:id="@+id/tv_price"
