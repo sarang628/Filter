@@ -12,9 +12,6 @@ android {
         applicationId "com.sarang.screen_filter"
         minSdk rootProject.minSdk
         targetSdk rootProject.targetSdk
-        versionCode 1
-        versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
