@@ -7,10 +7,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.databinding.Bindable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
-import com.sryang.screen_filter.FilterViewModel;
 import com.sryang.screen_filter.R;
 import java.lang.Deprecated;
 import java.lang.Object;
@@ -28,9 +26,6 @@ public abstract class FragmentFilterBinding extends ViewDataBinding {
   @NonNull
   public final TextView tvRating;
 
-  @Bindable
-  protected FilterViewModel mVm;
-
   protected FragmentFilterBinding(Object _bindingComponent, View _root, int _localFieldCount,
       TextView tvDistance, TextView tvFood, TextView tvPrice, TextView tvRating) {
     super(_bindingComponent, _root, _localFieldCount);
@@ -38,13 +33,6 @@ public abstract class FragmentFilterBinding extends ViewDataBinding {
     this.tvFood = tvFood;
     this.tvPrice = tvPrice;
     this.tvRating = tvRating;
-  }
-
-  public abstract void setVm(@Nullable FilterViewModel vm);
-
-  @Nullable
-  public FilterViewModel getVm() {
-    return mVm;
   }
 
   @NonNull

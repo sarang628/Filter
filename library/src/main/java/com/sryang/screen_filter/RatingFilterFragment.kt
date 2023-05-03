@@ -17,8 +17,6 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class RatingFilterFragment : Fragment() {
-    private val viewModel: FilterViewModel by viewModels()
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -26,18 +24,9 @@ class RatingFilterFragment : Fragment() {
         val binding =
             FragmentRatingFilterBinding.inflate(layoutInflater, container, false)
         binding.lifecycleOwner = this
-        binding.vm = viewModel
 
         binding.tvPrice.setOnClickListener {
             requireActivity().onBackPressed()
-        }
-
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                viewModel.uiState.collect {
-                    binding.ratings = it.filter.ratings
-                }
-            }
         }
         return binding.root
     }

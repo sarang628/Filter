@@ -8,11 +8,9 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.databinding.Bindable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.FragmentContainerView;
-import com.sryang.screen_filter.FilterViewModel;
 import com.sryang.screen_filter.R;
 import java.lang.Deprecated;
 import java.lang.Object;
@@ -33,9 +31,6 @@ public abstract class FragmentFilterParentBinding extends ViewDataBinding {
   @NonNull
   public final FragmentContainerView filterContainer1;
 
-  @Bindable
-  protected FilterViewModel mFilterViewModel;
-
   protected FragmentFilterParentBinding(Object _bindingComponent, View _root, int _localFieldCount,
       Button btnThisLoc, Button button, ConstraintLayout clFilterParent,
       ConstraintLayout constraintLayout2, FragmentContainerView filterContainer1) {
@@ -45,13 +40,6 @@ public abstract class FragmentFilterParentBinding extends ViewDataBinding {
     this.clFilterParent = clFilterParent;
     this.constraintLayout2 = constraintLayout2;
     this.filterContainer1 = filterContainer1;
-  }
-
-  public abstract void setFilterViewModel(@Nullable FilterViewModel filterViewModel);
-
-  @Nullable
-  public FilterViewModel getFilterViewModel() {
-    return mFilterViewModel;
   }
 
   @NonNull

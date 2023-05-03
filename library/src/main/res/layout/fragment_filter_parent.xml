@@ -1,15 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
-
-    <data>
-
-        <variable
-            name="filterViewModel"
-            type="com.sryang.screen_filter.FilterViewModel" />
-
-    </data>
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_filter_parent"
@@ -34,7 +25,6 @@
             android:layout_height="35dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/shape_corner"
-            android:onClick="@{()->filterViewModel.searchFilterRestaurant()}"
             android:padding="0dp"
             android:text="재검색"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -48,7 +38,6 @@
             android:layout_width="80dp"
             android:layout_height="35dp"
             android:background="@drawable/shape_corner"
-            android:onClick="@{()->filterViewModel.searchBoundRestaurant()}"
             android:padding="0dp"
             android:text="이 지역 검색"
             android:textSize="12sp"
@@ -69,10 +58,6 @@
             app:layout_constraintStart_toEndOf="@+id/btn_this_loc"
             app:layout_constraintTop_toTopOf="@+id/btn_this_loc">
 
-            <include
-                layout="@layout/item_nation1"
-                app:name="@{filterViewModel.selected.name}"
-                app:res="@{filterViewModel.selected.res}" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

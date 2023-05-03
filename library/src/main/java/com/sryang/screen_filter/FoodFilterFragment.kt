@@ -16,7 +16,6 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class FoodFilterFragment : Fragment() {
-    private val viewModel: FilterViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -24,18 +23,9 @@ class FoodFilterFragment : Fragment() {
         val binding =
             FragmentFoodFilterBinding.inflate(layoutInflater, container, false)
         binding.lifecycleOwner = this
-        binding.vm = viewModel
 
         binding.tvFood.setOnClickListener {
             requireActivity().onBackPressed()
-        }
-
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                viewModel.uiState.collect {
-                    binding.selectedRestaurantType = it.filter.restaurantTypes
-                }
-            }
         }
 
         return binding.root

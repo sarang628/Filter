@@ -1,20 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-                                                       
-                                                   
-
-    
-
-                 
-                                  
-                                                              
-
-           
+                                                        
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_filter_parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" android:tag="layout/fragment_filter_parent_0" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools">
+        android:layout_height="wrap_content" android:tag="layout/fragment_filter_parent_0" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/filter_container1"
@@ -34,7 +25,6 @@
             android:layout_height="35dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/shape_corner"
-            android:tag="binding_1"                                          
             android:padding="0dp"
             android:text="재검색"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -48,7 +38,6 @@
             android:layout_width="80dp"
             android:layout_height="35dp"
             android:background="@drawable/shape_corner"
-            android:tag="binding_2"                                         
             android:padding="0dp"
             android:text="이 지역 검색"
             android:textSize="12sp"
@@ -67,12 +56,8 @@
             android:paddingRight="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/btn_this_loc"
-            app:layout_constraintTop_toTopOf="@+id/btn_this_loc" android:tag="binding_3">
+            app:layout_constraintTop_toTopOf="@+id/btn_this_loc">
 
-            <include
-                layout="@layout/item_nation1"
-                                                           
-                                                          />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

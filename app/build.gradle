@@ -6,12 +6,12 @@ plugins {
 }
 
 android {
-    compileSdkVersion rootProject.compileSdkVersion
+    compileSdk rootProject.compileSdk
 
     defaultConfig {
         applicationId "com.sarang.screen_filter"
-        minSdkVersion rootProject.minSdkVersion
-        targetSdkVersion rootProject.targetSdkVersion
+        minSdk rootProject.minSdk
+        targetSdk rootProject.targetSdk
         versionCode 1
         versionName "1.0"
 
@@ -39,41 +39,16 @@ android {
 }
 
 dependencies {
+    implementation "androidx.core:core-ktx:$ktxVersion"
+    implementation "com.google.android.material:material:$materialVersion"
 
-    implementation project(path: ':library')
-    implementation "com.github.sarang628:TorangCore:$coreVersion"
-    implementation "com.github.sarang628:TorangRepository:$torangRepositoryVersion"
-    implementation "com.github.sarang628:TravelMode:$travelModeVersion"
-
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.3.1'
-    implementation 'com.google.android.material:material:1.4.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-
-    /*---------------------------------------------------------------*
-    * NAVIGATION COMPONENT                                          *
-    *---------------------------------------------------------------*/
-
-    // Kotlin
-    implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.navigationVersion"
-    implementation "androidx.navigation:navigation-ui-ktx:$rootProject.navigationVersion"
-
-    // Feature module Support
-    implementation "androidx.navigation:navigation-dynamic-features-fragment:$rootProject.navigationVersion"
-
-    // Testing Navigation
-    androidTestImplementation "androidx.navigation:navigation-testing:$rootProject.navigationVersion"
-
-    // Jetpack Compose Integration
-    implementation "androidx.navigation:navigation-compose:1.0.0-alpha08"
-
-    //    /** HILT */
+    /** HILT */
     implementation "com.google.dagger:hilt-android:$hiltVersion"
     kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
     implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hiltViewModelVersion"
     kapt "androidx.hilt:hilt-compiler:$hiltViewModelVersion"
     annotationProcessor "androidx.hilt:hilt-compiler:$hiltViewModelVersion"
+
+    implementation "com.github.sarang628:Theme:$themeVersion"
+    implementation project(path: ':library')
 }

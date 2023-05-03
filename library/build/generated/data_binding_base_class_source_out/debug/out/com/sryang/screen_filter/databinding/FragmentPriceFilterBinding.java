@@ -7,11 +7,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.databinding.Bindable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
-import com.example.torang_core.data.model.Prices;
-import com.sryang.screen_filter.FilterViewModel;
 import com.sryang.screen_filter.R;
 import java.lang.Deprecated;
 import java.lang.Object;
@@ -35,12 +32,6 @@ public abstract class FragmentPriceFilterBinding extends ViewDataBinding {
   @NonNull
   public final TextView tvPrice;
 
-  @Bindable
-  protected FilterViewModel mVm;
-
-  @Bindable
-  protected Prices mPrice;
-
   protected FragmentPriceFilterBinding(Object _bindingComponent, View _root, int _localFieldCount,
       TextView textView10, TextView textView4, TextView textView5, TextView textView6,
       TextView textView9, TextView tvPrice) {
@@ -51,20 +42,6 @@ public abstract class FragmentPriceFilterBinding extends ViewDataBinding {
     this.textView6 = textView6;
     this.textView9 = textView9;
     this.tvPrice = tvPrice;
-  }
-
-  public abstract void setVm(@Nullable FilterViewModel vm);
-
-  @Nullable
-  public FilterViewModel getVm() {
-    return mVm;
-  }
-
-  public abstract void setPrice(@Nullable Prices price);
-
-  @Nullable
-  public Prices getPrice() {
-    return mPrice;
   }
 
   @NonNull

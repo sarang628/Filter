@@ -10,7 +10,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import com.example.torang_core.data.model.name
 import com.sryang.screen_filter.databinding.FragmentFilterBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -20,14 +19,12 @@ import kotlinx.coroutines.launch
  */
 @AndroidEntryPoint
 class FilterFragment : Fragment() {
-    private val viewModel: FilterViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         val binding = FragmentFilterBinding.inflate(layoutInflater, container, false)
         binding.lifecycleOwner = this
-        binding.vm = viewModel
 
         // 음식 필터 선택
         binding.tvFood.setOnClickListener {
@@ -53,14 +50,7 @@ class FilterFragment : Fragment() {
         }
 
         lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                viewModel.uiState.collect {
-                    binding.tvFood.text = it.filter.restaurantTypes.name
-                    binding.tvPrice.text = it.filter.prices.toName
-                    binding.tvRating.text = it.filter.ratings.name
-                    binding.tvDistance.text = it.filter.distances.toName
-                }
-            }
+
         }
 
         return binding.root

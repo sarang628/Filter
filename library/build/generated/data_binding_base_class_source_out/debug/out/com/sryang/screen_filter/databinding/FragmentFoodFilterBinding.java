@@ -7,15 +7,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.databinding.Bindable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
-import com.example.torang_core.data.model.RestaurantType;
-import com.sryang.screen_filter.FilterViewModel;
 import com.sryang.screen_filter.R;
 import java.lang.Deprecated;
 import java.lang.Object;
-import java.util.ArrayList;
 
 public abstract class FragmentFoodFilterBinding extends ViewDataBinding {
   @NonNull
@@ -36,12 +32,6 @@ public abstract class FragmentFoodFilterBinding extends ViewDataBinding {
   @NonNull
   public final TextView tvFood;
 
-  @Bindable
-  protected FilterViewModel mVm;
-
-  @Bindable
-  protected ArrayList<RestaurantType> mSelectedRestaurantType;
-
   protected FragmentFoodFilterBinding(Object _bindingComponent, View _root, int _localFieldCount,
       TextView textView10, TextView textView4, TextView textView5, TextView textView6,
       TextView textView9, TextView tvFood) {
@@ -52,21 +42,6 @@ public abstract class FragmentFoodFilterBinding extends ViewDataBinding {
     this.textView6 = textView6;
     this.textView9 = textView9;
     this.tvFood = tvFood;
-  }
-
-  public abstract void setVm(@Nullable FilterViewModel vm);
-
-  @Nullable
-  public FilterViewModel getVm() {
-    return mVm;
-  }
-
-  public abstract void setSelectedRestaurantType(
-      @Nullable ArrayList<RestaurantType> selectedRestaurantType);
-
-  @Nullable
-  public ArrayList<RestaurantType> getSelectedRestaurantType() {
-    return mSelectedRestaurantType;
   }
 
   @NonNull

@@ -7,15 +7,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.databinding.Bindable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
-import com.example.torang_core.data.model.Ratings;
-import com.sryang.screen_filter.FilterViewModel;
 import com.sryang.screen_filter.R;
 import java.lang.Deprecated;
 import java.lang.Object;
-import java.util.ArrayList;
 
 public abstract class FragmentRatingFilterBinding extends ViewDataBinding {
   @NonNull
@@ -36,12 +32,6 @@ public abstract class FragmentRatingFilterBinding extends ViewDataBinding {
   @NonNull
   public final TextView tvPrice;
 
-  @Bindable
-  protected FilterViewModel mVm;
-
-  @Bindable
-  protected ArrayList<Ratings> mRatings;
-
   protected FragmentRatingFilterBinding(Object _bindingComponent, View _root, int _localFieldCount,
       TextView textView10, TextView textView4, TextView textView5, TextView textView6,
       TextView textView9, TextView tvPrice) {
@@ -52,20 +42,6 @@ public abstract class FragmentRatingFilterBinding extends ViewDataBinding {
     this.textView6 = textView6;
     this.textView9 = textView9;
     this.tvPrice = tvPrice;
-  }
-
-  public abstract void setVm(@Nullable FilterViewModel vm);
-
-  @Nullable
-  public FilterViewModel getVm() {
-    return mVm;
-  }
-
-  public abstract void setRatings(@Nullable ArrayList<Ratings> ratings);
-
-  @Nullable
-  public ArrayList<Ratings> getRatings() {
-    return mRatings;
   }
 
   @NonNull

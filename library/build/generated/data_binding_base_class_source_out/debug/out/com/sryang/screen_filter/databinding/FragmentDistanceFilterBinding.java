@@ -7,11 +7,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.databinding.Bindable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
-import com.example.torang_core.data.model.Distances;
-import com.sryang.screen_filter.FilterViewModel;
 import com.sryang.screen_filter.R;
 import java.lang.Deprecated;
 import java.lang.Object;
@@ -35,12 +32,6 @@ public abstract class FragmentDistanceFilterBinding extends ViewDataBinding {
   @NonNull
   public final TextView tvDistance;
 
-  @Bindable
-  protected FilterViewModel mVm;
-
-  @Bindable
-  protected Distances mDistance;
-
   protected FragmentDistanceFilterBinding(Object _bindingComponent, View _root,
       int _localFieldCount, TextView textView, TextView textView11, TextView textView12,
       TextView textView2, TextView textView3, TextView tvDistance) {
@@ -51,20 +42,6 @@ public abstract class FragmentDistanceFilterBinding extends ViewDataBinding {
     this.textView2 = textView2;
     this.textView3 = textView3;
     this.tvDistance = tvDistance;
-  }
-
-  public abstract void setVm(@Nullable FilterViewModel vm);
-
-  @Nullable
-  public FilterViewModel getVm() {
-    return mVm;
-  }
-
-  public abstract void setDistance(@Nullable Distances distance);
-
-  @Nullable
-  public Distances getDistance() {
-    return mDistance;
   }
 
   @NonNull

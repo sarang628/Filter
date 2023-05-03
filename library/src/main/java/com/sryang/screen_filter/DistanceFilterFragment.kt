@@ -17,7 +17,6 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class DistanceFilterFragment : Fragment() {
-    private val viewModel: FilterViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,21 +24,6 @@ class DistanceFilterFragment : Fragment() {
     ): View {
         val binding =
             FragmentDistanceFilterBinding.inflate(layoutInflater, container, false)
-        binding.apply {
-            vm = viewModel
-            lifecycleOwner = viewLifecycleOwner
-            tvDistance.setOnClickListener {
-                requireActivity().onBackPressed()
-            }
-        }
-
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                viewModel.uiState.collect {
-                    binding.distance = it.filter.distances
-                }
-            }
-        }
         return binding.root
     }
 }

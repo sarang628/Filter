@@ -17,27 +17,15 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class PriceFilterFragment : Fragment() {
-    private val viewModel: FilterViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binging =
-            FragmentPriceFilterBinding.inflate(layoutInflater, container, false)
+        val binging = FragmentPriceFilterBinding.inflate(layoutInflater, container, false)
         binging.lifecycleOwner = viewLifecycleOwner
-        binging.vm = viewModel
 
         binging.tvPrice.setOnClickListener {
             requireActivity().onBackPressed()
-        }
-
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                viewModel.uiState.collect {
-                    //TODO
-                    binging.price = it.filter.prices
-                }
-            }
         }
 
         return binging.root
