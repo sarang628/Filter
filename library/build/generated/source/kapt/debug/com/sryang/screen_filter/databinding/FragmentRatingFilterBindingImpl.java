@@ -42,6 +42,7 @@ public class FragmentRatingFilterBindingImpl extends FragmentRatingFilterBinding
             , (android.widget.TextView) bindings[1]
             );
         this.mboundView0 = (androidx.constraintlayout.widget.ConstraintLayout) bindings[0];
+        this.mboundView0.setTag(null);
         setRootTag(root);
         // listeners
         invalidateAll();

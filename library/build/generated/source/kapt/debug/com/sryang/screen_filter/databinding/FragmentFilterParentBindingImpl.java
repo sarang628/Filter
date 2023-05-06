@@ -30,6 +30,7 @@ public class FragmentFilterParentBindingImpl extends FragmentFilterParentBinding
             , (androidx.constraintlayout.widget.ConstraintLayout) bindings[0]
             , (androidx.fragment.app.FragmentContainerView) bindings[1]
             );
+        this.clFilterParent.setTag(null);
         setRootTag(root);
         // listeners
         invalidateAll();

@@ -38,6 +38,7 @@ public class FragmentFilterBindingImpl extends FragmentFilterBinding  {
             , (android.widget.TextView) bindings[2]
             );
         this.mboundView0 = (androidx.constraintlayout.widget.ConstraintLayout) bindings[0];
+        this.mboundView0.setTag(null);
         setRootTag(root);
         // listeners
         invalidateAll();
