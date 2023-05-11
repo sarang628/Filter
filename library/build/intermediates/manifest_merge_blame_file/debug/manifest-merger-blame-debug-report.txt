@@ -3,6 +3,6 @@
 3    package="com.sryang.screen_filter" >
 4
 5    <uses-sdk android:minSdkVersion="24" />
-5-->/Users/sarangyang/AndroidStudioProjects/TorangProject/Filter/library/src/main/AndroidManifest.xml
+5-->/Users/sarangyang/AndroidStudioProjects/Filter/library/src/main/AndroidManifest.xml
 6
 7</manifest>
