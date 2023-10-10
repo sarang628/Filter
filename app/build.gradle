@@ -15,8 +15,6 @@ android {
         targetSdk rootProject.targetSdk
     }
     buildFeatures {
-        dataBinding true
-        viewBinding true
         compose true
     }
 
@@ -49,8 +47,8 @@ dependencies {
     //JetNews Main 따라하기
     implementation 'androidx.compose.material3:material3'
     implementation "androidx.compose.material3:material3-window-size-class"
-//    implementation "androidx.navigation:navigation-compose"
-    implementation 'androidx.activity:activity-compose:1.7.1'
+    def nav_version = "2.5.3"
+    implementation "androidx.navigation:navigation-compose:$nav_version"
 
     implementation project(path: ':library')
     implementation "com.github.sarang628:Theme:$themeVersion"
