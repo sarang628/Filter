@@ -23,6 +23,8 @@ class FilterViewModel @Inject constructor() : ViewModel() {
     )
     val uiState = _uiState.asStateFlow()
 
+    private val selectedFilter = _uiState
+
     fun setType(s: String) {
         viewModelScope.launch {
             _uiState.emit(
@@ -65,6 +67,16 @@ class FilterViewModel @Inject constructor() : ViewModel() {
                     rating = if (uiState.value.rating.contains(rating))
                         ArrayList(uiState.value.rating.stream().filter { it != rating }.toList())
                     else ArrayList(uiState.value.rating).apply { add(rating) }
+                )
+            )
+        }
+    }
+
+    fun setDistance(distance: String) {
+        viewModelScope.launch {
+            _uiState.emit(
+                uiState.value.copy(
+                    distance = if (uiState.value.distance == distance) "" else distance
                 )
             )
         }

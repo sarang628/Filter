@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Text
@@ -24,7 +25,7 @@ import androidx.compose.ui.unit.dp
 import com.sryang.screen_filter.R
 
 @Composable
-fun Filter(filterViewModel: FilterViewModel) {
+fun Filter(filterViewModel: FilterViewModel, onFilter: (FilterUiState) -> Unit) {
     val uiState: FilterUiState by filterViewModel.uiState.collectAsState()
     Column(Modifier.padding(start = 8.dp, end = 8.dp)) {
         Row(horizontalArrangement = Arrangement.SpaceEvenly, modifier = Modifier.fillMaxWidth()) {
@@ -49,8 +50,15 @@ fun Filter(filterViewModel: FilterViewModel) {
         if (uiState.type == "Price") PriceFilter(
             price = uiState.price,
             onPrice = { filterViewModel.setPrice(it) })
-        if (uiState.type == "Rating") RatingFilter(rating = uiState.rating, onRating = {filterViewModel.setRating(it)})
-        if (uiState.type == "Distance") DistanceFilter()
+        if (uiState.type == "Rating") RatingFilter(
+            rating = uiState.rating,
+            onRating = { filterViewModel.setRating(it) })
+        if (uiState.type == "Distance") DistanceFilter(distance = uiState.distance,
+            onDistance = { filterViewModel.setDistance(it) })
+
+        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
+            FilterButton(text = "필터적용", onClick = { onFilter.invoke(uiState) })
+        }
     }
 
 }
