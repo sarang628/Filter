@@ -25,7 +25,7 @@ import com.sryang.screen_filter.R
 
 @Composable
 fun Filter(filterViewModel: FilterViewModel) {
-    val uiState : FilterUiState by filterViewModel.uiState.collectAsState()
+    val uiState: FilterUiState by filterViewModel.uiState.collectAsState()
     Column(Modifier.padding(start = 8.dp, end = 8.dp)) {
         Row(horizontalArrangement = Arrangement.SpaceEvenly, modifier = Modifier.fillMaxWidth()) {
             FilterButton(text = "FoodType", onClick = {
@@ -44,9 +44,12 @@ fun Filter(filterViewModel: FilterViewModel) {
                 filterViewModel.setType("Distance")
             })
         }
-        if (uiState.type == "FoodType") FoodFilter()
-        if (uiState.type == "Price") PriceFilter()
-        if (uiState.type == "Rating") RatingFilter()
+        if (uiState.type == "FoodType") FoodFilter(foodType = uiState.foodType,
+            onFoodType = { filterViewModel.setFoodType(it) })
+        if (uiState.type == "Price") PriceFilter(
+            price = uiState.price,
+            onPrice = { filterViewModel.setPrice(it) })
+        if (uiState.type == "Rating") RatingFilter(rating = uiState.rating, onRating = {filterViewModel.setRating(it)})
         if (uiState.type == "Distance") DistanceFilter()
     }
 

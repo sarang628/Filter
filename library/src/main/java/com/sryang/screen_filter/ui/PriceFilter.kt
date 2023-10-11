@@ -16,50 +16,28 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
-@Preview
 @Composable
-fun PriceFilter() {
-    val price = remember { mutableStateListOf<String>() }
+fun PriceFilter(price: List<String>, onPrice: (String) -> Unit) {
     Column {
         Row(horizontalArrangement = Arrangement.SpaceEvenly, modifier = Modifier.fillMaxWidth()) {
             FilterButton(text = "$", modifier = Modifier.weight(1f), onClick = {
-                if (price.contains("$")) {
-                    price.remove("$")
-                } else {
-                    price.add("$")
-                }
+                onPrice.invoke("$")
             }, isSelected = price.contains("$"))
             Spacer(modifier = Modifier.width(3.dp))
             FilterButton(text = "$$", modifier = Modifier.weight(1f), onClick = {
-                if (price.contains("$$")) {
-                    price.remove("$$")
-                } else {
-                    price.add("$$")
-                }
+                onPrice.invoke("$$")
             }, isSelected = price.contains("$$"))
             Spacer(modifier = Modifier.width(3.dp))
             FilterButton(text = "$$$", modifier = Modifier.weight(1f), onClick = {
-                if (price.contains("$$$")) {
-                    price.remove("$$$")
-                } else {
-                    price.add("$$$")
-                }
+                onPrice.invoke("$$$")
             }, isSelected = price.contains("$$$"))
             Spacer(modifier = Modifier.width(3.dp))
             FilterButton(text = "$$$$", modifier = Modifier.weight(1f), onClick = {
-                if (price.contains("$$$$")) {
-                    price.remove("$$$$")
-                } else {
-                    price.add("$$$$")
-                }
+                onPrice.invoke("$$$$")
             }, isSelected = price.contains("$$$$"))
             Spacer(modifier = Modifier.width(3.dp))
             FilterButton(text = "$$$$$", modifier = Modifier.weight(1f), onClick = {
-                if (price.contains("$$$$$")) {
-                    price.remove("$$$$$")
-                } else {
-                    price.add("$$$$$")
-                }
+                onPrice.invoke("$$$$$")
             }, isSelected = price.contains("$$$$$"))
 
         }

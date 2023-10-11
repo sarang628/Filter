@@ -16,68 +16,38 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
-@Preview
 @Composable
-fun FoodFilter() {
-    val foodType = remember { mutableStateListOf<String>() }
+fun FoodFilter(foodType: List<String>, onFoodType: (String) -> Unit) {
     Column {
         Row(horizontalArrangement = Arrangement.SpaceEvenly, modifier = Modifier.fillMaxWidth()) {
             FilterButton(text = "Korean", modifier = Modifier.weight(1f), onClick = {
-                if (foodType.contains("Korean")) {
-                    foodType.remove("Korean")
-                } else {
-                    foodType.add("Korean")
-                }
+                onFoodType.invoke("Korean")
             }, isSelected = foodType.contains("Korean"))
             Spacer(modifier = Modifier.width(3.dp))
             FilterButton(text = "Japanese", modifier = Modifier.weight(1f), onClick = {
-                if (foodType.contains("Japanese")) {
-                    foodType.remove("Japanese")
-                } else {
-                    foodType.add("Japanese")
-                }
+                onFoodType.invoke("Japanese")
             }, isSelected = foodType.contains("Japanese"))
             Spacer(modifier = Modifier.width(3.dp))
             FilterButton(text = "Chinese", modifier = Modifier.weight(1f), onClick = {
-                if (foodType.contains("Chinese")) {
-                    foodType.remove("Chinese")
-                } else {
-                    foodType.add("Chinese")
-                }
+                onFoodType.invoke("Chinese")
             }, isSelected = foodType.contains("Chinese"))
             Spacer(modifier = Modifier.width(3.dp))
             FilterButton(text = "American", modifier = Modifier.weight(1f), onClick = {
-                if (foodType.contains("American")) {
-                    foodType.remove("American")
-                } else {
-                    foodType.add("American")
-                }
+                onFoodType.invoke("American")
             }, isSelected = foodType.contains("American"))
             Spacer(modifier = Modifier.width(3.dp))
 
         }
         Row(horizontalArrangement = Arrangement.SpaceEvenly, modifier = Modifier.fillMaxWidth()) {
             FilterButton(text = "Vietnam", modifier = Modifier.weight(1f), onClick = {
-                if (foodType.contains("Vietnam")) {
-                    foodType.remove("Vietnam")
-                } else {
-                    foodType.add("Vietnam")
-                }
+                onFoodType.invoke("Vietnam")
             }, isSelected = foodType.contains("Vietnam"))
             Spacer(modifier = Modifier.width(3.dp))
             FilterButton(text = "Italian", modifier = Modifier.weight(1f), onClick = {
-                if (foodType.contains("Italian")) {
-                    foodType.remove("Italian")
-                } else {
-                    foodType.add("Italian")
-                }
+                onFoodType.invoke("Italian")
             }, isSelected = foodType.contains("Italian"))
             FilterButton(text = "Spanish", modifier = Modifier.weight(1f), onClick = {
-                if (foodType.contains("Spanish")) {
-                    foodType.remove("Spanish")
-                } else {
-                    foodType.add("Spanish")
-                }
+                onFoodType.invoke("Spanish")
             }, isSelected = foodType.contains("Spanish"))
             Spacer(modifier = Modifier.width(3.dp))
         }
