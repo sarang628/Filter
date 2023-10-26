@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.dp
 import com.sryang.screen_filter.R
 
 @Composable
-fun Filter(filterViewModel: FilterViewModel, onFilter: (FilterUiState) -> Unit, visible: Boolean) {
+fun FilterScreen(filterViewModel: FilterViewModel, onFilter: (FilterUiState) -> Unit, visible: Boolean) {
     val uiState: FilterUiState by filterViewModel.uiState.collectAsState()
     val density = LocalDensity.current
     AnimatedVisibility(
