@@ -87,14 +87,12 @@ fun FilterButton(
     OutlinedButton(
         modifier = modifier,
         onClick = onClick,
-        border = BorderStroke(1.dp, colorResource(id = R.color.colorPrimary)),
         colors = ButtonDefaults.buttonColors(
             backgroundColor = if (!isSelected) Color.White else Color.Green
         )
     ) {
         Text(
             text = text,
-            color = colorResource(id = R.color.colorPrimary),
             maxLines = 1,
             modifier = Modifier.basicMarquee()
         )
