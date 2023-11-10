@@ -18,21 +18,21 @@ fun DistanceFilter(distance: String, onDistance: (String) -> Unit) {
                 onDistance.invoke("100m")
             }, isSelected = distance == "100m")
             Spacer(modifier = Modifier.width(3.dp))
-            FilterButton(text = "200m", modifier = Modifier.weight(1f), onClick = {
-                onDistance.invoke("200m")
-            }, isSelected = distance == "200m")
-            Spacer(modifier = Modifier.width(3.dp))
             FilterButton(text = "300m", modifier = Modifier.weight(1f), onClick = {
                 onDistance.invoke("300m")
             }, isSelected = distance == "300m")
+            Spacer(modifier = Modifier.width(3.dp))
+            FilterButton(text = "500m", modifier = Modifier.weight(1f), onClick = {
+                onDistance.invoke("500m")
+            }, isSelected = distance == "500m")
             Spacer(modifier = Modifier.width(3.dp))
             FilterButton(text = "1km", modifier = Modifier.weight(1f), onClick = {
                 onDistance.invoke("1km")
             }, isSelected = distance == "1km")
             Spacer(modifier = Modifier.width(3.dp))
-            FilterButton(text = "2km", modifier = Modifier.weight(1f), onClick = {
-                onDistance.invoke("2km")
-            }, isSelected = distance == "2km")
+            FilterButton(text = "3km", modifier = Modifier.weight(1f), onClick = {
+                onDistance.invoke("3km")
+            }, isSelected = distance == "3km")
 
         }
     }
