@@ -3,10 +3,10 @@ package com.sryang.screen_filter.ui
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -19,16 +19,20 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.sryang.screen_filter.R
 
 @Composable
-fun FilterScreen(filterViewModel: FilterViewModel, onFilter: (FilterUiState) -> Unit, visible: Boolean) {
+fun FilterScreen(
+    filterViewModel: FilterViewModel,
+    onFilter: (FilterUiState) -> Unit,
+    onThisArea: (FilterUiState) -> Unit,
+    visible: Boolean
+) {
     val uiState: FilterUiState by filterViewModel.uiState.collectAsState()
     val density = LocalDensity.current
     AnimatedVisibility(
@@ -41,21 +45,27 @@ fun FilterScreen(filterViewModel: FilterViewModel, onFilter: (FilterUiState) -> 
                 horizontalArrangement = Arrangement.SpaceEvenly,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                FilterButton(text = "FoodType", onClick = {
-                    filterViewModel.setType("FoodType")
-                })
+                FilterButton(
+                    modifier = Modifier.weight(1f),
+                    text = uiState.footTypeLabel,
+                    onClick = {
+                        filterViewModel.setType("FoodType")
+                    })
                 Spacer(modifier = Modifier.width(3.dp))
-                FilterButton(text = "Price", onClick = {
+                FilterButton(modifier = Modifier.weight(1f), text = uiState.priceLabel, onClick = {
                     filterViewModel.setType("Price")
                 })
                 Spacer(modifier = Modifier.width(3.dp))
-                FilterButton(text = "Rating", onClick = {
+                FilterButton(modifier = Modifier.weight(1f), text = uiState.ratingLabel, onClick = {
                     filterViewModel.setType("Rating")
                 })
                 Spacer(modifier = Modifier.width(3.dp))
-                FilterButton(text = "Distance", onClick = {
-                    filterViewModel.setType("Distance")
-                })
+                FilterButton(
+                    modifier = Modifier.weight(1f),
+                    text = uiState.distanceLabel,
+                    onClick = {
+                        filterViewModel.setType("Distance")
+                    })
             }
             if (uiState.type == "FoodType") FoodFilter(foodType = uiState.foodType,
                 onFoodType = { filterViewModel.setFoodType(it) })
@@ -68,8 +78,15 @@ fun FilterScreen(filterViewModel: FilterViewModel, onFilter: (FilterUiState) -> 
             if (uiState.type == "Distance") DistanceFilter(distance = uiState.distance,
                 onDistance = { filterViewModel.setDistance(it) })
 
-            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
-                FilterButton(text = "필터적용", onClick = { onFilter.invoke(uiState) })
+            Box(Modifier.fillMaxWidth()) {
+                FilterButton(
+                    modifier = Modifier.align(Alignment.Center),
+                    text = "이 지역 검색",
+                    onClick = { onThisArea.invoke(uiState) })
+                FilterButton(
+                    modifier = Modifier.align(Alignment.CenterEnd),
+                    text = "필터적용",
+                    onClick = { onFilter.invoke(uiState) })
             }
         }
     }
@@ -103,4 +120,14 @@ fun FilterButton(
 @Composable
 fun PreviewFilterButton() {
     FilterButton(text = "ds", onClick = {})
+}
+
+@Preview
+@Composable
+fun PreviewFilterScreen() {
+    FilterScreen(
+        filterViewModel = FilterViewModel(),
+        onFilter = {},
+        visible = true,
+        onThisArea = {})
 }

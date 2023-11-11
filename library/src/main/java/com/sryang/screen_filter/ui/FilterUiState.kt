@@ -1,5 +1,7 @@
 package com.sryang.screen_filter.ui
 
+import android.text.TextUtils
+
 data class FilterUiState(
     val type: String,
     val foodType: List<String>,
@@ -7,3 +9,23 @@ data class FilterUiState(
     val rating: List<String>,
     val distance: String
 )
+
+val FilterUiState.distanceLabel: String
+    get() {
+        return if (distance.isEmpty()) "Distance" else distance
+    }
+
+val FilterUiState.ratingLabel: String
+    get() {
+        return if (rating.isEmpty()) "Rating" else TextUtils.join(",", rating)
+    }
+
+val FilterUiState.priceLabel: String
+    get() {
+        return if (price.isEmpty()) "Price" else TextUtils.join(",", price)
+    }
+
+val FilterUiState.footTypeLabel: String
+    get() {
+        return if (foodType.isEmpty()) "FoodType" else TextUtils.join(",", foodType)
+    }
