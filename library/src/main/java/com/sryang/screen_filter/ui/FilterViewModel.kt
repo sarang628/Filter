@@ -2,12 +2,13 @@ package com.sryang.screen_filter.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sryang.screen_filter.data.City
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.streams.toList
 
 
 @HiltViewModel
@@ -62,23 +63,37 @@ class FilterViewModel @Inject constructor() : ViewModel() {
 
     fun setRating(rating: String) {
         viewModelScope.launch {
-            _uiState.emit(
-                uiState.value.copy(
+            _uiState.update {
+                it.copy(
                     rating = if (uiState.value.rating.contains(rating))
                         ArrayList(uiState.value.rating.stream().filter { it != rating }.toList())
                     else ArrayList(uiState.value.rating).apply { add(rating) }
                 )
-            )
+            }
         }
     }
 
     fun setDistance(distance: String) {
         viewModelScope.launch {
-            _uiState.emit(
-                uiState.value.copy(
+            _uiState.update {
+                it.copy(
                     distance = if (uiState.value.distance == distance) "" else distance
                 )
-            )
+            }
+        }
+    }
+
+    fun onNation(city: City? = null) {
+        viewModelScope.launch {
+            if (city == null) {
+                _uiState.update {
+                    it.copy(showNationFilter = !it.showNationFilter)
+                }
+            } else {
+                _uiState.update {
+                    it.copy(city = city)
+                }
+            }
         }
     }
 }

@@ -1,13 +1,16 @@
 package com.sryang.screen_filter.ui
 
 import android.text.TextUtils
+import com.sryang.screen_filter.data.City
 
 data class FilterUiState(
     val type: String,
     val foodType: List<String>,
     val price: List<String>,
     val rating: List<String>,
-    val distance: String
+    val distance: String,
+    val showNationFilter: Boolean = false,
+    val city: City = City.CEBU
 )
 
 val FilterUiState.distanceLabel: String

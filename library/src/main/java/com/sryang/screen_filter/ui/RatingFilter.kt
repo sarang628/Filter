@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.sryang.screen_filter.compose.FilterButton
 
 @Composable
 fun RatingFilter(rating: List<String>, onRating: (String) -> Unit) {
