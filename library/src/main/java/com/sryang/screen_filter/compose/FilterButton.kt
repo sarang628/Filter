@@ -58,5 +58,11 @@ fun FilterButton(
 @Preview
 @Composable
 fun PreviewFilterButton() {
-    FilterButton(text = "cebu", onClick = {}, leftImage = City.CEBU)
+    FilterButton(text = "paris", onClick = {}, leftImage = City.PARIS)
+}
+
+@Preview
+@Composable
+fun PreviewFilterButton1() {
+    FilterButton(text = "Restaurant", onClick = {})
 }

@@ -26,11 +26,11 @@ import com.sryang.screen_filter.data.toName
 
 @Composable
 fun FilterScreen(
-    filterViewModel: FilterViewModel,
-    onFilter: (FilterUiState) -> Unit,
-    onThisArea: (FilterUiState) -> Unit,
-    visible: Boolean,
-    onNation: (City) -> Unit
+    filterViewModel: FilterViewModel,       // filter 뷰모델
+    onFilter: (FilterUiState) -> Unit,      // 필터 검색 클릭 이벤트
+    onThisArea: (FilterUiState) -> Unit,    // 이 지역 검색 클릭 이벤트
+    visible: Boolean,                       // 필터 표시 여부
+    onNation: (City) -> Unit                // 도시 클릭 이벤트
 ) {
     val uiState: FilterUiState by filterViewModel.uiState.collectAsState()
     val density = LocalDensity.current
