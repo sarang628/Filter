@@ -1,5 +1,6 @@
 package com.sryang.screen_filter.compose
 
+import TorangAsyncImage
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.basicMarquee
@@ -19,7 +20,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sryang.screen_filter.data.City
-import com.sryang.screen_filter.data.toResource
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -38,9 +38,8 @@ fun FilterButton(
         )
     ) {
         leftImage?.let {
-            Image(
-                painter = painterResource(id = leftImage.toResource()),
-                contentDescription = "",
+            TorangAsyncImage(
+                model = it.url,
                 Modifier
                     .clip(CircleShape)
                     .size(20.dp)
@@ -55,10 +54,11 @@ fun FilterButton(
         )
     }
 }
+
 @Preview
 @Composable
 fun PreviewFilterButton() {
-    FilterButton(text = "paris", onClick = {}, leftImage = City.PARIS)
+    FilterButton(text = "paris", onClick = {}, leftImage = null)
 }
 
 @Preview

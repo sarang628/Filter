@@ -10,7 +10,7 @@ data class FilterUiState(
     val rating: List<String>,
     val distance: String,
     val showNationFilter: Boolean = false,
-    val city: City = City.CEBU
+    val city: City = City(0.0, 0.0, 0f, "city", url = "")
 )
 
 val FilterUiState.distanceLabel: String

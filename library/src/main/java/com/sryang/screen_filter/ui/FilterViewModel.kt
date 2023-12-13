@@ -3,6 +3,7 @@ package com.sryang.screen_filter.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sryang.screen_filter.data.City
+import com.sryang.screen_filter.usecase.GetCitiesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -12,7 +13,9 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class FilterViewModel @Inject constructor() : ViewModel() {
+class FilterViewModel @Inject constructor(
+    getCitiesUseCase: GetCitiesUseCase
+) : ViewModel() {
     private val _uiState = MutableStateFlow(
         FilterUiState(
             type = "",
@@ -23,6 +26,21 @@ class FilterViewModel @Inject constructor() : ViewModel() {
         )
     )
     val uiState = _uiState.asStateFlow()
+    private val _cities = MutableStateFlow<List<City>>(arrayListOf())
+    val cities = _cities.asStateFlow()
+
+    init {
+        viewModelScope.launch {
+            try {
+                _cities.update {
+                    getCitiesUseCase.invoke()
+                }
+            } catch (e: Exception) {
+
+            }
+        }
+
+    }
 
     private val selectedFilter = _uiState
 

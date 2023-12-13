@@ -17,12 +17,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.sryang.screen_filter.compose.FilterButton
 import com.sryang.screen_filter.compose.NationFilter
 import com.sryang.screen_filter.data.City
-import com.sryang.screen_filter.data.toName
 
 @Composable
 fun FilterScreen(
@@ -34,6 +32,7 @@ fun FilterScreen(
 ) {
     val uiState: FilterUiState by filterViewModel.uiState.collectAsState()
     val density = LocalDensity.current
+    val cities by filterViewModel.cities.collectAsState()
     AnimatedVisibility(
         visible = visible,
         enter = slideInVertically { with(density) { -100.dp.roundToPx() } },
@@ -80,7 +79,7 @@ fun FilterScreen(
             Box(Modifier.fillMaxWidth()) {
                 FilterButton(
                     leftImage = uiState.city,
-                    text = uiState.city.toName(),
+                    text = uiState.city.name,
                     onClick = { filterViewModel.onNation() })
                 FilterButton(
                     modifier = Modifier.align(Alignment.Center),
@@ -95,19 +94,8 @@ fun FilterScreen(
             if (uiState.showNationFilter) NationFilter(onNation = {
                 filterViewModel.onNation(it)
                 onNation.invoke(it)
-            })
+            }, list = cities)
         }
     }
 }
 
-
-@Preview
-@Composable
-fun PreviewFilterScreen() {
-    FilterScreen(
-        filterViewModel = FilterViewModel(),
-        onFilter = {},
-        visible = true,
-        onThisArea = {},
-        onNation = {})
-}
