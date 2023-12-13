@@ -27,5 +27,10 @@ fun NationFilter(onNation: (City) -> Unit) {
                 onNation.invoke(City.TEL_AVIV)
             }, isSelected = false, leftImage = City.TEL_AVIV)
         }
+        Row(horizontalArrangement = Arrangement.SpaceEvenly, modifier = Modifier.fillMaxWidth()) {
+            FilterButton(text = "bangkok", modifier = Modifier.weight(1f), onClick = {
+                onNation.invoke(City.BANGKOK)
+            }, isSelected = false, City.BANGKOK)
+        }
     }
 }
