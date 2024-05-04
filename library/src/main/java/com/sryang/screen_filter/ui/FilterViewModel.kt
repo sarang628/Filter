@@ -109,7 +109,7 @@ class FilterViewModel @Inject constructor(
                 }
             } else {
                 _uiState.update {
-                    it.copy(city = city)
+                    it.copy(city = city, showNationFilter = false)
                 }
             }
         }
