@@ -1,8 +1,6 @@
 package com.sryang.screen_filter.compose
 
-import TorangAsyncImage
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
@@ -16,8 +14,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.sryang.screen_filter.data.City
 
@@ -28,7 +27,14 @@ fun FilterButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
     isSelected: Boolean = false,
-    leftImage: City? = null
+    leftImage: City? = null,
+    image: (@Composable (
+        Modifier,
+        String,
+        Dp?,
+        Dp?,
+        ContentScale?,
+    ) -> Unit)? = null,
 ) {
     OutlinedButton(
         modifier = modifier,
@@ -38,11 +44,11 @@ fun FilterButton(
         )
     ) {
         leftImage?.let {
-            TorangAsyncImage(
-                model = it.url,
+            image?.invoke(
                 Modifier
                     .clip(CircleShape)
-                    .size(20.dp)
+                    .size(20.dp),
+                it.url, 10.dp, 10.dp, null
             )
             Spacer(modifier = Modifier.width(5.dp))
         }

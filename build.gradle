@@ -21,5 +21,4 @@ ext {
     nav_version = '2.5.3'
 
     themeVersion = '28a1702347'
-    commonImageLoaderVersion = '9ec5b04dfa'
 }

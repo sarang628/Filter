@@ -16,7 +16,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.sryang.screen_filter.compose.FilterButton
 import com.sryang.screen_filter.compose.NationFilter
@@ -28,7 +30,14 @@ fun FilterScreen(
     onFilter: (FilterUiState) -> Unit,      // 필터 검색 클릭 이벤트
     onThisArea: (FilterUiState) -> Unit,    // 이 지역 검색 클릭 이벤트
     visible: Boolean,                       // 필터 표시 여부
-    onNation: (City) -> Unit                // 도시 클릭 이벤트
+    onNation: (City) -> Unit,                // 도시 클릭 이벤트
+    image: (@Composable (
+        Modifier,
+        String,
+        Dp?,
+        Dp?,
+        ContentScale?,
+    ) -> Unit)? = null,
 ) {
     val uiState: FilterUiState by filterViewModel.uiState.collectAsState()
     val density = LocalDensity.current
@@ -91,10 +100,13 @@ fun FilterScreen(
                     onClick = { onFilter.invoke(uiState) })
             }
 
-            if (uiState.showNationFilter) NationFilter(onNation = {
-                filterViewModel.onNation(it)
-                onNation.invoke(it)
-            }, list = cities)
+            if (uiState.showNationFilter) NationFilter(
+                onNation = {
+                    filterViewModel.onNation(it)
+                    onNation.invoke(it)
+                }, list = cities,
+                image = image
+            )
         }
     }
 }
