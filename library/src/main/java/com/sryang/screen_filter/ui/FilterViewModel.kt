@@ -1,5 +1,6 @@
 package com.sryang.screen_filter.ui
 
+import androidx.compose.runtime.key
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sryang.screen_filter.data.City
@@ -14,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FilterViewModel @Inject constructor(
-    getCitiesUseCase: GetCitiesUseCase
+    getCitiesUseCase: GetCitiesUseCase,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(
         FilterUiState(
@@ -112,6 +113,12 @@ class FilterViewModel @Inject constructor(
                     it.copy(city = city, showNationFilter = false)
                 }
             }
+        }
+    }
+
+    fun setQuery(keyword: String) {
+        _uiState.update {
+            it.copy(keyword = keyword)
         }
     }
 }

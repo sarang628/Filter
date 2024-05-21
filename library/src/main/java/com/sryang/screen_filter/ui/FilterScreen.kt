@@ -22,11 +22,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -42,6 +46,7 @@ fun FilterScreen(
     onThisArea: (FilterUiState) -> Unit,    // 이 지역 검색 클릭 이벤트
     visible: Boolean,                       // 필터 표시 여부
     onNation: (City) -> Unit,                // 도시 클릭 이벤트
+    onSearch: (FilterUiState) -> Unit,
     image: (@Composable (
         Modifier,
         String,
@@ -72,6 +77,8 @@ fun FilterScreen(
             filterViewModel.onNation(it)
             onNation.invoke(it)
         },
+        onSearch = { onSearch.invoke(uiState) },
+        onQueryChange = { filterViewModel.setQuery(it) },
         image = image
     )
 
@@ -95,6 +102,8 @@ private fun _FilterScreen(
     onFilterRating: (String) -> Unit,
     onFilterDistance: (String) -> Unit,
     onFilterNation: (City) -> Unit,
+    onSearch: () -> Unit,
+    onQueryChange: (String) -> Unit,
     image: (@Composable (
         Modifier,
         String,
@@ -104,6 +113,7 @@ private fun _FilterScreen(
     ) -> Unit)? = null,
 ) {
     val density = LocalDensity.current
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     AnimatedVisibility(
         visible = visible,
@@ -120,12 +130,15 @@ private fun _FilterScreen(
                     .padding(end = 8.dp, top = 8.dp, bottom = 8.dp)
             ) {
                 SearchBar(
-                    query = "",
-                    onQueryChange = {},
+                    query = uiState.keyword,
+                    onQueryChange = onQueryChange,
                     placeholder = {
                         Text("search")
                     },
-                    onSearch = {},
+                    onSearch = {
+                        keyboardController?.hide()
+                        onSearch.invoke()
+                               },
                     active = false,
                     onActiveChange = {},
                     leadingIcon = {
@@ -219,7 +232,7 @@ private fun _FilterScreen(
 @Preview
 @Composable
 fun FilterScreenPreview() {
-    _FilterScreen(
+    _FilterScreen(/*Preview*/
         uiState = FilterUiState(
             type = "",
             foodType = listOf(),
@@ -233,6 +246,8 @@ fun FilterScreenPreview() {
         onNation = {}, onThisArea = {}, onFilterFoodType = {},
         onFilterPrice = {}, onFilterRating = {}, onFilterDistance = {},
         onFoodType = {}, onPrice = {}, onRating = {}, onDistance = {},
-        onFilterNation = {}
+        onFilterNation = {},
+        onSearch = {},
+        onQueryChange = {}
     )
 }
