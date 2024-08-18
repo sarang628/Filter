@@ -2,16 +2,21 @@ package com.sryang.screen_filter.ui
 
 import android.text.TextUtils
 import com.sryang.screen_filter.data.City
+import com.sryang.screen_filter.data.Nation
 
 data class FilterUiState(
-    val type: String,
-    val foodType: List<String>,
-    val price: List<String>,
-    val rating: List<String>,
-    val distance: String,
-    val showNationFilter: Boolean = false,
-    val keyword : String = "",
-    val city: City = City(0.0, 0.0, 0f, "city", url = "")
+    val type: String = "",
+    val foodType: List<String> = arrayListOf(),
+    val price: List<String> = arrayListOf(),
+    val rating: List<String> = arrayListOf(),
+    val distance: String = "",
+    val showCityFilter: Boolean = false,
+    val keyword: String = "",
+    val city: City = City(0.0, 0.0, 0f, "city", url = ""),
+    val nation: Nation = Nation(0, 0.0, 0.0, 0f, "city", url = ""),
+    val cities: List<City> = arrayListOf(),
+    val filteredCities: List<City> = arrayListOf(),
+    val nations: List<Nation> = arrayListOf(),
 )
 
 val FilterUiState.distanceLabel: String
