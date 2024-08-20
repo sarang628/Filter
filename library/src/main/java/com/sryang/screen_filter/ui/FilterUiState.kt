@@ -12,16 +12,21 @@ data class FilterUiState(
     val distance: String = "",
     val showCityFilter: Boolean = false,
     val keyword: String = "",
-    val city: City = City(0.0, 0.0, 0f, "city", url = ""),
-    val nation: Nation = Nation(0, 0.0, 0.0, 0f, "city", url = ""),
+    val selectedCity: City? = null,
+    val selectedNation: Nation? = null,
     val cities: List<City> = arrayListOf(),
     val filteredCities: List<City> = arrayListOf(),
     val nations: List<Nation> = arrayListOf(),
 )
 
+val FilterUiState.selectedNationOrCityName: String
+    get() {
+        return selectedCity?.name ?: selectedNation?.name ?: "place"
+    }
+
 val FilterUiState.distanceLabel: String
     get() {
-        return if (distance.isEmpty()) "Distance" else distance
+        return distance.ifEmpty { "Distance" }
     }
 
 val FilterUiState.ratingLabel: String

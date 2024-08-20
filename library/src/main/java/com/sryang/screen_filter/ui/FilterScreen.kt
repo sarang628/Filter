@@ -28,7 +28,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -174,7 +173,7 @@ private fun Filter(
 
             Box(Modifier.fillMaxWidth()) {
                 FilterImageButton(
-                    text = uiState.city.name,
+                    text = uiState.selectedNationOrCityName,
                     onClick = onNation
                 )
                 FilterButton(
@@ -190,8 +189,18 @@ private fun Filter(
             }
 
             if (uiState.showCityFilter) {
-                NationFilter(list = uiState.nations, image = image, onClick = onFilterNation)
-                CityRowFilter(list = uiState.filteredCities, onNation = onFilterCity, image)
+                NationFilter(
+                    list = uiState.nations,
+                    selectedNation = uiState.selectedNation,
+                    image = image,
+                    onClick = onFilterNation
+                )
+                CityRowFilter(
+                    list = uiState.filteredCities,
+                    selectedCity = uiState.selectedCity,
+                    onNation = onFilterCity,
+                    image = image
+                )
                 Spacer(modifier = Modifier.height(10.dp))
                 HorizontalDivider()
                 Spacer(modifier = Modifier.height(10.dp))

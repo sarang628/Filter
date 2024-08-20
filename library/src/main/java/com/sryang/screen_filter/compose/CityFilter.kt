@@ -35,6 +35,7 @@ fun CityFilter(
 @Composable
 fun CityRowFilter(
     list: List<City>, onNation: (City) -> Unit,
+    selectedCity: City? = null,
     image: (@Composable (
         Modifier,
         String,
@@ -47,7 +48,7 @@ fun CityRowFilter(
         items(list.size) {
             FilterImageButton(text = list[it].name, onClick = {
                 onNation.invoke(list[it])
-            }, isSelected = false, image = image)
+            }, isSelected = selectedCity?.name == list[it].name, image = image)
         }
     })
 }

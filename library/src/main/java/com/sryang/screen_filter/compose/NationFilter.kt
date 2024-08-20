@@ -12,6 +12,7 @@ import com.sryang.screen_filter.data.Nation
 @Composable
 fun NationFilter(
     list: List<Nation>,
+    selectedNation: Nation? = null,
     image: (@Composable (
         Modifier,
         String,
@@ -26,7 +27,8 @@ fun NationFilter(
             FilterIconButton(
                 onClick = { onClick.invoke(list[it]) },
                 url = list[it].url,
-                image = image
+                image = image,
+                isSelected = selectedNation?.name == list[it].name
             )
         }
     }

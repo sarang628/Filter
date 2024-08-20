@@ -89,7 +89,15 @@ class FilterViewModel @Inject constructor(
                 uiState = uiState.copy(showCityFilter = !uiState.showCityFilter)
 
             } else {
-                uiState = uiState.copy(city = city, showCityFilter = false)
+                val nation = uiState.nations.find { it.id == city.nation }
+                uiState = uiState.copy(
+                    selectedNation = nation,
+                    selectedCity = city,
+                    filteredCities = if (nation == null) arrayListOf() else getCitiesByNationIdUseCase.invoke(
+                        nation.id
+                    ),
+                    showCityFilter = false
+                )
             }
         }
     }
@@ -101,7 +109,11 @@ class FilterViewModel @Inject constructor(
 
             } else {
                 viewModelScope.launch {
-                    uiState = uiState.copy(nation = nation, filteredCities = getCitiesByNationIdUseCase.invoke(nation.id))
+                    uiState = uiState.copy(
+                        selectedNation = nation,
+                        selectedCity = null,
+                        filteredCities = getCitiesByNationIdUseCase.invoke(nation.id)
+                    )
                 }
             }
         }
