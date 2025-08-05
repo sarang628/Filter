@@ -41,25 +41,18 @@ import com.sryang.screen_filter.compose.NationFilter
 import com.sryang.screen_filter.data.City
 import com.sryang.screen_filter.data.Nation
 
+/**
+ * @param filterViewModel   filter 뷰모델
+ * @param onFilter          필터 검색 클릭
+ * @param onThisArea        이 지역 검색 클릭
+ * @param visible           필터 표시 여부
+ * @param onCity            도시 선택
+ * @param onNation          국가 선택
+ * @param onSearch          검색 선택
+ */
 @Composable
-fun FilterScreen(
-    filterViewModel: FilterViewModel = hiltViewModel(),       // filter 뷰모델
-    onFilter: (FilterUiState) -> Unit,      // 필터 검색 클릭 이벤트
-    onThisArea: (FilterUiState) -> Unit,    // 이 지역 검색 클릭 이벤트
-    visible: Boolean,                       // 필터 표시 여부
-    onCity: (City) -> Unit,                // 도시 클릭 이벤트
-    onNation: (Nation) -> Unit,                // 국가 클릭 이벤트
-    onSearch: (FilterUiState) -> Unit,
-    image: (@Composable (
-        Modifier,
-        String,
-        Dp?,
-        Dp?,
-        ContentScale?,
-    ) -> Unit)? = null,
-) {
+fun FilterScreen(filterViewModel: FilterViewModel = hiltViewModel(), onFilter: (FilterUiState) -> Unit = {}, onThisArea: (FilterUiState) -> Unit = {}, visible: Boolean = false, onCity: (City) -> Unit = {}, onNation: (Nation) -> Unit = {}, onSearch: (FilterUiState) -> Unit = {}, image: (@Composable (Modifier, String, Dp?, Dp?, ContentScale?, ) -> Unit)? = { _,_,_,_,_-> }, topPadding : Dp = 0.dp) {
     val uiState = filterViewModel.uiState
-
     Filter(
         uiState = uiState,
         visible = visible,
@@ -74,188 +67,64 @@ fun FilterScreen(
         onNation = { filterViewModel.onNation() },
         onThisArea = { onThisArea.invoke(uiState) },
         onFilter = { onFilter.invoke(uiState) },
-        onFilterCity = {
-            filterViewModel.onCity(it)
-            onCity.invoke(it)
-        },
-        onFilterNation = {
-            filterViewModel.onNation(it)
-            onNation.invoke(it)
-        },
+        onFilterCity = { filterViewModel.onCity(it);onCity.invoke(it) },
+        onFilterNation = { filterViewModel.onNation(it);onNation.invoke(it) },
         onSearch = { onSearch.invoke(uiState) },
         onQueryChange = { filterViewModel.setQuery(it) },
-        image = image
+        image = image,
+        topPadding = topPadding
     )
-
 }
 
 @Composable
-private fun Filter(
-    uiState: FilterUiState,
-    visible: Boolean,                       // 필터 표시 여부,
-    onFoodType: () -> Unit,
-    onPrice: () -> Unit,
-    onRating: () -> Unit,
-    onDistance: () -> Unit,
-    onNation: () -> Unit,
-    onThisArea: () -> Unit,
-    onFilter: () -> Unit,
-    onFilterFoodType: (String) -> Unit,
-    onFilterPrice: (String) -> Unit,
-    onFilterRating: (String) -> Unit,
-    onFilterDistance: (String) -> Unit,
-    onFilterCity: (City) -> Unit,
-    onFilterNation: (Nation) -> Unit,
-    onSearch: () -> Unit,
-    onQueryChange: (String) -> Unit,
-    image: (@Composable (
-        Modifier,
-        String,
-        Dp?,
-        Dp?,
-        ContentScale?,
-    ) -> Unit)? = null,
-) {
+private fun Filter(uiState: FilterUiState, visible: Boolean = false, onFoodType: () -> Unit = {}, onPrice: () -> Unit = {}, onRating: () -> Unit = {}, onDistance: () -> Unit = {}, onNation: () -> Unit = {}, onThisArea: () -> Unit = {}, onFilter: () -> Unit = {}, onFilterFoodType: (String) -> Unit = {}, onFilterPrice: (String) -> Unit = {}, onFilterRating: (String) -> Unit = {}, onFilterDistance: (String) -> Unit = {}, onFilterCity: (City) -> Unit = {}, onFilterNation: (Nation) -> Unit = {}, onSearch: () -> Unit = {}, onQueryChange: (String) -> Unit = {}, image: (@Composable (Modifier, String, Dp?, Dp?, ContentScale?, ) -> Unit)? = null, topPadding: Dp = 0.dp) {
     val density = LocalDensity.current
 
-    AnimatedVisibility(
-        visible = visible,
-        enter = slideInVertically { with(density) { -100.dp.roundToPx() } },
-        exit = slideOutVertically { with(density) { -100.dp.roundToPx() } }
-    ) {
-        Column(Modifier.padding(start = 8.dp, end = 8.dp)) {
-
-            Row(
-                horizontalArrangement = Arrangement.End,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(Color.Transparent)
-                    .padding(end = 8.dp, top = 8.dp, bottom = 8.dp)
-            ) {
-                _SearchBar(
-                    keyword = uiState.keyword,
-                    onQueryChange = onQueryChange,
-                    onSearch = onSearch
-                )
+    AnimatedVisibility(visible = visible, enter = slideInVertically { with(density) { -100.dp.roundToPx() } }, exit = slideOutVertically { with(density) { -100.dp.roundToPx() } }) {
+        Column(Modifier.padding(start = 8.dp, end = 8.dp, top = topPadding)) {
+            Row(horizontalArrangement = Arrangement.End, modifier = Modifier.fillMaxWidth().background(Color.Transparent)) {
+                _SearchBar(keyword = uiState.keyword, onQueryChange = onQueryChange, onSearch = onSearch)
             }
-
-            CustomFilterRow(
-                footTypeLabel = uiState.footTypeLabel,
-                priceLabel = uiState.priceLabel,
-                ratingLabel = uiState.ratingLabel,
-                distanceLabel = uiState.distanceLabel,
-                onFoodType = onFoodType,
-                onPrice = onPrice,
-                onRating = onRating,
-                onDistance = onDistance
-            )
+            Spacer(Modifier.height(8.dp))
+            CustomFilterRow(footTypeLabel = uiState.footTypeLabel, priceLabel = uiState.priceLabel, ratingLabel = uiState.ratingLabel, distanceLabel = uiState.distanceLabel, onFoodType = onFoodType, onPrice = onPrice, onRating = onRating, onDistance = onDistance)
 
             if (uiState.type == "FoodType")
-                FoodFilter(
-                    foodType = uiState.foodType,
-                    onFoodType = onFilterFoodType
-                )
+                FoodFilter(foodType = uiState.foodType, onFoodType = onFilterFoodType)
             if (uiState.type == "Price")
-                PriceFilter(
-                    price = uiState.price,
-                    onPrice = onFilterPrice
-                )
+                PriceFilter(price = uiState.price, onPrice = onFilterPrice)
             if (uiState.type == "Rating")
-                RatingFilter(
-                    rating = uiState.rating,
-                    onRating = onFilterRating
-                )
+                RatingFilter(rating = uiState.rating, onRating = onFilterRating)
             if (uiState.type == "Distance")
-                DistanceFilter(
-                    distance = uiState.distance,
-                    onDistance = onFilterDistance
-                )
-
+                DistanceFilter(distance = uiState.distance, onDistance = onFilterDistance)
             Box(Modifier.fillMaxWidth()) {
-                FilterImageButton(
-                    text = uiState.selectedNationOrCityName,
-                    onClick = onNation
-                )
-                FilterButton(
-                    modifier = Modifier.align(Alignment.Center),
-                    text = "이 지역 검색",
-                    onClick = onThisArea
-                )
-                FilterButton(
-                    modifier = Modifier.align(Alignment.CenterEnd),
-                    text = "필터적용",
-                    onClick = onFilter
-                )
+                FilterImageButton(text = uiState.selectedNationOrCityName, onClick = onNation)
+                FilterButton(modifier = Modifier.align(Alignment.Center), text = "이 지역 검색", onClick = onThisArea)
+                FilterButton(modifier = Modifier.align(Alignment.CenterEnd), text = "필터적용", onClick = onFilter)
             }
 
             if (uiState.showCityFilter) {
-                NationFilter(
-                    list = uiState.nations,
-                    selectedNation = uiState.selectedNation,
-                    image = image,
-                    onClick = onFilterNation
-                )
-                CityRowFilter(
-                    list = uiState.filteredCities,
-                    selectedCity = uiState.selectedCity,
-                    onNation = onFilterCity,
-                    image = image
-                )
+                NationFilter(list = uiState.nations, selectedNation = uiState.selectedNation, image = image, onClick = onFilterNation)
+                CityRowFilter(list = uiState.filteredCities, selectedCity = uiState.selectedCity, onNation = onFilterCity, image = image)
                 Spacer(modifier = Modifier.height(10.dp))
                 HorizontalDivider()
                 Spacer(modifier = Modifier.height(10.dp))
-                Text(
-                    text = "recommand cities",
-                    color = Color.DarkGray,
-                    fontWeight = FontWeight.Bold
-                )
-                CityFilter(
-                    onNation = onFilterCity, list = uiState.cities,
-                    image = image
-                )
+                Text(text = "recommand cities", color = Color.DarkGray, fontWeight = FontWeight.Bold)
+                CityFilter(onNation = onFilterCity, list = uiState.cities, image = image)
             }
         }
     }
 }
 
 @Composable
-private fun CustomFilterRow(
-    footTypeLabel: String,
-    priceLabel: String,
-    ratingLabel: String,
-    distanceLabel: String,
-    onFoodType: () -> Unit,
-    onPrice: () -> Unit,
-    onRating: () -> Unit,
-    onDistance: () -> Unit,
-) {
-    Row(
-        horizontalArrangement = Arrangement.SpaceEvenly,
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        FilterButton(
-            modifier = Modifier.weight(1f),
-            text = footTypeLabel,
-            onClick = onFoodType
-        )
+private fun CustomFilterRow(footTypeLabel: String, priceLabel: String, ratingLabel: String, distanceLabel: String, onFoodType: () -> Unit = {}, onPrice: () -> Unit = {}, onRating: () -> Unit = {}, onDistance: () -> Unit = {}) {
+    Row(horizontalArrangement = Arrangement.SpaceEvenly, modifier = Modifier.fillMaxWidth()) {
+        FilterButton(modifier = Modifier.weight(1f), text = footTypeLabel, onClick = onFoodType)
         Spacer(modifier = Modifier.width(3.dp))
-        FilterButton(
-            modifier = Modifier.weight(1f),
-            text = priceLabel,
-            onClick = onPrice
-        )
+        FilterButton(modifier = Modifier.weight(1f), text = priceLabel, onClick = onPrice)
         Spacer(modifier = Modifier.width(3.dp))
-        FilterButton(
-            modifier = Modifier.weight(1f),
-            text = ratingLabel,
-            onClick = onRating
-        )
+        FilterButton(modifier = Modifier.weight(1f), text = ratingLabel, onClick = onRating)
         Spacer(modifier = Modifier.width(3.dp))
-        FilterButton(
-            modifier = Modifier.weight(1f),
-            text = distanceLabel,
-            onClick = onDistance
-        )
+        FilterButton(modifier = Modifier.weight(1f), text = distanceLabel, onClick = onDistance)
     }
 }
 
@@ -266,27 +135,12 @@ private fun _SearchBar(keyword: String, onQueryChange: (String) -> Unit, onSearc
     SearchBar(
         query = keyword,
         onQueryChange = onQueryChange,
-        placeholder = {
-            Text("search")
-        },
-        onSearch = {
-            keyboardController?.hide()
-            onSearch.invoke()
-        },
+        placeholder = { Text("search") },
+        onSearch = { keyboardController?.hide(); onSearch.invoke() },
         active = false,
         onActiveChange = {},
-        leadingIcon = {
-            Icon(
-                imageVector = Icons.Default.Search,
-                contentDescription = null
-            )
-        },
-        trailingIcon = {
-            Icon(
-                imageVector = Icons.Default.AccountCircle,
-                contentDescription = ""
-            )
-        },
+        leadingIcon = { Icon(imageVector = Icons.Default.Search, contentDescription = null) },
+        trailingIcon = { Icon(imageVector = Icons.Default.AccountCircle, contentDescription = "") },
         modifier = Modifier.fillMaxWidth(),
         content = {}
     )
@@ -296,21 +150,7 @@ private fun _SearchBar(keyword: String, onQueryChange: (String) -> Unit, onSearc
 @Composable
 fun FilterScreenPreview() {
     Filter(/*Preview*/
-        uiState = FilterUiState(
-            type = "",
-            foodType = listOf(),
-            price = listOf(),
-            rating = listOf(),
-            distance = "",
-        ),
+        uiState = FilterUiState(type = "", foodType = listOf(), price = listOf(), rating = listOf(), distance = "",),
         visible = true,
-        onFilter = {},
-        onNation = {}, onThisArea = {}, onFilterFoodType = {},
-        onFilterPrice = {}, onFilterRating = {}, onFilterDistance = {},
-        onFoodType = {}, onPrice = {}, onRating = {}, onDistance = {},
-        onFilterNation = {},
-        onSearch = {},
-        onQueryChange = {},
-        onFilterCity = {}
     )
 }
