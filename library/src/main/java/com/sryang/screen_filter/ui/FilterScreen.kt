@@ -132,7 +132,7 @@ private fun Filter(
                     .background(Color.Transparent)
                     .padding(end = 8.dp, top = 8.dp, bottom = 8.dp)
             ) {
-                SearchBar(
+                _SearchBar(
                     keyword = uiState.keyword,
                     onQueryChange = onQueryChange,
                     onSearch = onSearch
@@ -261,7 +261,7 @@ private fun CustomFilterRow(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun SearchBar(keyword: String, onQueryChange: (String) -> Unit, onSearch: () -> Unit) {
+private fun _SearchBar(keyword: String, onQueryChange: (String) -> Unit, onSearch: () -> Unit) {
     val keyboardController = LocalSoftwareKeyboardController.current
     SearchBar(
         query = keyword,

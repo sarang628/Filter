@@ -73,4 +73,19 @@ dependencies {
     implementation(libs.material3) //JetNews Main 따라하기
     implementation(libs.material3.windows.size)
     implementation(libs.lifecycle.runtime.compose)
+
+    implementation("io.coil-kt:coil-compose:2.6.0")
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("release") {
+                from(components["release"])
+                groupId = "com.github.jitpack"
+                artifactId = "android-example"
+                version = "1.0"
+            }
+        }
+    }
 }
