@@ -1,5 +1,7 @@
 package com.sarang.torang.ui
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -68,7 +70,7 @@ class FilterViewModel @Inject constructor(
         viewModelScope.launch {
             uiState = uiState.copy(
                 rating = if (uiState.rating.contains(rating))
-                    ArrayList(uiState.rating.stream().filter { it != rating }.toList())
+                    ArrayList(uiState.rating.filter { it != rating }.toList())
                 else ArrayList(uiState.rating).apply { add(rating) }
             )
         }
