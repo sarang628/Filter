@@ -1,6 +1,6 @@
-package com.sryang.screen_filter.usecase
+package com.sarang.torang.usecase
 
-import com.sryang.screen_filter.data.City
+import com.sarang.torang.data.City
 
 interface GetCitiesByNationIdUseCase {
     suspend fun invoke(nationId : Int): List<City>

@@ -1,4 +1,4 @@
-package com.sryang.screen_filter.ui
+package com.sarang.torang.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -9,7 +9,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.sryang.screen_filter.compose.FilterButton
+import com.sarang.torang.compose.FilterButton
 
 @Composable
 fun FoodFilter(foodType: List<String>, onFoodType: (String) -> Unit) {

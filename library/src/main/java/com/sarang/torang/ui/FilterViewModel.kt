@@ -1,15 +1,15 @@
-package com.sryang.screen_filter.ui
+package com.sarang.torang.ui
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sryang.screen_filter.data.City
-import com.sryang.screen_filter.data.Nation
-import com.sryang.screen_filter.usecase.GetCitiesByNationIdUseCase
-import com.sryang.screen_filter.usecase.GetCitiesUseCase
-import com.sryang.screen_filter.usecase.GetNationsUseCase
+import com.sarang.torang.data.City
+import com.sarang.torang.data.Nation
+import com.sarang.torang.usecase.GetCitiesByNationIdUseCase
+import com.sarang.torang.usecase.GetCitiesUseCase
+import com.sarang.torang.usecase.GetNationsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

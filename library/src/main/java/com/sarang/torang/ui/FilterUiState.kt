@@ -1,8 +1,8 @@
-package com.sryang.screen_filter.ui
+package com.sarang.torang.ui
 
 import android.text.TextUtils
-import com.sryang.screen_filter.data.City
-import com.sryang.screen_filter.data.Nation
+import com.sarang.torang.data.City
+import com.sarang.torang.data.Nation
 
 data class FilterUiState(
     val type: String = "",

@@ -1,4 +1,4 @@
-package com.sryang.screen_filter.ui
+package com.sarang.torang.ui
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInVertically
@@ -33,13 +33,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.sryang.screen_filter.compose.CityFilter
-import com.sryang.screen_filter.compose.CityRowFilter
-import com.sryang.screen_filter.compose.FilterButton
-import com.sryang.screen_filter.compose.FilterImageButton
-import com.sryang.screen_filter.compose.NationFilter
-import com.sryang.screen_filter.data.City
-import com.sryang.screen_filter.data.Nation
+import com.sarang.torang.compose.CityFilter
+import com.sarang.torang.compose.CityRowFilter
+import com.sarang.torang.compose.FilterButton
+import com.sarang.torang.compose.FilterImageButton
+import com.sarang.torang.compose.NationFilter
+import com.sarang.torang.data.City
+import com.sarang.torang.data.Nation
 
 /**
  * @param filterViewModel   filter 뷰모델
