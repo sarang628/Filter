@@ -67,6 +67,16 @@ dependencies {
     kapt(libs.hilt.compiler)
     implementation(libs.hilt.nav.compose) // hiltViewModel
 
+    /** Retrofit */
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.logging.interceptor)
+
+    /** Room */
+    implementation(libs.room.runtime)
+    annotationProcessor(libs.room.compiler)
+    implementation(libs.room.paging)
+
     /** Compose */
     androidTestImplementation(platform(libs.x.compose.bom))
     implementation(libs.x.ui) //없으면 @Composable import 안됨
@@ -83,4 +93,5 @@ dependencies {
 
     implementation(libs.theme)
     implementation(project(":library"))
+    implementation(libs.torangRepository)
 }
