@@ -80,7 +80,7 @@ fun FilterScreen(filterViewModel: FilterViewModel = hiltViewModel(), onFilter: (
 private fun Filter(uiState: FilterUiState, visible: Boolean = false, onFoodType: () -> Unit = {}, onPrice: () -> Unit = {}, onRating: () -> Unit = {}, onDistance: () -> Unit = {}, onNation: () -> Unit = {}, onThisArea: () -> Unit = {}, onFilter: () -> Unit = {}, onFilterFoodType: (String) -> Unit = {}, onFilterPrice: (String) -> Unit = {}, onFilterRating: (String) -> Unit = {}, onFilterDistance: (String) -> Unit = {}, onFilterCity: (City) -> Unit = {}, onFilterNation: (Nation) -> Unit = {}, onSearch: () -> Unit = {}, onQueryChange: (String) -> Unit = {}, image: (@Composable (Modifier, String, Dp?, Dp?, ContentScale?, ) -> Unit)? = null, topPadding: Dp = 0.dp) {
     val density = LocalDensity.current
 
-    AnimatedVisibility(visible = visible, enter = slideInVertically { with(density) { -100.dp.roundToPx() } }, exit = slideOutVertically { with(density) { -100.dp.roundToPx() } }) {
+    AnimatedVisibility(visible = visible, enter = slideInVertically { with(density) { -200.dp.roundToPx() } }, exit = slideOutVertically { with(density) { -200.dp.roundToPx() } }) {
         Column(Modifier.padding(start = 8.dp, end = 8.dp, top = topPadding)) {
             Row(horizontalArrangement = Arrangement.End, modifier = Modifier.fillMaxWidth().background(Color.Transparent)) {
                 _SearchBar(keyword = uiState.keyword, onQueryChange = onQueryChange, onSearch = onSearch)
