@@ -43,38 +43,38 @@ import com.sarang.torang.data.Nation
 
 /**
  * @param filterViewModel   filter 뷰모델
- * @param onFilter          필터 검색 클릭
- * @param onThisArea        이 지역 검색 클릭
  * @param visible           필터 표시 여부
  * @param onCity            도시 선택
  * @param onNation          국가 선택
  * @param onSearch          검색 선택
  */
+//@formatter:off
 @Composable
-fun FilterScreen(filterViewModel: FilterViewModel = hiltViewModel(), onFilter: (FilterUiState) -> Unit = {}, onThisArea: (FilterUiState) -> Unit = {}, visible: Boolean = false, onCity: (City) -> Unit = {}, onNation: (Nation) -> Unit = {}, onSearch: (FilterUiState) -> Unit = {}, image: (@Composable (Modifier, String, Dp?, Dp?, ContentScale?, ) -> Unit)? = { _,_,_,_,_-> }, topPadding : Dp = 0.dp) {
+fun FilterScreen(filterViewModel: FilterViewModel = hiltViewModel(), visible: Boolean = false, onCity: (City) -> Unit = {}, onNation: (Nation) -> Unit = {}, onSearch: (FilterUiState) -> Unit = {}, image: (@Composable (Modifier, String, Dp?, Dp?, ContentScale?, ) -> Unit)? = { _,_,_,_,_-> }, topPadding : Dp = 0.dp) {
     val uiState = filterViewModel.uiState
     Filter(
         uiState = uiState,
         visible = visible,
-        onFoodType = { filterViewModel.setType("FoodType") },
-        onPrice = { filterViewModel.setType("Price") },
-        onDistance = { filterViewModel.setType("Distance") },
-        onRating = { filterViewModel.setType("Rating") },
-        onFilterFoodType = { filterViewModel.setFoodType(it) },
-        onFilterPrice = { filterViewModel.setPrice(it) },
-        onFilterDistance = { filterViewModel.setDistance(it) },
-        onFilterRating = { filterViewModel.setRating(it) },
-        onNation = { filterViewModel.onNation() },
-        onThisArea = { onThisArea.invoke(uiState) },
-        onFilter = { onFilter.invoke(uiState) },
-        onFilterCity = { filterViewModel.onCity(it);onCity.invoke(it) },
-        onFilterNation = { filterViewModel.onNation(it);onNation.invoke(it) },
-        onSearch = { onSearch.invoke(uiState) },
-        onQueryChange = { filterViewModel.setQuery(it) },
+        onFoodType =        { filterViewModel.setType("FoodType") },
+        onPrice =           { filterViewModel.setType("Price") },
+        onDistance =        { filterViewModel.setType("Distance") },
+        onRating =          { filterViewModel.setType("Rating") },
+        onFilterFoodType =  { filterViewModel.setFoodType(it) },
+        onFilterPrice =     { filterViewModel.setPrice(it) },
+        onFilterDistance =  { filterViewModel.setDistance(it) },
+        onFilterRating =    { filterViewModel.setRating(it) },
+        onNation =          { filterViewModel.onNation() },
+        onThisArea =        { filterViewModel.onThisArea() },
+        onFilter =          { filterViewModel.onFilter() },
+        onFilterCity =      { filterViewModel.onCity(it);onCity.invoke(it) },
+        onFilterNation =    { filterViewModel.onNation(it);onNation.invoke(it) },
+        onSearch =          { onSearch.invoke(uiState) },
+        onQueryChange =     { filterViewModel.setQuery(it) },
         image = image,
         topPadding = topPadding
     )
 }
+//@formatter:on
 
 @Composable
 private fun Filter(uiState: FilterUiState, visible: Boolean = false, onFoodType: () -> Unit = {}, onPrice: () -> Unit = {}, onRating: () -> Unit = {}, onDistance: () -> Unit = {}, onNation: () -> Unit = {}, onThisArea: () -> Unit = {}, onFilter: () -> Unit = {}, onFilterFoodType: (String) -> Unit = {}, onFilterPrice: (String) -> Unit = {}, onFilterRating: (String) -> Unit = {}, onFilterDistance: (String) -> Unit = {}, onFilterCity: (City) -> Unit = {}, onFilterNation: (Nation) -> Unit = {}, onSearch: () -> Unit = {}, onQueryChange: (String) -> Unit = {}, image: (@Composable (Modifier, String, Dp?, Dp?, ContentScale?, ) -> Unit)? = null, topPadding: Dp = 0.dp) {
