@@ -11,7 +11,9 @@ import com.sarang.torang.usecase.FindFilterUseCase
 import com.sarang.torang.usecase.FindThisAreaUseCase
 import com.sarang.torang.usecase.GetCitiesByNationIdUseCase
 import com.sarang.torang.usecase.GetCitiesUseCase
+import com.sarang.torang.usecase.GetFiltersUseCase
 import com.sarang.torang.usecase.GetNationsUseCase
+import com.sarang.torang.usecase.SetFilterUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -23,7 +25,9 @@ class FilterViewModel @Inject constructor(
     val getCitiesByNationIdUseCase: GetCitiesByNationIdUseCase,
     val getNationUseCase: GetNationsUseCase,
     val findFilterUseCase: FindFilterUseCase,
-    val findThisAreaUseCase: FindThisAreaUseCase
+    val findThisAreaUseCase: FindThisAreaUseCase,
+    val setFilterUseCase: SetFilterUseCase,
+    val getFilterUseCase: GetFiltersUseCase
 ) : ViewModel() {
     var uiState by mutableStateOf(FilterUiState())
         private set
@@ -38,6 +42,13 @@ class FilterViewModel @Inject constructor(
             }
         }
 
+        viewModelScope.launch {
+            launch { getFilterUseCase.getPrice().collect { uiState = uiState.copy(price = it) } }
+            launch { getFilterUseCase.getRating().collect { uiState = uiState.copy(rating = it) } }
+            launch { getFilterUseCase.getDistance().collect { uiState = uiState.copy(distance = it) } }
+            launch { getFilterUseCase.getFoodType().collect { uiState = uiState.copy(foodType = it) } }
+        }
+
     }
 
     fun setType(s: String) {
@@ -50,40 +61,26 @@ class FilterViewModel @Inject constructor(
 
     fun setFoodType(foodType: String) {
         viewModelScope.launch {
-            uiState = uiState.copy(
-                foodType = if (uiState.foodType.contains(foodType))
-                    ArrayList(uiState.foodType.filter { it != foodType }.toList())
-                else ArrayList(uiState.foodType).apply { add(foodType) }
-            )
+            setFilterUseCase.setFoodType(foodType)
         }
     }
 
     fun setPrice(price: String) {
         viewModelScope.launch {
-            uiState = uiState.copy(
-                price = if (uiState.price.contains(price))
-                    ArrayList(uiState.price.filter { it != price }.toList())
-                else ArrayList(uiState.price).apply { add(price) }
-            )
+            setFilterUseCase.setPrice(price)
         }
     }
 
     fun setRating(rating: String) {
         viewModelScope.launch {
-            uiState = uiState.copy(
-                rating = if (uiState.rating.contains(rating))
-                    ArrayList(uiState.rating.filter { it != rating }.toList())
-                else ArrayList(uiState.rating).apply { add(rating) }
-            )
+            setFilterUseCase.setRating(rating)
         }
     }
 
 
     fun setDistance(distance: String) {
         viewModelScope.launch {
-            uiState = uiState.copy(
-                distance = if (uiState.distance == distance) "" else distance
-            )
+            setFilterUseCase.setDistance(distance)
         }
     }
 
