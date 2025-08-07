@@ -1,7 +1,5 @@
 package com.sarang.torang.ui
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -9,6 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sarang.torang.data.City
 import com.sarang.torang.data.Nation
+import com.sarang.torang.usecase.FindFilterUseCase
+import com.sarang.torang.usecase.FindThisAreaUseCase
 import com.sarang.torang.usecase.GetCitiesByNationIdUseCase
 import com.sarang.torang.usecase.GetCitiesUseCase
 import com.sarang.torang.usecase.GetNationsUseCase
@@ -19,9 +19,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FilterViewModel @Inject constructor(
-    getCitiesUseCase: GetCitiesUseCase,
-    private val getCitiesByNationIdUseCase: GetCitiesByNationIdUseCase,
-    getNationUseCase: GetNationsUseCase,
+    val getCitiesUseCase: GetCitiesUseCase,
+    val getCitiesByNationIdUseCase: GetCitiesByNationIdUseCase,
+    val getNationUseCase: GetNationsUseCase,
+    val findFilterUseCase: FindFilterUseCase,
+    val findThisAreaUseCase: FindThisAreaUseCase
 ) : ViewModel() {
     var uiState by mutableStateOf(FilterUiState())
         private set
@@ -123,5 +125,17 @@ class FilterViewModel @Inject constructor(
 
     fun setQuery(keyword: String) {
         uiState = uiState.copy(keyword = keyword)
+    }
+
+    fun onThisArea() {
+        viewModelScope.launch {
+            findThisAreaUseCase.invoke()
+        }
+    }
+
+    fun onFilter() {
+        viewModelScope.launch {
+            findFilterUseCase.invoke()
+        }
     }
 }
