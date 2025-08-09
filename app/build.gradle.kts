@@ -91,4 +91,5 @@ dependencies {
     implementation(libs.theme)
     implementation(project(":library"))
     implementation(libs.torangRepository)
+    implementation(libs.commonImageLoader)
 }
