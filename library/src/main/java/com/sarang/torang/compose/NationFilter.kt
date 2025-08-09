@@ -11,13 +11,6 @@ import com.sarang.torang.data.Nation
 fun NationFilter(
     list: List<Nation>,
     selectedNation: Nation? = null,
-    image: (@Composable (
-        Modifier,
-        String,
-        Dp?,
-        Dp?,
-        ContentScale?,
-    ) -> Unit)? = null,
     onClick: (Nation) -> Unit,
 ) {
     LazyRow {
@@ -25,7 +18,6 @@ fun NationFilter(
             FilterIconButton(
                 onClick = { onClick.invoke(list[it]) },
                 url = list[it].url,
-                image = image,
                 isSelected = selectedNation?.name == list[it].name
             )
         }

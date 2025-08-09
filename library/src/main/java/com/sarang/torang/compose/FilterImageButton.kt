@@ -32,14 +32,7 @@ fun FilterImageButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
     isSelected: Boolean = false,
-    leftImage: String? = null,
-    image: (@Composable (
-        Modifier,
-        String,
-        Dp?,
-        Dp?,
-        ContentScale?,
-    ) -> Unit)? = null,
+    leftImage: String? = null
 ) {
     OutlinedButton(
         modifier = modifier,
@@ -49,12 +42,7 @@ fun FilterImageButton(
         )
     ) {
         leftImage?.let {
-            image?.invoke(
-                Modifier
-                    .clip(CircleShape)
-                    .size(20.dp),
-                it, 10.dp, 10.dp, null
-            )
+            LocalFilterImageLoader.current.invoke(Modifier.clip(CircleShape).size(20.dp), it, 10.dp, 10.dp, null)
             Spacer(modifier = Modifier.width(5.dp))
         }
         text?.let {
@@ -116,33 +104,17 @@ fun FilterIconButton(
     text: String? = null,
     onClick: () -> Unit,
     isSelected: Boolean = false,
-    url: String? = null,
-    image: (@Composable (
-        Modifier,
-        String,
-        Dp?,
-        Dp?,
-        ContentScale?,
-    ) -> Unit)? = null,
+    url: String? = null
 ) {
     IconButton(
         modifier = modifier
             .clip(CircleShape)
             .background(if (!isSelected) Color.White else MaterialTheme.colorScheme.primary),
         onClick = onClick,
-
-        /*colors = ButtonDefaults.buttonColors(
-            containerColor = if (!isSelected) Color.White else MaterialTheme.colorScheme.primary
-        )*/
     ) {
         url?.let {
             Log.d("__FilterIconButton", "FilterIconButton: $url")
-            image?.invoke(
-                Modifier
-                    .clip(CircleShape)
-                    .size(40.dp),
-                url, 10.dp, 10.dp, null
-            )
+            LocalFilterImageLoader.current.invoke(Modifier.clip(CircleShape).size(40.dp), url, 10.dp, 10.dp, null)
             Spacer(modifier = Modifier.width(5.dp))
         }
         text?.let {

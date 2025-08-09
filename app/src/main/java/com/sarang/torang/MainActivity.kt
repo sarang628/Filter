@@ -13,6 +13,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -21,6 +22,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.sarang.torang.compose.FilterImageLoader
+import com.sarang.torang.compose.LocalFilterImageLoader
+import com.sarang.torang.di.image.provideTorangAsyncImage
 import com.sarang.torang.repository.FindRepository
 import com.sarang.torang.ui.FilterScreen
 import com.sarang.torang.ui.FilterViewModel
@@ -42,7 +46,9 @@ class MainActivity : ComponentActivity() {
 
                     var isVisible by remember { mutableStateOf(false) }
                     Box(Modifier.Companion.fillMaxSize()) {
-                        FilterScreen(filterViewModel, visible = isVisible)
+                        CompositionLocalProvider(LocalFilterImageLoader provides customImageLoader) {
+                            FilterScreen(filterViewModel, visible = isVisible)
+                        }
                         Button(modifier = Modifier.Companion.align(Alignment.Companion.Center), onClick = { isVisible = !isVisible }) {}
 
                         LazyColumn(Modifier.padding(top = 200.dp)) {
@@ -54,5 +60,10 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+    val customImageLoader: FilterImageLoader = { modifier, url, width, height, scale ->
+        // 여기서 실제 이미지 로딩 구현 예시
+        provideTorangAsyncImage().invoke(modifier, url, width, height, scale)
     }
 }

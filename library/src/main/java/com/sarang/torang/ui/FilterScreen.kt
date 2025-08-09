@@ -50,7 +50,7 @@ import com.sarang.torang.data.Nation
  */
 //@formatter:off
 @Composable
-fun FilterScreen(filterViewModel: FilterViewModel = hiltViewModel(), visible: Boolean = false, onCity: (City) -> Unit = {}, onNation: (Nation) -> Unit = {}, onSearch: (FilterUiState) -> Unit = {}, image: (@Composable (Modifier, String, Dp?, Dp?, ContentScale?, ) -> Unit)? = { _,_,_,_,_-> }, topPadding : Dp = 0.dp) {
+fun FilterScreen(filterViewModel: FilterViewModel = hiltViewModel(), visible: Boolean = false, onCity: (City) -> Unit = {}, onNation: (Nation) -> Unit = {}, onSearch: (FilterUiState) -> Unit = {}, topPadding : Dp = 0.dp) {
     val uiState = filterViewModel.uiState
     Filter(
         uiState = uiState,
@@ -70,14 +70,13 @@ fun FilterScreen(filterViewModel: FilterViewModel = hiltViewModel(), visible: Bo
         onFilterNation =    { filterViewModel.onNation(it);onNation.invoke(it) },
         onSearch =          { onSearch.invoke(uiState) },
         onQueryChange =     { filterViewModel.setQuery(it) },
-        image = image,
         topPadding = topPadding
     )
 }
 //@formatter:on
 
 @Composable
-private fun Filter(uiState: FilterUiState, visible: Boolean = false, onFoodType: () -> Unit = {}, onPrice: () -> Unit = {}, onRating: () -> Unit = {}, onDistance: () -> Unit = {}, onNation: () -> Unit = {}, onThisArea: () -> Unit = {}, onFilter: () -> Unit = {}, onFilterFoodType: (String) -> Unit = {}, onFilterPrice: (String) -> Unit = {}, onFilterRating: (String) -> Unit = {}, onFilterDistance: (String) -> Unit = {}, onFilterCity: (City) -> Unit = {}, onFilterNation: (Nation) -> Unit = {}, onSearch: () -> Unit = {}, onQueryChange: (String) -> Unit = {}, image: (@Composable (Modifier, String, Dp?, Dp?, ContentScale?, ) -> Unit)? = null, topPadding: Dp = 0.dp) {
+private fun Filter(uiState: FilterUiState, visible: Boolean = false, onFoodType: () -> Unit = {}, onPrice: () -> Unit = {}, onRating: () -> Unit = {}, onDistance: () -> Unit = {}, onNation: () -> Unit = {}, onThisArea: () -> Unit = {}, onFilter: () -> Unit = {}, onFilterFoodType: (String) -> Unit = {}, onFilterPrice: (String) -> Unit = {}, onFilterRating: (String) -> Unit = {}, onFilterDistance: (String) -> Unit = {}, onFilterCity: (City) -> Unit = {}, onFilterNation: (Nation) -> Unit = {}, onSearch: () -> Unit = {}, onQueryChange: (String) -> Unit = {}, topPadding: Dp = 0.dp) {
     val density = LocalDensity.current
 
     AnimatedVisibility(visible = visible, enter = slideInVertically { with(density) { -200.dp.roundToPx() } }, exit = slideOutVertically { with(density) { -200.dp.roundToPx() } }) {
@@ -103,13 +102,13 @@ private fun Filter(uiState: FilterUiState, visible: Boolean = false, onFoodType:
             }
 
             if (uiState.showCityFilter) {
-                NationFilter(list = uiState.nations, selectedNation = uiState.selectedNation, image = image, onClick = onFilterNation)
-                CityRowFilter(list = uiState.filteredCities, selectedCity = uiState.selectedCity, onNation = onFilterCity, image = image)
+                NationFilter(list = uiState.nations, selectedNation = uiState.selectedNation, onClick = onFilterNation)
+                CityRowFilter(list = uiState.filteredCities, selectedCity = uiState.selectedCity, onNation = onFilterCity)
                 Spacer(modifier = Modifier.height(10.dp))
                 HorizontalDivider()
                 Spacer(modifier = Modifier.height(10.dp))
                 Text(text = "recommand cities", color = Color.DarkGray, fontWeight = FontWeight.Bold)
-                CityFilter(onNation = onFilterCity, list = uiState.cities, image = image)
+                CityFilter(onNation = onFilterCity, list = uiState.cities)
             }
         }
     }

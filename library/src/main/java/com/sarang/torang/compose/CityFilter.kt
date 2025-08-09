@@ -11,21 +11,10 @@ import com.sarang.torang.data.City
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun CityFilter(
-    list: List<City>, onNation: (City) -> Unit,
-    image: (@Composable (
-        Modifier,
-        String,
-        Dp?,
-        Dp?,
-        ContentScale?,
-    ) -> Unit)? = null,
-) {
+fun CityFilter(list: List<City>, onNation: (City) -> Unit) {
     FlowRow {
         for (item in list) {
-            FilterImageButton(text = item.name, onClick = {
-                onNation.invoke(item)
-            }, isSelected = false, image = image)
+            FilterImageButton(text = item.name, onClick = { onNation.invoke(item) }, isSelected = false)
         }
     }
 }
@@ -33,20 +22,13 @@ fun CityFilter(
 @Composable
 fun CityRowFilter(
     list: List<City>, onNation: (City) -> Unit,
-    selectedCity: City? = null,
-    image: (@Composable (
-        Modifier,
-        String,
-        Dp?,
-        Dp?,
-        ContentScale?,
-    ) -> Unit)? = null,
+    selectedCity: City? = null
 ) {
     LazyRow(content = {
         items(list.size) {
             FilterImageButton(text = list[it].name, onClick = {
                 onNation.invoke(list[it])
-            }, isSelected = selectedCity?.name == list[it].name, image = image)
+            }, isSelected = selectedCity?.name == list[it].name)
         }
     })
 }
