@@ -13,25 +13,9 @@ import androidx.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun FilterButton(
-    text: String,
-    modifier: Modifier = Modifier,
-    onClick: () -> Unit,
-    isSelected: Boolean = false,
-) {
-    OutlinedButton(
-        modifier = modifier,
-        onClick = onClick,
-        colors = ButtonDefaults.buttonColors(
-            containerColor = if (!isSelected) Color.White else MaterialTheme.colorScheme.primary
-        )
-    ) {
-        Text(
-            text = text,
-            maxLines = 1,
-            modifier = Modifier.basicMarquee(),
-            color = if (!isSelected) MaterialTheme.colorScheme.primary else Color.White
-        )
+fun FilterButton(text: String, modifier: Modifier = Modifier, onClick: () -> Unit = {}, isSelected: Boolean = false, ) {
+    OutlinedButton(modifier = modifier, onClick = onClick, colors = ButtonDefaults.buttonColors(containerColor = if (!isSelected) Color.White else MaterialTheme.colorScheme.primary)) {
+        Text(text = text, maxLines = 1, modifier = Modifier.basicMarquee(), color = if (!isSelected) MaterialTheme.colorScheme.primary else Color.White)
     }
 }
 
