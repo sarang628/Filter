@@ -1,8 +1,6 @@
-package com.sarang.torang.ui
+package com.sarang.torang.compose
 
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sarang.torang.data.City
@@ -17,7 +15,6 @@ import com.sarang.torang.usecase.SetFilterUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
 
 @HiltViewModel
 class FilterViewModel @Inject constructor(

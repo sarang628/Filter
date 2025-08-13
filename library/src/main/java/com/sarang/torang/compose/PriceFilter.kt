@@ -1,4 +1,4 @@
-package com.sarang.torang.ui
+package com.sarang.torang.compose
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.sarang.torang.compose.FilterButton
 
 @Composable
 fun PriceFilter(price: List<String>, onPrice: (String) -> Unit) {

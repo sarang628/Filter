@@ -1,4 +1,4 @@
-package com.sarang.torang.ui
+package com.sarang.torang.compose
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInVertically
@@ -25,7 +25,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontWeight
@@ -33,11 +32,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.sarang.torang.compose.CityFilter
-import com.sarang.torang.compose.CityRowFilter
-import com.sarang.torang.compose.FilterButton
-import com.sarang.torang.compose.FilterImageButton
-import com.sarang.torang.compose.NationFilter
 import com.sarang.torang.data.City
 import com.sarang.torang.data.Nation
 
@@ -149,7 +143,13 @@ private fun _SearchBar(keyword: String, onQueryChange: (String) -> Unit, onSearc
 @Composable
 fun FilterScreenPreview() {
     Filter(/*Preview*/
-        uiState = FilterUiState(type = "", foodType = listOf(), price = listOf(), rating = listOf(), distance = "",),
+        uiState = FilterUiState(
+            type = "",
+            foodType = listOf(),
+            price = listOf(),
+            rating = listOf(),
+            distance = "",
+        ),
         visible = true,
     )
 }

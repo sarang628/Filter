@@ -26,8 +26,8 @@ import com.sarang.torang.compose.FilterImageLoader
 import com.sarang.torang.compose.LocalFilterImageLoader
 import com.sarang.torang.di.image.provideTorangAsyncImage
 import com.sarang.torang.repository.FindRepository
-import com.sarang.torang.ui.FilterScreen
-import com.sarang.torang.ui.FilterViewModel
+import com.sarang.torang.compose.FilterScreen
+import com.sarang.torang.compose.FilterViewModel
 import com.sryang.torang.ui.TorangTheme
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject

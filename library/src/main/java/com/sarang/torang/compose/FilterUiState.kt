@@ -1,4 +1,4 @@
-package com.sarang.torang.ui
+package com.sarang.torang.compose
 
 import android.text.TextUtils
 import com.sarang.torang.data.City
