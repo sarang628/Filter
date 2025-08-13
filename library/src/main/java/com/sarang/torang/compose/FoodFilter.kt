@@ -43,6 +43,9 @@ fun FoodFilter(foodType: List<String>, onFoodType: (String) -> Unit) {
             FilterButton(text = "Spanish", modifier = Modifier.weight(1f), onClick = {
                 onFoodType.invoke("Spanish")
             }, isSelected = foodType.contains("Spanish"))
+            FilterButton(text = "Cafe", modifier = Modifier.weight(1f), onClick = {
+                onFoodType.invoke("Cafe")
+            }, isSelected = foodType.contains("Cafe"))
             Spacer(modifier = Modifier.width(3.dp))
         }
     }
