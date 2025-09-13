@@ -4,6 +4,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
+import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,7 +20,10 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MultiChoiceSegmentedButtonRow
 import androidx.compose.material3.SearchBar
+import androidx.compose.material3.SegmentedButton
+import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -79,16 +83,19 @@ private fun Filter(uiState: FilterUiState, visible: Boolean = false, onFoodType:
                 _SearchBar(keyword = uiState.keyword, onQueryChange = onQueryChange, onSearch = onSearch)
             }
             Spacer(Modifier.height(8.dp))
-            CustomFilterRow(footTypeLabel = uiState.footTypeLabel, priceLabel = uiState.priceLabel, ratingLabel = uiState.ratingLabel, distanceLabel = uiState.distanceLabel, onFoodType = onFoodType, onPrice = onPrice, onRating = onRating, onDistance = onDistance)
+            //CustomFilterRow(footTypeLabel = uiState.footTypeLabel, priceLabel = uiState.priceLabel, ratingLabel = uiState.ratingLabel, distanceLabel = uiState.distanceLabel, onFoodType = onFoodType, onPrice = onPrice, onRating = onRating, onDistance = onDistance)
+            CustomFilterRow1(footTypeLabel = uiState.footTypeLabel, priceLabel = uiState.priceLabel, ratingLabel = uiState.ratingLabel, distanceLabel = uiState.distanceLabel, onFoodType = onFoodType, onPrice = onPrice, onRating = onRating, onDistance = onDistance)
 
             if (uiState.type == "FoodType")
-                FoodFilter(foodType = uiState.foodType, onFoodType = onFilterFoodType)
+                FoodFilter1(foodType = uiState.foodType, onFoodType = onFilterFoodType)
             if (uiState.type == "Price")
-                PriceFilter(price = uiState.price, onPrice = onFilterPrice)
+                PriceFilter1(price = uiState.price, onPrice = onFilterPrice)
             if (uiState.type == "Rating")
-                RatingFilter(rating = uiState.rating, onRating = onFilterRating)
+                RatingFilter1(rating = uiState.rating, onRating = onFilterRating)
             if (uiState.type == "Distance")
-                DistanceFilter(distance = uiState.distance, onDistance = onFilterDistance)
+                DistanceFilter1(distance = uiState.distance, onDistance = onFilterDistance)
+
+
             Box(Modifier.fillMaxWidth()) {
                 FilterImageButton(text = uiState.selectedNationOrCityName, onClick = onNation)
                 FilterButton(modifier = Modifier.align(Alignment.Center), text = "이 지역 검색", onClick = onThisArea)
@@ -120,6 +127,33 @@ private fun CustomFilterRow(footTypeLabel: String, priceLabel: String, ratingLab
         FilterButton(modifier = Modifier.weight(1f), text = distanceLabel, onClick = onDistance)
     }
 }
+
+@Preview
+@Composable
+private fun CustomFilterRow1(footTypeLabel: String = "", priceLabel: String = "", ratingLabel: String = "", distanceLabel: String = "", onFoodType: () -> Unit = {}, onPrice: () -> Unit = {}, onRating: () -> Unit = {}, onDistance: () -> Unit = {}) {
+    MultiChoiceSegmentedButtonRow(Modifier.fillMaxWidth()) {
+        SegmentedButton(checked = false, shape = SegmentedButtonDefaults.itemShape(index = 0, count = 4), onCheckedChange = {onFoodType.invoke()}) {
+            Text(text = footTypeLabel, maxLines = 1, modifier = Modifier.basicMarquee())
+        }
+        SegmentedButton(checked = false, shape = SegmentedButtonDefaults.itemShape(index = 1, count = 4), onCheckedChange = {onPrice.invoke()}) {
+            Text(text = priceLabel, maxLines = 1, modifier = Modifier.basicMarquee())
+        }
+        SegmentedButton(checked = false, shape = SegmentedButtonDefaults.itemShape(index = 2, count = 4), onCheckedChange = {onRating.invoke()}) {
+            Text(text = ratingLabel, maxLines = 1, modifier = Modifier.basicMarquee())
+        }
+        SegmentedButton(checked = false, shape = SegmentedButtonDefaults.itemShape(index = 3, count = 4), onCheckedChange = {onDistance.invoke()}) {
+            Text(text = distanceLabel, maxLines = 1, modifier = Modifier.basicMarquee())
+        }
+    }
+}
+
+@Preview
+@Composable
+private fun MarqueeText(text : String = ""){
+    Text(text = text, maxLines = 1, modifier = Modifier.basicMarquee())
+}
+
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

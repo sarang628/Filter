@@ -6,22 +6,28 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
+import androidx.compose.material3.DrawerState
+import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.sarang.torang.compose.FilterDrawer
 import com.sarang.torang.compose.FilterImageLoader
 import com.sarang.torang.compose.LocalFilterImageLoader
 import com.sarang.torang.di.image.provideTorangAsyncImage
@@ -30,6 +36,7 @@ import com.sarang.torang.compose.FilterScreen
 import com.sarang.torang.compose.FilterViewModel
 import com.sryang.torang.ui.TorangTheme
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -43,17 +50,22 @@ class MainActivity : ComponentActivity() {
             TorangTheme {
                 Surface(Modifier.Companion.fillMaxSize().background(MaterialTheme.colorScheme.background)) {
                     val restaurants = findRepository.restaurants.collectAsState().value
-
+                    val drawerState : DrawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
                     var isVisible by remember { mutableStateOf(false) }
-                    Box(Modifier.Companion.fillMaxSize()) {
-                        CompositionLocalProvider(LocalFilterImageLoader provides customImageLoader) {
-                            FilterScreen(filterViewModel, visible = isVisible)
-                        }
-                        Button(modifier = Modifier.Companion.align(Alignment.Companion.Center), onClick = { isVisible = !isVisible }) {}
-
-                        LazyColumn(Modifier.padding(top = 200.dp)) {
-                            items(restaurants.size){
-                                Text(restaurants[it].restaurantName)
+                    val coroutine = rememberCoroutineScope()
+                    FilterDrawer(drawerState = drawerState) {
+                        Box(Modifier.Companion.fillMaxSize()) {
+                            CompositionLocalProvider(LocalFilterImageLoader provides customImageLoader) {
+                                FilterScreen(filterViewModel, visible = isVisible)
+                            }
+                            Column(modifier = Modifier.Companion.align(Alignment.Companion.Center)) {
+                                Button(onClick = { isVisible = !isVisible }) {}
+                                Button({coroutine.launch { drawerState.open() }}) { }
+                            }
+                            LazyColumn(Modifier.padding(top = 200.dp)) {
+                                items(restaurants.size){
+                                    Text(restaurants[it].restaurant.restaurantName)
+                                }
                             }
                         }
                     }
