@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_filter_parent"
+    app:startDestination="@id/filterFragment2">
+
+    <fragment
+        android:id="@+id/filterFragment2"
+        android:name="com.sryang.screen_filter.ui.FilterParentFragment"
+        android:label="FilterFragment" />
+</navigation>
