@@ -41,7 +41,11 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
-fun FilterDrawerScreen(filterViewModel: FilterViewModel = hiltViewModel(), drawerState : DrawerState = rememberDrawerState(initialValue = DrawerValue.Open), content: @Composable () -> Unit = {}) {
+fun FilterDrawerScreen(filterViewModel  : FilterViewModel = hiltViewModel(),
+                       drawerState      : DrawerState = rememberDrawerState(initialValue = DrawerValue.Open),
+                       onFilterCity     : (City) -> Unit    = {},
+                       onFilterNation   : (Nation) -> Unit  = {},
+                       content          : @Composable () -> Unit = {}) {
     val scope = rememberCoroutineScope()
 
     val uiState = filterViewModel.uiState
@@ -52,8 +56,8 @@ fun FilterDrawerScreen(filterViewModel: FilterViewModel = hiltViewModel(), drawe
         onFilterPrice =     { filterViewModel.setPrice(it) },
         onFilterDistance =  { filterViewModel.setDistance(it) },
         onFilterRating =    { filterViewModel.setRating(it) },
-        onFilterCity =      { filterViewModel.onCity(it) },
-        onFilterNation =    { filterViewModel.onNation(it) },
+        onFilterCity =      { filterViewModel.onCity(it); onFilterCity.invoke(it) },
+        onFilterNation =    { filterViewModel.onNation(it); onFilterNation.invoke(it) },
         onQueryChange =     { filterViewModel.setQuery(it) },
         content             = content)
 }
@@ -61,17 +65,17 @@ fun FilterDrawerScreen(filterViewModel: FilterViewModel = hiltViewModel(), drawe
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
-fun FilterDrawer(uiState: FilterUiState = FilterUiState(),
-                 drawerState : DrawerState = rememberDrawerState(initialValue = DrawerValue.Open),
-                 onFilterFoodType : (String) -> Unit  = {},
-                 onFilterPrice    : (String) -> Unit  = {},
-                 onFilterRating   : (String) -> Unit  = {},
-                 onFilterDistance : (String) -> Unit  = {},
-                 onFilterCity     : (City) -> Unit    = {},
-                 onFilterNation   : (Nation) -> Unit  = {},
-                 onSearch         : () -> Unit        = {},
-                 onQueryChange    : (String) -> Unit  = {},
-                 content: @Composable () -> Unit = {}) {
+fun FilterDrawer(uiState            : FilterUiState = FilterUiState(),
+                 drawerState        : DrawerState = rememberDrawerState(initialValue = DrawerValue.Open),
+                 onFilterFoodType   : (String) -> Unit  = {},
+                 onFilterPrice      : (String) -> Unit  = {},
+                 onFilterRating     : (String) -> Unit  = {},
+                 onFilterDistance   : (String) -> Unit  = {},
+                 onFilterCity       : (City) -> Unit    = {},
+                 onFilterNation     : (Nation) -> Unit  = {},
+                 onSearch           : () -> Unit        = {},
+                 onQueryChange      : (String) -> Unit  = {},
+                 content            : @Composable () -> Unit = {}) {
 
     ModalNavigationDrawer(gesturesEnabled = drawerState.isOpen, drawerContent = { ModalDrawerSheet {
         Column(modifier = Modifier.padding(horizontal = 16.dp).verticalScroll(rememberScrollState())) {
