@@ -48,9 +48,9 @@ import com.sarang.torang.data.Nation
  */
 //@formatter:off
 @Composable
-fun FilterScreen(filterViewModel: FilterViewModel = hiltViewModel(), visible: Boolean = false, onCity: (City) -> Unit = {}, onNation: (Nation) -> Unit = {}, onSearch: (FilterUiState) -> Unit = {}, topPadding : Dp = 0.dp) {
+fun FilterScreen1(filterViewModel: FilterViewModel = hiltViewModel(), visible: Boolean = false, onCity: (City) -> Unit = {}, onNation: (Nation) -> Unit = {}, onSearch: (FilterUiState) -> Unit = {}, topPadding : Dp = 0.dp) {
     val uiState = filterViewModel.uiState
-    Filter(
+    Filter1(
         uiState = uiState,
         visible = visible,
         onFoodType =        { filterViewModel.setType("FoodType") },
@@ -74,7 +74,7 @@ fun FilterScreen(filterViewModel: FilterViewModel = hiltViewModel(), visible: Bo
 //@formatter:on
 
 @Composable
-private fun Filter(uiState          : FilterUiState     = FilterUiState(),
+private fun Filter1(uiState          : FilterUiState     = FilterUiState(),
                    visible          : Boolean           = false,
                    onFoodType       : () -> Unit        = {},
                    onPrice          : () -> Unit        = {},
@@ -100,18 +100,6 @@ private fun Filter(uiState          : FilterUiState     = FilterUiState(),
                 _SearchBar(keyword = uiState.keyword, onQueryChange = onQueryChange, onSearch = onSearch)
             }
             Spacer(Modifier.height(8.dp))
-            //CustomFilterRow(footTypeLabel = uiState.footTypeLabel, priceLabel = uiState.priceLabel, ratingLabel = uiState.ratingLabel, distanceLabel = uiState.distanceLabel, onFoodType = onFoodType, onPrice = onPrice, onRating = onRating, onDistance = onDistance)
-            CustomFilterRow1(footTypeLabel = uiState.footTypeLabel, priceLabel = uiState.priceLabel, ratingLabel = uiState.ratingLabel, distanceLabel = uiState.distanceLabel, onFoodType = onFoodType, onPrice = onPrice, onRating = onRating, onDistance = onDistance)
-
-            if (uiState.type == "FoodType")
-                FoodFilter1(foodType = uiState.foodType, onFoodType = onFilterFoodType)
-            if (uiState.type == "Price")
-                PriceFilter1(price = uiState.price, onPrice = onFilterPrice)
-            if (uiState.type == "Rating")
-                RatingFilter1(rating = uiState.rating, onRating = onFilterRating)
-            if (uiState.type == "Distance")
-                DistanceFilter1(distance = uiState.distance, onDistance = onFilterDistance)
-
 
             Box(Modifier.fillMaxWidth()) {
                 FilterImageButton(text = uiState.selectedNationOrCityName, onClick = onNation)
@@ -147,25 +135,6 @@ private fun CustomFilterRow(footTypeLabel: String, priceLabel: String, ratingLab
 
 @Preview
 @Composable
-private fun CustomFilterRow1(footTypeLabel: String = "", priceLabel: String = "", ratingLabel: String = "", distanceLabel: String = "", onFoodType: () -> Unit = {}, onPrice: () -> Unit = {}, onRating: () -> Unit = {}, onDistance: () -> Unit = {}) {
-    MultiChoiceSegmentedButtonRow(Modifier.fillMaxWidth()) {
-        SegmentedButton(checked = false, shape = SegmentedButtonDefaults.itemShape(index = 0, count = 4), onCheckedChange = {onFoodType.invoke()}) {
-            Text(text = footTypeLabel, maxLines = 1, modifier = Modifier.basicMarquee())
-        }
-        SegmentedButton(checked = false, shape = SegmentedButtonDefaults.itemShape(index = 1, count = 4), onCheckedChange = {onPrice.invoke()}) {
-            Text(text = priceLabel, maxLines = 1, modifier = Modifier.basicMarquee())
-        }
-        SegmentedButton(checked = false, shape = SegmentedButtonDefaults.itemShape(index = 2, count = 4), onCheckedChange = {onRating.invoke()}) {
-            Text(text = ratingLabel, maxLines = 1, modifier = Modifier.basicMarquee())
-        }
-        SegmentedButton(checked = false, shape = SegmentedButtonDefaults.itemShape(index = 3, count = 4), onCheckedChange = {onDistance.invoke()}) {
-            Text(text = distanceLabel, maxLines = 1, modifier = Modifier.basicMarquee())
-        }
-    }
-}
-
-@Preview
-@Composable
 private fun MarqueeText(text : String = ""){
     Text(text = text, maxLines = 1, modifier = Modifier.basicMarquee())
 }
@@ -192,8 +161,8 @@ private fun _SearchBar(keyword: String, onQueryChange: (String) -> Unit, onSearc
 
 @Preview
 @Composable
-fun FilterScreenPreview() {
-    Filter(/*Preview*/
+fun FilterScreen1Preview() {
+    Filter1(/*Preview*/
         uiState = FilterUiState(
             type = "",
             foodType = listOf(),

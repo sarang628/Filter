@@ -28,28 +28,72 @@ import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.sarang.torang.data.City
+import com.sarang.torang.data.Nation
 import kotlinx.coroutines.launch
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
-fun FilterDrawer(drawerState : DrawerState = rememberDrawerState(initialValue = DrawerValue.Closed), content: @Composable () -> Unit = {}) {
+fun FilterDrawerScreen(filterViewModel: FilterViewModel = hiltViewModel(), drawerState : DrawerState = rememberDrawerState(initialValue = DrawerValue.Open), content: @Composable () -> Unit = {}) {
     val scope = rememberCoroutineScope()
+
+    val uiState = filterViewModel.uiState
+
+    FilterDrawer(uiState = uiState,
+        drawerState         = drawerState,
+        onFilterFoodType =  { filterViewModel.setFoodType(it) },
+        onFilterPrice =     { filterViewModel.setPrice(it) },
+        onFilterDistance =  { filterViewModel.setDistance(it) },
+        onFilterRating =    { filterViewModel.setRating(it) },
+        onFilterCity =      { filterViewModel.onCity(it) },
+        onFilterNation =    { filterViewModel.onNation(it) },
+        onQueryChange =     { filterViewModel.setQuery(it) },
+        content             = content)
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Preview
+@Composable
+fun FilterDrawer(uiState: FilterUiState = FilterUiState(),
+                 drawerState : DrawerState = rememberDrawerState(initialValue = DrawerValue.Open),
+                 onFilterFoodType : (String) -> Unit  = {},
+                 onFilterPrice    : (String) -> Unit  = {},
+                 onFilterRating   : (String) -> Unit  = {},
+                 onFilterDistance : (String) -> Unit  = {},
+                 onFilterCity     : (City) -> Unit    = {},
+                 onFilterNation   : (Nation) -> Unit  = {},
+                 onSearch         : () -> Unit        = {},
+                 onQueryChange    : (String) -> Unit  = {},
+                 content: @Composable () -> Unit = {}) {
 
     ModalNavigationDrawer(drawerContent = { ModalDrawerSheet {
         Column(modifier = Modifier.padding(horizontal = 16.dp).verticalScroll(rememberScrollState())) {
             Spacer(Modifier.height(12.dp))
-            Text("Drawer Title", modifier = Modifier.padding(16.dp), style = MaterialTheme.typography.titleLarge)
+            Text("Filter", modifier = Modifier.padding(16.dp), style = MaterialTheme.typography.titleLarge)
             HorizontalDivider()
-            Text("Section 1", modifier = Modifier.padding(16.dp), style = MaterialTheme.typography.titleMedium)
-            NavigationDrawerItem(label = { Text("Item 1") }, selected = false, onClick = { /* Handle click */ })
-            NavigationDrawerItem(label = { Text("Item 2") }, selected = false, onClick = { /* Handle click */ })
+            Text("Food Type", modifier = Modifier.padding(16.dp), style = MaterialTheme.typography.titleMedium)
+            FoodFilter1(foodType = uiState.foodType, onFoodType = onFilterFoodType)
             HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
-            Text("Section 2", modifier = Modifier.padding(16.dp), style = MaterialTheme.typography.titleMedium)
-            NavigationDrawerItem(label = { Text("Settings") }, selected = false, icon = { Icon(Icons.Outlined.Settings, contentDescription = null) }, badge = { Text("20") }, /* Placeholder*/ onClick = { /* Handle click */ })
-            NavigationDrawerItem(label = { Text("Help and feedback") }, selected = false, icon = { Icon(Icons.AutoMirrored.Outlined.ExitToApp, contentDescription = null) }, onClick = { /* Handle click */ },)
+            Text("Price, Rating, Distance", modifier = Modifier.padding(16.dp), style = MaterialTheme.typography.titleMedium)
+            PriceFilter1(price = uiState.price, onPrice = onFilterPrice)
+            RatingFilter1(rating = uiState.rating, onRating = onFilterRating)
+            DistanceFilter1(distance = uiState.distance, onDistance = onFilterDistance)
+            HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+            Text("Region", modifier = Modifier.padding(16.dp), style = MaterialTheme.typography.titleMedium)
+            NationFilter(list = uiState.nations, selectedNation = uiState.selectedNation, onClick = onFilterNation)
+            CityRowFilter(list = uiState.filteredCities, selectedCity = uiState.selectedCity, onNation = onFilterCity)
+            Spacer(modifier = Modifier.height(10.dp))
+            HorizontalDivider()
+            Spacer(modifier = Modifier.height(10.dp))
+            Text(text = "recommand cities", color = Color.DarkGray, fontWeight = FontWeight.Bold)
+            CityFilter(onNation = onFilterCity, list = uiState.cities)
             Spacer(Modifier.height(12.dp))
     } } }, drawerState = drawerState) {
         content.invoke()

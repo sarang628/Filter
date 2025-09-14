@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.AssistChip
+import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -34,26 +36,25 @@ fun FilterImageButton(
     isSelected: Boolean = false,
     leftImage: String? = null
 ) {
-    OutlinedButton(
+    AssistChip(
         modifier = modifier,
         onClick = onClick,
-        colors = ButtonDefaults.buttonColors(
-            containerColor = if (!isSelected) Color.White else MaterialTheme.colorScheme.primary
-        )
-    ) {
-        leftImage?.let {
-            LocalFilterImageLoader.current.invoke(Modifier.clip(CircleShape).size(20.dp), it, 10.dp, 10.dp, null)
-            Spacer(modifier = Modifier.width(5.dp))
+        colors = AssistChipDefaults.assistChipColors(containerColor = if (!isSelected) Color.White else MaterialTheme.colorScheme.primary),
+        label = {
+            leftImage?.let {
+                LocalFilterImageLoader.current.invoke(Modifier.clip(CircleShape).size(20.dp), it, 10.dp, 10.dp, null)
+                Spacer(modifier = Modifier.width(5.dp))
+            }
+            text?.let {
+                Text(
+                    text = it,
+                    maxLines = 1,
+                    modifier = Modifier.basicMarquee(),
+                    color = if (!isSelected) MaterialTheme.colorScheme.primary else Color.White
+                )
+            }
         }
-        text?.let {
-            Text(
-                text = it,
-                maxLines = 1,
-                modifier = Modifier.basicMarquee(),
-                color = if (!isSelected) MaterialTheme.colorScheme.primary else Color.White
-            )
-        }
-    }
+    )
 }
 
 @OptIn(ExperimentalFoundationApi::class)
