@@ -73,7 +73,7 @@ fun FilterDrawer(uiState: FilterUiState = FilterUiState(),
                  onQueryChange    : (String) -> Unit  = {},
                  content: @Composable () -> Unit = {}) {
 
-    ModalNavigationDrawer(drawerContent = { ModalDrawerSheet {
+    ModalNavigationDrawer(gesturesEnabled = drawerState.isOpen, drawerContent = { ModalDrawerSheet {
         Column(modifier = Modifier.padding(horizontal = 16.dp).verticalScroll(rememberScrollState())) {
             Spacer(Modifier.height(12.dp))
             Text("Filter", modifier = Modifier.padding(16.dp), style = MaterialTheme.typography.titleMedium)
