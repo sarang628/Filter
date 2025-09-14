@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Search
@@ -48,7 +49,14 @@ import com.sarang.torang.data.Nation
  */
 //@formatter:off
 @Composable
-fun FilterScreen1(filterViewModel: FilterViewModel = hiltViewModel(), visible: Boolean = false, onCity: (City) -> Unit = {}, onNation: (Nation) -> Unit = {}, onSearch: (FilterUiState) -> Unit = {}, topPadding : Dp = 0.dp) {
+fun FilterScreen1(filterViewModel: FilterViewModel = hiltViewModel(),
+                  visible           : Boolean                   = false,
+                  onCity            : (City) -> Unit            = {},
+                  onNation          : (Nation) -> Unit          = {},
+                  onSearch          : (FilterUiState) -> Unit   = {},
+                  topPadding        : Dp                        = 0.dp,
+                  onFilter          : () -> Unit                = {},
+) {
     val uiState = filterViewModel.uiState
     Filter1(
         uiState = uiState,
@@ -63,7 +71,7 @@ fun FilterScreen1(filterViewModel: FilterViewModel = hiltViewModel(), visible: B
         onFilterRating =    { filterViewModel.setRating(it) },
         onNation =          { filterViewModel.onNation() },
         onThisArea =        { filterViewModel.onThisArea() },
-        onFilter =          { filterViewModel.onFilter() },
+        onFilter =          { filterViewModel.onFilter(); onFilter() },
         onFilterCity =      { filterViewModel.onCity(it);onCity.invoke(it) },
         onFilterNation =    { filterViewModel.onNation(it);onNation.invoke(it) },
         onSearch =          { onSearch.invoke(uiState) },
@@ -102,9 +110,8 @@ private fun Filter1(uiState          : FilterUiState     = FilterUiState(),
             Spacer(Modifier.height(8.dp))
 
             Box(Modifier.fillMaxWidth()) {
-                FilterImageButton(text = uiState.selectedNationOrCityName, onClick = onNation)
-                FilterButton(modifier = Modifier.align(Alignment.Center), text = "이 지역 검색", onClick = onThisArea)
-                FilterButton(modifier = Modifier.align(Alignment.CenterEnd), text = "필터적용", onClick = onFilter)
+                FilterButton(modifier = Modifier.align(Alignment.CenterStart), text = "filter", onClick = onFilter)
+                FilterButton(modifier = Modifier.align(Alignment.Center), text = "search this area", onClick = onThisArea, shape = CircleShape)
             }
 
             if (uiState.showCityFilter) {

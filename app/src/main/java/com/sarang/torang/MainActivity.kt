@@ -56,10 +56,12 @@ class MainActivity : ComponentActivity() {
                     CompositionLocalProvider(LocalFilterImageLoader provides customImageLoader) {
                     FilterDrawerScreen(filterViewModel = filterViewModel, drawerState = drawerState) {
                         Box(Modifier.Companion.fillMaxSize()) {
-                                FilterScreen1(filterViewModel, visible = isVisible)
+                                FilterScreen1(filterViewModel = filterViewModel,
+                                    visible = isVisible,
+                                    onFilter = {coroutine.launch { drawerState.open() }}
+                                )
                             Column(modifier = Modifier.Companion.align(Alignment.Companion.Center)) {
                                 Button(onClick = { isVisible = !isVisible }) {}
-                                Button({coroutine.launch { drawerState.open() }}) { }
                             }
                             LazyColumn(Modifier.padding(top = 200.dp)) {
                                 items(restaurants.size){
