@@ -82,7 +82,7 @@ fun FilterScreen1(filterViewModel: FilterViewModel = hiltViewModel(),
 //@formatter:on
 
 @Composable
-private fun Filter1(uiState          : FilterUiState     = FilterUiState(),
+fun Filter1(uiState          : FilterUiState     = FilterUiState(),
                    visible          : Boolean           = false,
                    onFoodType       : () -> Unit        = {},
                    onPrice          : () -> Unit        = {},
