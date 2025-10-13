@@ -34,6 +34,7 @@ import com.sarang.torang.compose.FilterViewModel
 import com.sarang.torang.compose.LocalFilterImageLoader
 import com.sarang.torang.di.image.provideTorangAsyncImage
 import com.sarang.torang.repository.FindRepository
+import com.sarang.torang.uistate.FilterCallback
 import com.sryang.torang.ui.TorangTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -58,7 +59,9 @@ class MainActivity : ComponentActivity() {
                         Box(Modifier.Companion.fillMaxSize()) {
                                 FilterScreen1(filterViewModel = filterViewModel,
                                     visible = isVisible,
-                                    onFilter = {coroutine.launch { drawerState.open() }}
+                                    filterCallback = FilterCallback(
+                                        onFilter = {coroutine.launch { drawerState.open() }}
+                                    ),
                                 )
                             Column(modifier = Modifier.Companion.align(Alignment.Companion.Center)) {
                                 Button(onClick = { isVisible = !isVisible }) {}
