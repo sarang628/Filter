@@ -73,9 +73,10 @@ fun FilterScreen(filterViewModel: FilterViewModel = hiltViewModel(), visible: Bo
 }
 //@formatter:on
 
+@Preview
 @Composable
 fun Filter(uiState          : FilterUiState     = FilterUiState(),
-           visible          : Boolean           = false,
+           visible          : Boolean           = true,
            onFoodType       : () -> Unit        = {},
            onPrice          : () -> Unit        = {},
            onRating         : () -> Unit        = {},
@@ -187,20 +188,5 @@ private fun _SearchBar(keyword: String, onQueryChange: (String) -> Unit, onSearc
         trailingIcon = { Icon(imageVector = Icons.Default.AccountCircle, contentDescription = "") },
         modifier = Modifier.fillMaxWidth(),
         content = {}
-    )
-}
-
-@Preview
-@Composable
-fun FilterScreenPreview() {
-    Filter(/*Preview*/
-        uiState = FilterUiState(
-            type = "",
-            foodType = listOf(),
-            price = listOf(),
-            rating = listOf(),
-            distance = "",
-        ),
-        visible = true,
     )
 }
