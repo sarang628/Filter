@@ -114,7 +114,6 @@ fun FilterIconButton(
         onClick = onClick,
     ) {
         url?.let {
-            Log.d("__FilterIconButton", "FilterIconButton: $url")
             LocalFilterImageLoader.current.invoke(Modifier.clip(CircleShape).size(40.dp), url, 10.dp, 10.dp, null)
             Spacer(modifier = Modifier.width(5.dp))
         }
