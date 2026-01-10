@@ -105,13 +105,13 @@ fun Filter(uiState          : FilterUiState     = FilterUiState(),
             CustomFilterRow1(footTypeLabel = uiState.footTypeLabel, priceLabel = uiState.priceLabel, ratingLabel = uiState.ratingLabel, distanceLabel = uiState.distanceLabel, onFoodType = onFoodType, onPrice = onPrice, onRating = onRating, onDistance = onDistance)
 
             if (uiState.type == "FoodType")
-                FoodFilter1(foodType = uiState.foodType, onFoodType = onFilterFoodType)
+                FoodFilter(foodType = uiState.foodType, onFoodType = onFilterFoodType)
             if (uiState.type == "Price")
-                PriceFilter1(price = uiState.price, onPrice = onFilterPrice)
+                PriceFilter(price = uiState.price, onPrice = onFilterPrice)
             if (uiState.type == "Rating")
-                RatingFilter1(rating = uiState.rating, onRating = onFilterRating)
+                RatingFilter(rating = uiState.rating, onRating = onFilterRating)
             if (uiState.type == "Distance")
-                DistanceFilter1(distance = uiState.distance, onDistance = onFilterDistance)
+                DistanceFilter(distance = uiState.distance, onDistance = onFilterDistance)
 
 
             Box(Modifier.fillMaxWidth()) {

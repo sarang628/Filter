@@ -45,7 +45,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.6"
+        kotlinCompilerExtensionVersion = libs.versions.kotlinCompilerExtension.get()
     }
 
     compileOptions {
@@ -63,6 +63,18 @@ dependencies {
     implementation(libs.hilt)
     kapt(libs.hilt.compiler)
     implementation(libs.hilt.nav.compose) // hiltViewModel
+
+    // Testing Start
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.x.junit.ext)
+    androidTestImplementation(libs.x.espresso.core)
+    testImplementation(libs.kotlinx.coroutines.test) // coroutines unit test
+    androidTestImplementation(libs.x.ui.test.junit4) // Test rules and transitive dependencies
+    debugImplementation(libs.x.ui.test.manifest) // Needed for createAndroidComposeRule, but not createComposeRule
+    testImplementation(libs.mockito.core) // Mockito
+    testImplementation(libs.mockito.inline)
+    testImplementation(libs.core.testing) // AndroidX Core Testing
+    // Testing End
 
     /** Retrofit */
     implementation(libs.retrofit)
@@ -94,4 +106,5 @@ dependencies {
     implementation(libs.torangdatabase)
     implementation(libs.torangnetwork)
     implementation(libs.commonImageLoader)
+    implementation(libs.coil)
 }

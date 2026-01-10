@@ -52,7 +52,7 @@ fun FilterScreen1(
         visible = visible,
         filterCallback = FilterCallback(
         onThisArea =        { filterViewModel.onThisArea() },
-        onFilter =          { filterViewModel.onFilter(); filterCallback.onFilter() },
+        onFilter =          { filterCallback.onFilter() },
         onFilterCity =      { filterViewModel.onCity(it); filterCallback.onFilterCity(it) },
         onFilterNation =    { filterViewModel.onNation(it); filterCallback.onFilterNation(it) },
         onSearch =          { filterCallback.onSearch() },
@@ -78,8 +78,13 @@ fun Filter1(
             Spacer(Modifier.height(8.dp))
 
             Box(Modifier.fillMaxWidth()) {
-                FilterButton(modifier = Modifier.align(Alignment.CenterStart), text = "filter", onClick = filterCallback.onFilter)
-                FilterButton(modifier = Modifier.align(Alignment.Center), text = "search this area", onClick = filterCallback.onThisArea, shape = CircleShape)
+                FilterButton(modifier   = Modifier.align(Alignment.CenterStart),
+                             text       = "filter",
+                             onClick    = filterCallback.onFilter)
+                FilterButton(modifier   = Modifier.align(Alignment.Center),
+                             text       = "search this area",
+                             onClick    = filterCallback.onThisArea,
+                             shape      = CircleShape)
             }
 
             if (uiState.showCityFilter) {

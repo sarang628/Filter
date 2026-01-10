@@ -41,10 +41,14 @@ class FilterViewModel @Inject constructor(
         }
 
         viewModelScope.launch {
-            launch { getFilterUseCase.getPrice().collect { uiState = uiState.copy(price = it) } }
-            launch { getFilterUseCase.getRating().collect { uiState = uiState.copy(rating = it) } }
-            launch { getFilterUseCase.getDistance().collect { uiState = uiState.copy(distance = it) } }
-            launch { getFilterUseCase.getFoodType().collect { uiState = uiState.copy(foodType = it) } }
+            launch { getFilterUseCase.getPrice()
+                                     .collect { uiState = uiState.copy(price = it) } }
+            launch { getFilterUseCase.getRating()
+                                     .collect { uiState = uiState.copy(rating = it) } }
+            launch { getFilterUseCase.getDistance(viewModelScope)
+                                     .collect { uiState = uiState.copy(distance = it) } }
+            launch { getFilterUseCase.getFoodType()
+                                     .collect { uiState = uiState.copy(foodType = it) } }
         }
     }
 
