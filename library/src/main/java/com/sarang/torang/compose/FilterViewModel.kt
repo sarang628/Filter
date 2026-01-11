@@ -53,26 +53,50 @@ class FilterViewModel @Inject constructor(
     }
 
     fun setQuery(keyword: String) { uiState = uiState.copy(keyword = keyword) }
-    fun onThisArea() { viewModelScope.launch { findThisAreaUseCase.invoke() } }
-    fun onFilter() { viewModelScope.launch { findFilterUseCase.invoke() } }
-    fun setType(s: String) { viewModelScope.launch { uiState = uiState.copy(type = if (uiState.type == s) "" else s) } }
-    fun setFoodType(foodType: String) { viewModelScope.launch { setFilterUseCase.setFoodType(foodType) } }
-    fun setPrice(price: String) { viewModelScope.launch { setFilterUseCase.setPrice(price) } }
-    fun setRating(rating: String) { viewModelScope.launch { setFilterUseCase.setRating(rating) } }
-    fun setDistance(distance: String) { viewModelScope.launch { setFilterUseCase.setDistance(distance) } }
+    fun onThisArea() {
+        viewModelScope.launch { findThisAreaUseCase.invoke() }
+    }
+    fun onFilter() {
+        viewModelScope.launch {
+            findFilterUseCase.invoke()
+        }
+    }
+
+    fun setType(s: String) {
+        viewModelScope.launch { uiState = uiState.copy(type = if (uiState.type == s) "" else s) }
+    }
+    fun setFoodType(foodType: String) {
+        viewModelScope.launch { setFilterUseCase.setFoodType(foodType) }
+    }
+    fun setPrice(price: String) {
+        viewModelScope.launch { setFilterUseCase.setPrice(price) }
+    }
+
+    fun setRating(rating: String) {
+        viewModelScope.launch { setFilterUseCase.setRating(rating) }
+    }
+
+    fun setDistance(distance: String) {
+        viewModelScope.launch { setFilterUseCase.setDistance(distance) }
+    }
 
     fun onCity(city: City? = null) {
         viewModelScope.launch {
-            if (city == null) { uiState = uiState.copy(showCityFilter = !uiState.showCityFilter) }
+            if (city == null) {  }
             else { val nation = uiState.nations.find { it.id == city.nation }
-                uiState = uiState.copy(selectedNation = nation, selectedCity = city, filteredCities = if (nation == null) arrayListOf() else getCitiesByNationIdUseCase.invoke(nation.id), showCityFilter = false) }
+                uiState = uiState.copy(selectedNation   = nation,
+                                       selectedCity     = city,
+                                       filteredCities   = if (nation == null) arrayListOf()
+                                                          else getCitiesByNationIdUseCase.invoke(nation.id)) }
         }
     }
 
     fun onNation(nation: Nation? = null) {
         viewModelScope.launch {
-            if (nation == null) { uiState = uiState.copy(showCityFilter = !uiState.showCityFilter) }
-            else { viewModelScope.launch { uiState = uiState.copy(selectedNation = nation, selectedCity = null, filteredCities = getCitiesByNationIdUseCase.invoke(nation.id)) } }
+            if (nation == null) {  }
+            else { viewModelScope.launch { uiState = uiState.copy(selectedNation    = nation,
+                                                                  selectedCity      = null,
+                                                                  filteredCities    = getCitiesByNationIdUseCase.invoke(nation.id)) } }
         }
     }
 }

@@ -40,30 +40,33 @@ import com.sarang.torang.uistate.FilterCallback
  */
 //@formatter:off
 @Composable
-fun FilterScreen1(
+fun FilterScreen(
     filterViewModel : FilterViewModel           = hiltViewModel(),
     visible         : Boolean                   = false,
     topPadding      : Dp                        = 0.dp,
     filterCallback  : FilterCallback            = FilterCallback(),
 ) {
     val uiState = filterViewModel.uiState
-    Filter1(
-        uiState = uiState,
-        visible = visible,
-        filterCallback = FilterCallback(
-        onThisArea =        { filterViewModel.onThisArea() },
-        onFilter =          { filterCallback.onFilter() },
-        onFilterCity =      { filterViewModel.onCity(it); filterCallback.onFilterCity(it) },
-        onFilterNation =    { filterViewModel.onNation(it); filterCallback.onFilterNation(it) },
-        onSearch =          { filterCallback.onSearch() },
-        onQueryChange =     { filterViewModel.setQuery(it) },),
-        topPadding = topPadding
+    Filter(
+        uiState         = uiState,
+        visible         = visible,
+        topPadding      = topPadding,
+        filterCallback  = FilterCallback(
+            onThisArea      = { filterViewModel.onThisArea() },
+            onFilter        = { filterCallback.onFilter() },
+            onFilterCity    = { filterViewModel.onCity(it)
+                                filterCallback.onFilterCity(it) },
+            onFilterNation  = { filterViewModel.onNation(it)
+                                filterCallback.onFilterNation(it) },
+            onSearch        = { filterCallback.onSearch() },
+            onQueryChange   = { filterViewModel.setQuery(it) }
+                                        )
     )
 }
 //@formatter:on
 
 @Composable
-fun Filter1(
+fun Filter(
     uiState          : FilterUiState     = FilterUiState(),
     visible          : Boolean           = false,
     filterCallback   : FilterCallback    = FilterCallback(),
@@ -85,16 +88,6 @@ fun Filter1(
                              text       = "search this area",
                              onClick    = filterCallback.onThisArea,
                              shape      = CircleShape)
-            }
-
-            if (uiState.showCityFilter) {
-                NationFilter(list = uiState.nations, selectedNation = uiState.selectedNation, onClick = filterCallback.onFilterNation)
-                CityRowFilter(list = uiState.filteredCities, selectedCity = uiState.selectedCity, onNation = filterCallback.onFilterCity)
-                Spacer(modifier = Modifier.height(10.dp))
-                HorizontalDivider()
-                Spacer(modifier = Modifier.height(10.dp))
-                Text(text = "recommand cities", color = Color.DarkGray, fontWeight = FontWeight.Bold)
-                CityFilter(onNation = filterCallback.onFilterCity, list = uiState.cities)
             }
         }
     }
@@ -120,8 +113,8 @@ private fun _SearchBar(keyword: String, onQueryChange: (String) -> Unit, onSearc
 
 @Preview
 @Composable
-fun FilterScreen1Preview() {
-    Filter1(/*Preview*/
+fun FilterScreenPreview() {
+    Filter(/*Preview*/
         uiState = FilterUiState(
             type = "",
             foodType = listOf(),

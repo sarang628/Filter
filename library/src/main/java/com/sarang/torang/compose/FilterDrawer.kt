@@ -77,59 +77,70 @@ fun FilterMediumDrawer(uiState                : FilterUiState             = Filt
                        onFilter               : ()->Unit                  = {},
                        content                : @Composable () -> Unit    = {}) {
 
-    ModalNavigationDrawer(gesturesEnabled = drawerState.isOpen,
-                          drawerContent   = {
+    ModalNavigationDrawer(gesturesEnabled   = drawerState.isOpen,
+                          drawerContent     = {
                               ModalDrawerSheet {
-                                                    Box(Modifier.fillMaxHeight()) {
-                                                        Column(modifier = Modifier.padding(horizontal = 16.dp)
-                                                            .verticalScroll(rememberScrollState())) {
-                                                            Spacer(modifier = Modifier.height(12.dp))
-                                                            FilterMediumTitle(title = "Filter")
-                                                            HorizontalDivider()
-
-                                                            FilterSmall         (title      = "Food Type")
-                                                            FoodFilter          (foodType   = uiState.foodType,
-                                                                                onFoodType  = filterDrawerCallBack.onFilterFoodType)
-                                                            HorizontalDivider   (modifier   = Modifier.padding(vertical = 8.dp))
-
-                                                            FilterSmall         (title      = "Price, Rating, Distance")
-                                                            PriceFilter         (price      = uiState.price,
-                                                                                 onPrice    = filterDrawerCallBack.onFilterPrice)
-                                                            RatingFilter        (rating     = uiState.rating,
-                                                                                 onRating   = filterDrawerCallBack.onFilterRating)
-                                                            DistanceFilter      (distance   = uiState.distance,
-                                                                                 onDistance = filterDrawerCallBack.onFilterDistance)
-                                                            HorizontalDivider   (modifier   = Modifier.padding(vertical = 8.dp))
-
-                                                            FilterSmall         (title      = "Region")
-                                                            NationFilter        (list       = uiState.nations,
-                                                                                 selectedNation = uiState.selectedNation,
-                                                                                 onClick    = filterDrawerCallBack.onFilterNation)
-                                                            CityRowFilter       (list       = uiState.filteredCities,
-                                                                                 selectedCity  = uiState.selectedCity,
-                                                                                 onNation   = filterDrawerCallBack.onFilterCity)
-                                                            HorizontalDivider   (modifier   = Modifier.padding(vertical = 10.dp))
-
-
-                                                            Text(text       = "recommended cities",
-                                                                 color      = Color.DarkGray,
-                                                                 fontWeight = FontWeight.Bold)
-                                                            CityFilter(onNation = filterDrawerCallBack.onFilterCity,
-                                                                list = uiState.cities)
-                                                            Spacer(Modifier.height(52.dp))
-                                                        }
-                                                        Button(modifier = Modifier.align(Alignment.BottomCenter)
-                                                                                  .fillMaxWidth(),
-                                                               onClick = onFilter,
-                                                               shape = RoundedCornerShape(8.dp)
-                                                        ) {
-                                                            Text("Apply Filter")
-                                                        }
-                                                    }
-                                              }
-                                           },
-        drawerState = drawerState) {
+                                  FilterMediumDrawerSheet(uiState = uiState,
+                                                          filterDrawerCallBack = filterDrawerCallBack,
+                                                          onFilter = onFilter)
+                                               }
+                                              },
+                          drawerState       = drawerState) {
         content.invoke()
+    }
+}
+
+@Composable
+fun FilterMediumDrawerSheet(
+    uiState                : FilterUiState             = FilterUiState(),
+    filterDrawerCallBack   : FilterDrawerCallBack      = FilterDrawerCallBack(),
+    onFilter               : ()->Unit                  = {},
+){
+    Box(Modifier.fillMaxHeight()) {
+        Column(modifier = Modifier.padding(horizontal = 16.dp)
+            .verticalScroll(rememberScrollState())) {
+            Spacer(modifier = Modifier.height(12.dp))
+            FilterMediumTitle(title = "Filter")
+            HorizontalDivider()
+
+            FilterSmall         (title      = "Food Type")
+            FoodFilter          (foodType   = uiState.foodType,
+                onFoodType  = filterDrawerCallBack.onFilterFoodType)
+            HorizontalDivider   (modifier   = Modifier.padding(vertical = 8.dp))
+
+            FilterSmall         (title      = "Price, Rating, Distance")
+            PriceFilter         (price      = uiState.price,
+                onPrice    = filterDrawerCallBack.onFilterPrice)
+            RatingFilter        (rating     = uiState.rating,
+                onRating   = filterDrawerCallBack.onFilterRating)
+            DistanceFilter      (distance   = uiState.distance,
+                onDistance = filterDrawerCallBack.onFilterDistance)
+            HorizontalDivider   (modifier   = Modifier.padding(vertical = 8.dp))
+
+            FilterSmall         (title      = "Region")
+            NationFilter        (list       = uiState.nations,
+                selectedNation = uiState.selectedNation,
+                onClick    = filterDrawerCallBack.onFilterNation)
+            CityRowFilter       (list       = uiState.filteredCities,
+                selectedCity  = uiState.selectedCity,
+                onNation   = filterDrawerCallBack.onFilterCity)
+            HorizontalDivider   (modifier   = Modifier.padding(vertical = 10.dp))
+
+
+            Text(text       = "recommended cities",
+                color      = Color.DarkGray,
+                fontWeight = FontWeight.Bold)
+            CityFilter(onNation = filterDrawerCallBack.onFilterCity,
+                list = uiState.cities)
+            Spacer(Modifier.height(52.dp))
+        }
+        Button(modifier = Modifier.align(Alignment.BottomCenter)
+            .fillMaxWidth(),
+            onClick = onFilter,
+            shape = RoundedCornerShape(8.dp)
+        ) {
+            Text("Apply Filter")
+        }
     }
 }
 

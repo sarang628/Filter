@@ -29,7 +29,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.sarang.torang.compose.FilterDrawerScreen
 import com.sarang.torang.compose.FilterImageLoader
-import com.sarang.torang.compose.FilterScreen1
+import com.sarang.torang.compose.FilterScreen
 import com.sarang.torang.compose.FilterViewModel
 import com.sarang.torang.compose.LocalFilterImageLoader
 import com.sarang.torang.di.image.provideTorangAsyncImage
@@ -57,7 +57,7 @@ class MainActivity : ComponentActivity() {
                     CompositionLocalProvider(LocalFilterImageLoader provides customImageLoader) {
                     FilterDrawerScreen(filterViewModel = filterViewModel, drawerState = drawerState) {
                         Box(Modifier.Companion.fillMaxSize()) {
-                                FilterScreen1(filterViewModel = filterViewModel,
+                                FilterScreen(filterViewModel = filterViewModel,
                                     visible = isVisible,
                                     filterCallback = FilterCallback(
                                         onFilter = {coroutine.launch { drawerState.open() }}

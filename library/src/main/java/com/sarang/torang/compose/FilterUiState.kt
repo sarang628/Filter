@@ -10,7 +10,6 @@ data class FilterUiState(
     val price: List<String> = arrayListOf(),
     val rating: List<String> = arrayListOf(),
     val distance: String = "",
-    val showCityFilter: Boolean = false,
     val keyword: String = "",
     val selectedCity: City? = null,
     val selectedNation: Nation? = null,
