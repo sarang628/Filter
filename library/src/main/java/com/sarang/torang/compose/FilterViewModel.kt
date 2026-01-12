@@ -20,13 +20,13 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FilterViewModel @Inject constructor(
-    val getCitiesUseCase: GetCitiesUseCase,
-    val getCitiesByNationIdUseCase: GetCitiesByNationIdUseCase,
-    val getNationUseCase: GetNationsUseCase,
-    val findFilterUseCase: FindFilterUseCase,
-    val findThisAreaUseCase: FindThisAreaUseCase,
-    val setFilterUseCase: SetFilterUseCase,
-    val getFilterUseCase: GetFiltersUseCase
+    val getCitiesUseCase            : GetCitiesUseCase,
+    val getCitiesByNationIdUseCase  : GetCitiesByNationIdUseCase,
+    val getNationUseCase            : GetNationsUseCase,
+    val findFilterUseCase           : FindFilterUseCase,
+    val findThisAreaUseCase         : FindThisAreaUseCase,
+    val setFilterUseCase            : SetFilterUseCase,
+    val getFilterUseCase            : GetFiltersUseCase
 ) : ViewModel() {
     var uiState by mutableStateOf(FilterUiState()); private set
 
