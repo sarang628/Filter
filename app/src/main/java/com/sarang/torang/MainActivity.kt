@@ -17,6 +17,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDrawerState
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -26,17 +27,23 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.sarang.torang.compose.FilterDrawerScreen
 import com.sarang.torang.compose.FilterImageLoader
 import com.sarang.torang.compose.FilterScreen
+import com.sarang.torang.compose.FilterScreenPreview
 import com.sarang.torang.compose.FilterViewModel
 import com.sarang.torang.compose.LocalFilterImageLoader
+import com.sarang.torang.data.RestaurantWithFiveImages
 import com.sarang.torang.di.image.provideTorangAsyncImage
 import com.sarang.torang.repository.FindRepository
 import com.sarang.torang.uistate.FilterCallback
 import com.sryang.torang.ui.TorangTheme
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -48,9 +55,13 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            val coroutine = rememberCoroutineScope()
             TorangTheme {
-                Surface(Modifier.Companion.fillMaxSize().background(MaterialTheme.colorScheme.background)) {
-                    val restaurants = findRepository.restaurants.collectAsState().value
+                Surface(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)) {
+                    val restaurants : List<RestaurantWithFiveImages> = findRepository.restaurants
+                                                                                     .stateIn(scope = coroutine,
+                                                                                              started = SharingStarted.Eagerly,
+                                                                                              initialValue = listOf()).value
                     val drawerState : DrawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
                     var isVisible by remember { mutableStateOf(false) }
                     val coroutine = rememberCoroutineScope()
@@ -82,5 +93,13 @@ class MainActivity : ComponentActivity() {
     val customImageLoader: FilterImageLoader = { modifier, url, width, height, scale ->
         // 여기서 실제 이미지 로딩 구현 예시
         provideTorangAsyncImage().invoke(modifier, url, width, height, scale)
+    }
+}
+
+@PreviewLightDark
+@Composable
+fun PreviewFilterScreen(){
+    TorangTheme {
+        FilterScreenPreview()
     }
 }

@@ -1,4 +1,5 @@
-import com.sarang.torang.di.repository.Distances
+
+import com.sarang.torang.di.repository.data.Distances
 import junit.framework.TestCase.assertEquals
 import org.junit.Test
 
