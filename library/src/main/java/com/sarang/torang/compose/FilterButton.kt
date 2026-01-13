@@ -20,17 +20,19 @@ import com.google.android.material.chip.Chip
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun FilterButton(text: String,
-                 modifier: Modifier = Modifier,
-                 onClick: () -> Unit = {},
-                 isSelected: Boolean = false,
-                 shape: Shape = AssistChipDefaults.shape) {
-
-    // colors = ButtonDefaults.buttonColors(containerColor = if (!isSelected) Color.White else MaterialTheme.colorScheme.primary)
-    // color = if (!isSelected) MaterialTheme.colorScheme.primary else Color.White
-
-    AssistChip(modifier = modifier, onClick = onClick, label = { Text(text = text, maxLines = 1, modifier = Modifier.basicMarquee()) },
-        leadingIcon = { if (isSelected) Icon(imageVector = Icons.Default.Check, "") })
+fun FilterButton(modifier   : Modifier      = Modifier,
+                 text       : String        = "",
+                 onClick    : () -> Unit    = {},
+                 isSelected : Boolean       = false,
+                 shape      : Shape         = AssistChipDefaults.shape) {
+    AssistChip(modifier     = modifier,
+               onClick      = onClick,
+               label        = { Text(text       = text,
+                                     maxLines   = 1,
+                                     color      = Color.Black,
+                                     modifier   = Modifier.basicMarquee()) },
+               leadingIcon  = { if (isSelected) Icon(imageVector        = Icons.Default.Check,
+                                                     contentDescription = null) })
 }
 
 @Preview
