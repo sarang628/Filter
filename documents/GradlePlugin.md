@@ -18,3 +18,8 @@
 커뮤니티 - 그래들 플러그인 포털에 있음
 로컬 - 개발자가 직접 개발
 3가지로 분류
+
+
+## Q. com.android.application 이 플러그인에는 어떤 기능이 있는가?
+
+https://developer.android.com/build/gradle-build-overview 참고.
