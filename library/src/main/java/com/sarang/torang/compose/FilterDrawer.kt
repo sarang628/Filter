@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -25,6 +26,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -38,15 +40,18 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
-fun FilterDrawerScreen(filterViewModel  : FilterViewModel = hiltViewModel(),
-                       drawerState      : DrawerState = rememberDrawerState(initialValue = DrawerValue.Open),
-                       onFilterCity     : (City) -> Unit    = {},
-                       onFilterNation   : (Nation) -> Unit  = {},
-                       content          : @Composable () -> Unit = {}) {
+fun FilterDrawerScreen(modifier         : Modifier                  = Modifier,
+                       filterViewModel  : FilterViewModel           = hiltViewModel(),
+                       drawerState      : DrawerState               = rememberDrawerState(initialValue = DrawerValue.Open),
+                       onFilterCity     : (City) -> Unit            = {},
+                       onFilterNation   : (Nation) -> Unit          = {},
+                       content          : @Composable () -> Unit    = {}) {
     val uiState = filterViewModel.uiState
-    val scope = rememberCoroutineScope()
 
-    FilterMediumDrawer(uiState              = uiState,
+    val width = LocalConfiguration.current.screenWidthDp
+
+    FilterMediumDrawer(modifier             = modifier.width(width.dp * 0.7f),
+                       uiState              = uiState,
                        drawerState          = drawerState,
                        content              = content,
                        filterDrawerCallBack = FilterDrawerCallBack(
@@ -66,15 +71,18 @@ fun FilterDrawerScreen(filterViewModel  : FilterViewModel = hiltViewModel(),
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
-fun FilterMediumDrawer(uiState                : FilterUiState             = FilterUiState(),
+fun FilterMediumDrawer(modifier               : Modifier                  = Modifier,
+                       uiState                : FilterUiState             = FilterUiState(),
                        drawerState            : DrawerState               = rememberDrawerState(initialValue = DrawerValue.Open),
                        filterDrawerCallBack   : FilterDrawerCallBack      = FilterDrawerCallBack(),
                        content                : @Composable () -> Unit    = {}) {
 
-    ModalNavigationDrawer(gesturesEnabled   = drawerState.isOpen,
+    ModalNavigationDrawer(modifier          = modifier,
+                          gesturesEnabled   = drawerState.isOpen,
                           drawerContent     = {
                               ModalDrawerSheet {
-                                  FilterMediumDrawerSheet(uiState = uiState,
+                                  FilterMediumDrawerSheet(modifier = modifier,
+                                                          uiState = uiState,
                                                           filterDrawerCallBack = filterDrawerCallBack)
                                                }
                                               },
@@ -85,11 +93,12 @@ fun FilterMediumDrawer(uiState                : FilterUiState             = Filt
 
 @Composable
 fun FilterMediumDrawerSheet(
+    modifier               : Modifier                  = Modifier,
     uiState                : FilterUiState             = FilterUiState(),
     filterDrawerCallBack   : FilterDrawerCallBack      = FilterDrawerCallBack(),
 ){
-    Column(modifier = Modifier.padding(horizontal = 16.dp)
-        .verticalScroll(rememberScrollState())) {
+    Column(modifier = modifier.padding(horizontal = 16.dp)
+                              .verticalScroll(rememberScrollState())) {
         Spacer(modifier = Modifier.height(12.dp))
         FilterMediumTitle(title = "Filter")
         HorizontalDivider()

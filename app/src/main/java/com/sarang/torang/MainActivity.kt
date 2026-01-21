@@ -55,35 +55,41 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val coroutine = rememberCoroutineScope()
             TorangTheme {
                 Surface(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)) {
-                    val restaurants : List<RestaurantWithFiveImages> = findRepository.restaurants
-                                                                                     .stateIn(scope = coroutine,
-                                                                                              started = SharingStarted.Eagerly,
-                                                                                              initialValue = listOf()).value
-                    val drawerState : DrawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-                    var isVisible by remember { mutableStateOf(false) }
-                    val coroutine = rememberCoroutineScope()
-                    CompositionLocalProvider(LocalFilterImageLoader provides customImageLoader) {
-                    FilterDrawerScreen(filterViewModel = filterViewModel, drawerState = drawerState) {
-                        Box(Modifier.Companion.fillMaxSize()) {
-                                FilterScreen(filterViewModel = filterViewModel,
-                                    visible = isVisible,
-                                    filterCallback = FilterCallback(
-                                        onFilter = {coroutine.launch { drawerState.open() }}
-                                    ),
-                                )
-                            Column(modifier = Modifier.Companion.align(Alignment.Companion.Center)) {
-                                Button(onClick = { isVisible = !isVisible }) {}
-                            }
-                            LazyColumn(Modifier.padding(top = 200.dp)) {
-                                items(restaurants.size){
-                                    Text(restaurants[it].restaurant.restaurantName)
-                                }
-                            }
-                        }
+                    FilterScreenTest()
+                }
+            }
+        }
+    }
+
+    @Composable
+    fun FilterScreenTest(){
+        val coroutine = rememberCoroutineScope()
+
+        val restaurants : List<RestaurantWithFiveImages> = findRepository.restaurants
+            .stateIn(scope = coroutine,
+                started = SharingStarted.Eagerly,
+                initialValue = listOf()).value
+        val drawerState : DrawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+        var isVisible by remember { mutableStateOf(false) }
+        CompositionLocalProvider(LocalFilterImageLoader provides customImageLoader) {
+            FilterDrawerScreen(filterViewModel = filterViewModel, 
+                               drawerState = drawerState) {
+                Box(Modifier.fillMaxSize()) {
+                    FilterScreen(filterViewModel = filterViewModel,
+                                 visible         = isVisible,
+                                 filterCallback  = FilterCallback(
+                                 onFilter        = {coroutine.launch { drawerState.open() }}
+                        ),
+                    )
+                    Column(modifier = Modifier.align(Alignment.Center)) {
+                        Button(onClick = { isVisible = !isVisible }) {}
                     }
+                    LazyColumn(Modifier.padding(top = 200.dp)) {
+                        items(restaurants.size){
+                            Text(restaurants[it].restaurant.restaurantName)
+                        }
                     }
                 }
             }
