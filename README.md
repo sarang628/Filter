@@ -15,3 +15,4 @@
     - UIState
   - DomainLayer
     - UseCase
+- [Gradle](documents/gradle)
